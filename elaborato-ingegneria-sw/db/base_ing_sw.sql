@@ -7,9 +7,7 @@ CREATE DOMAIN spe_esp AS VARCHAR(20)
 
 CREATE TABLE lavoratore (
 	--dati anagrafici
-	id_lavoratore SERIAL, --non presente nelle indicazione 
-	nome VARCHAR(30) NOT NULL,
-	cognome VARCHAR(30) NOT NULL,
+	id_lavoratore SERIAL, 
 	luogo_di_nascita VARCHAR(30) NOT NULL, 
 	--potrei anche creare una tabella a parte con luogo di nascita (con un id)
 	data_di_nascita DATE NOT NULL,--controllo da svolgere su java
