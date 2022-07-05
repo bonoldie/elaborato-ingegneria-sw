@@ -14,7 +14,7 @@ CREATE TABLE lavoratore (
 	nazionalità VARCHAR(30) NOT NULL,
 	--
 	indirizzo VARCHAR(30) DEFAULT '',
-	telefonico VARCHAR(12) CHECK (telefono SIMILAR TO '\+?[0-9]+')) DEFAULT '',
+	telefono VARCHAR(12) CHECK (telefono SIMILAR TO '\+?[0-9]+')) DEFAULT '',
 	email VARCHAR(30) UNIQUE NOT NULL,
 	specia_esp spe_esp DEFAULT '',
 	-- lo farei separato (+ inserimenti per lavoratore)
