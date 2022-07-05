@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 
+import elaborato.DAO.Patente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 
 public class inserimento_controller implements Initializable{
@@ -42,10 +46,11 @@ public class inserimento_controller implements Initializable{
 	@FXML
 	private ChoiceBox<Boolean> auto_id;
 	@FXML
-	private ChoiceBox<String> tipo_patente_id;
-	ObservableList<String> tipo_patente
-	= FXCollections.observableArrayList("AM","A1","A2","A","B1","B","BE","C1","C1E","C","CE","D1","D1E","D","DE","KA","KB","CQC","CQCM","CFP","NO");
+	private ChoiceBox<Patente> tipo_patente_id;
+	ObservableList<Patente> tipo_patente = FXCollections.observableArrayList(new Patente(0,"AM"), new Patente(1,"A1"), new Patente(2,"A2"));//"AM","A1","A2","A","B1","B","BE","C1","C1E","C","CE","D1","D1E","D","DE","KA","KB","CQC","CQCM","CFP","NO");
 	
+	@FXML
+	private ListView<Patente> patenti_list_view;
 	
 	//persona da contattare in caso d'emergenza
 	@FXML
@@ -57,7 +62,7 @@ public class inserimento_controller implements Initializable{
 	@FXML
 	private TextField p_cognome_id;
 	
-	//disponibilità
+	//disponibilita'
 	@FXML
 	private TextField periodo_id;
 	@FXML
@@ -81,7 +86,7 @@ public class inserimento_controller implements Initializable{
 		
 		//query dati lavoratore; potrei creare una classe a parte
 		PreparedStatement pst=con.prepareStatement( //attenzione ricordarsi id_lavoratore
-				"INSERT INTO lavoratore(id_lavoratore, nome, cognome, luogo_di_nascita, data_di_nascita, nazionalità, indirizzo, telefono, email, specia_esp, lingue_parlate, tipo_patente, automunito) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+				"INSERT INTO lavoratore(id_lavoratore, nome, cognome, luogo_di_nascita, data_di_nascita, nazionalitï¿½, indirizzo, telefono, email, specia_esp, lingue_parlate, tipo_patente, automunito) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		//potevo farlo tranquillamente anche con statement
 		//inserimento dei valori e invio //potrei creare una classe per inserimento dei valori
 		//pst.setInteger(0, ); //capire come viene inserito il valore id_lavoratore
@@ -138,6 +143,9 @@ public class inserimento_controller implements Initializable{
 		auto_id.getItems().add(false);
 		//
 		tipo_patente_id.setItems(tipo_patente);
+		
+		patenti_list_view.setItems(tipo_patente);
+		patenti_list_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
 
 }

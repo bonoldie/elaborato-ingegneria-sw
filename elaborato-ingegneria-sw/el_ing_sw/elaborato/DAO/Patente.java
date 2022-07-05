@@ -26,5 +26,10 @@ public class Patente {
 		this.nome_patente = nome_patente;
 	}
 	
+	@Override
+	public String toString() {
+		return getNome_patente();
+	}
+	
 	
 }
