@@ -3,6 +3,8 @@ package elaborato.DAO;
 import java.util.ArrayList;
 import java.util.List;
 
+import elaborato.DB.Database;
+
 public class PatenteDAO implements IPatenteDAO {
 	
 	public PatenteDAO() {
@@ -10,7 +12,7 @@ public class PatenteDAO implements IPatenteDAO {
 
 	public List<Patente> getAllPatente() {
 		List<Patente> patenti = new ArrayList<>();
-		// dati da db
+		// Database.getDatabase().getConnection().prepareStatement("");
 		return patenti;
 	}
 

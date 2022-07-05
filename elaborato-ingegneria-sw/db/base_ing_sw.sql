@@ -46,7 +46,6 @@ CREATE TABLE lavoro_svolto(
 	mansione_svolta VARCHAR(30),
 	luogo_di_lavoro VARCHAR(30),
 	retri_lorda_giornaliera DECIMAL(8,2),
-	lavoratore SERIAL REFERENCES lavoratore (id_lavoratore);
 );
 
 --NB: capire il funzionamente di serial con references

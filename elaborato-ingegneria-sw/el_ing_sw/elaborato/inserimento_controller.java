@@ -4,9 +4,11 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import elaborato.DAO.Patente;
+import elaborato.DB.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -72,15 +74,18 @@ public class inserimento_controller implements Initializable{
 	private Button invio_dati_db;
 	
 	@FXML
-	private void inviodati(ActionEvent event) {
-		System.out.println("prova inserimento"); //dovrei fare andare questo pulsante solo se quasi tutti i campi sono pieni
+	private void inviodati(ActionEvent event) throws SQLException {
+		
+		System.out.println("prova inserimento"); 
+		
+		System.out.println(Database.getDatabase().getConnection().getClientInfo());
+		//dovrei fare andare questo pulsante solo se quasi tutti i campi sono pieni
 		//invio i dati inseriti; dovrei anche fare dei controlli
 		
 		//richiesta driver
 		/*Class.forName("org.postgresql.Driver");
 		
 		//creazione connessione; //creare una base di dati oppure usare quella dell uni
-		Connection con = DriverManager.getConnection(null);
 		
 		//creazione prestatement; usato per la creazione di query
 		
