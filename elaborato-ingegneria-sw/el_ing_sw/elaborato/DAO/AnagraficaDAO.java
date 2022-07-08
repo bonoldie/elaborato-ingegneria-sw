@@ -10,14 +10,14 @@ public class AnagraficaDAO implements IAnagraficaDAO {
 	}
 
 	@Override
-	public List<Anagrafica> getAllLingue() {
+	public List<Anagrafica> getAllAnagrafica() {
 		List<Anagrafica> anagrafiche= new ArrayList<>();
 		// Database.getDatabase().getConnection().prepareStatement("");
 		return anagrafiche;
 	}
 
 	@Override
-	public Lingua getAnagrafica(int id_anagrafica) {
+	public Anagrafica getAnagrafica(int id_anagrafica) {
 		// TODO Auto-generated method stub
 		return null;
 	}

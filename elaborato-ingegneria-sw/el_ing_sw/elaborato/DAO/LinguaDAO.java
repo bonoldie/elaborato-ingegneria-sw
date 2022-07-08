@@ -30,7 +30,7 @@ public class LinguaDAO implements ILinguaDAO{
 	}
 
 	@Override
-	public void deleteStudent(Lingua lingua) {
+	public void deleteLingua(Lingua lingua) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -9,7 +9,7 @@ public class RecapitoDAO implements IRecapitoDAO {
 	}
 
 	@Override
-	public List<Recapito> getAllLingue() {
+	public List<Recapito> getAllRecapito() {
 		// TODO Auto-generated method stub
 		List<Recapito> recapiti = new ArrayList<>();
 		// Database.getDatabase().getConnection().prepareStatement("");
@@ -17,7 +17,7 @@ public class RecapitoDAO implements IRecapitoDAO {
 	}
 
 	@Override
-	public Lingua getRecapito(int id_recapito) {
+	public Recapito getRecapito(int id_recapito) {
 		// TODO Auto-generated method stub
 		return null;
 	}
