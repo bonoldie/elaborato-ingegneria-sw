@@ -1,14 +1,35 @@
-DROP DOMAIN IF EXISTS patenti CASCADE;
-DROP DOMAIN IF EXISTS spe_esp CASCADE;
+--DROP DOMAIN IF EXISTS patenti CASCADE;
+--DROP DOMAIN IF EXISTS spe_esp CASCADE;
 CREATE DOMAIN patenti AS VARCHAR(4)
 	CHECK( VALUE IN ('AM','A1','A2','A','B1','B','BE','C1','C1E','C','CE','D1','D1E','D','DE','KA','KB','CQC','CQCM','CFP','NO'));
 CREATE DOMAIN spe_esp AS VARCHAR(20)
 	CHECK( VALUE IN ('bagnino', 'barman', 'istruttore di nuoto', 'viticultore', 'floricultore'));
 
+CREATE TABLE Anagrafica(
+	id_anagrafica SERIAL,
+	luogo_di_nascita VARCHAR(30),
+	data_di_nascita DATE NOT NULL,
+	nazionalità VARCHAR(30) NOT NULL,
+	nome VARCHAR(30) NOT NULL,
+	cognome VARCHAR(30) NOT NULL,
+	telefono VARCHAR(12) CHECK (telefono SIMILAR TO '\+?[0-9]+') DEFAULT '',
+	email VARCHAR(30) UNIQUE,
+	PRIMARY KEY (id_anagrafica)
+);
+
+CREATE TABLE Recapito(
+	id_recapito SERIAL,
+	nome VARCHAR(30) NOT NULL,
+	cognome VARCHAR(30) NOT NULL,
+	telefono VARCHAR(12) CHECK (telefono SIMILAR TO '\+?[0-9]+') NOT NULL,
+	email VARCHAR(30) UNIQUE NOT NULL,
+	PRIMARY KEY (id_recapito)
+);
+
 CREATE TABLE Lavoratore (
 	id_lavoratore SERIAL, 
 	id_anagrafica SERIAL REFERENCES Anagrafica(id_anagrafica),
-	id_recapito_urgenza SERIAL REFERENCES Recapito(id_recapito),,
+	id_recapito_urgenza SERIAL REFERENCES Recapito(id_recapito),
 	indirizzo VARCHAR(30) DEFAULT '',
 	specia_esp spe_esp DEFAULT '',
 	automunito BOOLEAN,
@@ -24,40 +45,14 @@ CREATE TABLE Disponibilità(
 	PRIMARY KEY (id_disponibilità)
 );
 
-CREATE TABLE Recapito(
-	id_recapito SERIAL,
-	nome VARCHAR(30) NOT NULL,
-	cognome VARCHAR(30) NOT NULL,
-	telefono VARCHAR(12) CHECK (telefono SIMILAR TO '\+?[0-9]+') NOT NULL,
-	email VARCHAR(30) UNIQUE NOT NULL,
-	PRIMARY KEY (id_recapito)
-);
-
 CREATE TABLE lavoro_svolto(
 	id_lavoro_svolto SERIAL,
 	id_lavoratore SERIAL REFERENCES lavoratore(id_lavoratore),
-	periodo DATE INTERVAL,
+	periodo INTERVAL,
 	nome_azienda VARCHAR(30),
 	mansione_svolta VARCHAR(30),
 	luogo_di_lavoro VARCHAR(30),
-	retri_lorda_giornaliera DECIMAL(8,2),
-);
-
-CREATE TABLE Anagrafica(
-	id_anagrafica SERIAL,
-	luogo_di_nascita VARCHAR(30),
-	data_di_nascita DATE NOT NULL,
-	nazionalità VARCHAR(30) NOT NULL,
-	nome VARCHAR(30) NOT NULL,
-	cognome VARCHAR(30) NOT NULL,
-	telefono VARCHAR(12) CHECK (telefono SIMILAR TO '\+?[0-9]+')) DEFAULT '',
-	email VARCHAR(30) UNIQUE,
-	PRIMARY KEY (id_anagrafica)
-);
-
-CREATE TABLE Lavoratore_Patente(
-	id_patente SERIAL REFERENCES Patente(id_patente),
-	id_lavoratore SERIAL REFERENCES Lavoratore(id_lavoratore)
+	retri_lorda_giornaliera DECIMAL(8,2)
 );
 
 CREATE TABLE Patente(
@@ -65,9 +60,9 @@ CREATE TABLE Patente(
 	nome_patente patenti
 );
 
-CREATE TABLE Lavoratore_Lingua(
-	id_lingua SERIAL REFERENCES Lingua(id_lingua),
-	id_lavoratore SERIAL REFERENCES Lingua(id_lingua),
+CREATE TABLE Lavoratore_Patente(
+	id_patente SERIAL REFERENCES Patente(id_patente),
+	id_lavoratore SERIAL REFERENCES Lavoratore(id_lavoratore)
 );
 
 CREATE TABLE Lingua(
@@ -75,4 +70,9 @@ CREATE TABLE Lingua(
 	nome_lingua VARCHAR(30)
 );
 
---NB: capire il funzionamente di serial con references
+CREATE TABLE Lavoratore_Lingua(
+	id_lingua SERIAL REFERENCES Lingua(id_lingua),
+	id_lavoratore SERIAL REFERENCES Lingua(id_lingua)
+);
+
+
