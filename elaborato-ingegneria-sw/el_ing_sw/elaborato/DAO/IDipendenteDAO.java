@@ -7,4 +7,5 @@ public interface IDipendenteDAO {
 	public Dipendente getDipendente(int id_dipendente);
 	public void updateDipendente(Dipendente dipendente);
 	public void deleteDipendente(Dipendente dipendente);
+	public Boolean getDipendenteLogin(String login, String password);
 }
