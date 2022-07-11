@@ -2,13 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="elaborato.inserimento_controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="702.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="elaborato.inserimento_controller">
    <children>
       <Label layoutX="81.0" layoutY="14.0" text="dati lavoratore">
          <font>
@@ -18,12 +19,11 @@
       <Label layoutX="40.0" layoutY="53.0" text="nome" />
       <Label layoutX="31.0" layoutY="80.0" text="cognome" />
       <Label layoutX="14.0" layoutY="107.0" text="luogo di nascita" />
-      <Label layoutX="26.0" layoutY="134.0" text="data di nascita" />
+      <Label layoutX="17.0" layoutY="134.0" text="data di nascita" />
       <Label layoutX="35.0" layoutY="160.0" text="nazionalità" />
       <TextField fx:id="nome_id" layoutX="106.0" layoutY="49.0" prefHeight="10.0" prefWidth="150.0" />
       <TextField fx:id="cognome_id" layoutX="107.0" layoutY="76.0" />
       <TextField fx:id="naz_id" layoutX="106.0" layoutY="156.0" prefHeight="10.0" prefWidth="150.0" />
-      <TextField fx:id="data_n_id" layoutX="106.0" layoutY="130.0" prefHeight="10.0" prefWidth="150.0" />
       <TextField fx:id="luogo_id" layoutX="106.0" layoutY="103.0" prefHeight="10.0" prefWidth="150.0" />
       <TextField fx:id="lingua_id" layoutX="106.0" layoutY="287.0" prefHeight="10.0" prefWidth="150.0" />
       <TextField fx:id="email_id" layoutX="106.0" layoutY="234.0" prefHeight="10.0" prefWidth="150.0" />
@@ -63,5 +63,6 @@
       <TextField fx:id="periodo_id" layoutX="496.0" layoutY="226.0" />
       <TextField fx:id="comune_id" layoutX="497.0" layoutY="253.0" />
       <ListView fx:id="patenti_list_view" layoutX="420.0" layoutY="295.0" prefHeight="200.0" prefWidth="200.0" />
+      <DatePicker fx:id="data_n_id" layoutX="103.0" layoutY="130.0" />
    </children>
 </AnchorPane>

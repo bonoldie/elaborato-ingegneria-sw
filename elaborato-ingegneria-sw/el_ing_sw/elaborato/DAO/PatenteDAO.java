@@ -13,6 +13,7 @@ public class PatenteDAO implements IPatenteDAO {
 	public List<Patente> getAllPatente() {
 		List<Patente> patenti = new ArrayList<>();
 		// Database.getDatabase().getConnection().prepareStatement("");
+		//ritotno una lista con tutte le colonne della tabella patente
 		return patenti;
 	}
 
