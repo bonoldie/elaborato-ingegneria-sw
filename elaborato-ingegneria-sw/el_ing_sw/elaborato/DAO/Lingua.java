@@ -27,5 +27,10 @@ public class Lingua {
 		this.nome_lingua = nome_lingua;
 	}
 	
+	@Override
+	public String toString() {
+		return getNome_lingua();
+	}
+	
 
 }

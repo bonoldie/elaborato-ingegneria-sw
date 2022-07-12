@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import elaborato.DAO.Lingua;
 import elaborato.DAO.Patente;
 import elaborato.DB.Database;
 import javafx.collections.FXCollections;
@@ -39,8 +40,6 @@ public class inserimento_controller implements Initializable{
 	@FXML
 	private TextField luogo_id;
 	@FXML
-	private TextField lingua_id;
-	@FXML
 	private TextField email_id;
 	@FXML
 	private TextField telefono_id;
@@ -49,14 +48,14 @@ public class inserimento_controller implements Initializable{
 	@FXML
 	private ChoiceBox<String> spec_id;
 	ObservableList<String> specializzazioni
-		= FXCollections.observableArrayList("bagnino","barman","istruttore di nuoto","viticoltore","floricoltore");
+		= FXCollections.observableArrayList("bagnino","barman","istruttore di nuoto","viticultore","floricultore");
 	@FXML
 	private ChoiceBox<Boolean> auto_id;
 	@FXML
 	private ListView<Patente> patenti_list_view;
 	//private final String[] tipo_patenti = {"AM"), "A1", "A2", "A","B1","B","BE","C1","C1E","C","CE","D1","D1E","D","DE","KA","KB","CQC","CQCM","CFP","NO"};
 	//private final ObservableList<String> tipo_patenti_lista = FXCollections.observableArrayList();
-	ObservableList<Patente> tipo_patente = FXCollections.observableArrayList(new Patente(0,"AM"), new Patente(1,"A1"), new Patente(2,"A2"), new Patente(3, "AM"),new Patente(4, "A1"),new Patente(5, "A2"),new Patente(6, "A"),new Patente(7, "B1"),new Patente(8, "B"),new Patente(9, "BE"),new Patente(10, "C1"),new Patente(11, "C1E"),new Patente(12, "C"),new Patente(13, "CE"),new Patente(14, "D1"),new Patente(15, "D1E"),new Patente(16, "D"),new Patente(17, "DE"), new Patente(18, "KA"),new Patente(19, "KB"),new Patente(20, "CQC"),new Patente(21, "CFP"),new Patente(22, "NO"));
+	ObservableList<Patente> tipo_patente = FXCollections.observableArrayList(new Patente(0,"AM"), new Patente(1,"A1"), new Patente(2,"A2"), new Patente(3, "A"),new Patente(4, "B1"),new Patente(5, "B"),new Patente(6, "BE"),new Patente(7, "C1"),new Patente(8, "C1E"),new Patente(9, "C"),new Patente(10, "CE"),new Patente(11, "D1"),new Patente(12, "D1E"),new Patente(13, "D"),new Patente(14, "DE"), new Patente(15, "KA"),new Patente(16, "KB"),new Patente(17, "CQC"),new Patente(18, "CFP"),new Patente(19, "NO"));
 	@FXML
 	private TextField p_nome_id;
 	@FXML
@@ -74,6 +73,11 @@ public class inserimento_controller implements Initializable{
 	
 	@FXML
 	private Button invio_dati_db;
+	
+	@FXML
+	private ListView<Lingua> lingua_view;
+	ObservableList<Lingua> lingua = FXCollections.observableArrayList(new Lingua(0,"Italiano"), new Lingua(1,"Inglese"), new Lingua(2,"Tedesco"), new Lingua(3, "Spagnolo"),new Lingua(4, "Portoghese"),new Lingua(5, "Francese"),new Lingua(6, "Cinese"),new Lingua(7, "Russo"));//,new Patente(8, "B"),new Patente(9, "BE"),new Patente(10, "C1"),new Patente(11, "C1E"),new Patente(12, "C"),new Patente(13, "CE"),new Patente(14, "D1"),new Patente(15, "D1E"),new Patente(16, "D"),new Patente(17, "DE"), new Patente(18, "KA"),new Patente(19, "KB"),new Patente(20, "CQC"),new Patente(21, "CFP"),new Patente(22, "NO"));
+	
 	
 	@FXML
 	private void inviodati(ActionEvent event) throws SQLException {
@@ -123,23 +127,16 @@ public class inserimento_controller implements Initializable{
 		pst_lavoratore.setBoolean(5, auto_id.getValue());
 		pst_lavoratore.executeUpdate();
 		
-		
-		//lingua
-		PreparedStatement pst_lingua= Database.getDatabase().getConnection().prepareStatement("INSERT INTO Lingua(nome_lingua)"
-				+ "VALUES(?);");
-		pst_lingua.setString(1, lingua_id.getText()); //sarà da modificare
-		pst_lingua.executeUpdate();
-		
 		//disponibilità
 		PreparedStatement pst_disponibilità= Database.getDatabase().getConnection().prepareStatement("INSERT INTO Disponibilità(id_lavoratore, periodo, comune)"
 				+ "VALUES(?,?,?);");
 		//id_lavoratore, periodo, comune
 		ResultSet rs_lavoratore=st.executeQuery("SELECT id_lavoratore FROM Lavoratore ORDER BY id_lavoratore DESC LIMIT 1;");
 		rs_lavoratore.next();
-		pst_disponibilità.setInt(1, rs_lavoratore.getInt("id_lavoratore"));
-		//pst_disponibilità.setString(2, periodo_id.getText());
+		/*pst_disponibilità.setInt(1, rs_lavoratore.getInt("id_lavoratore"));
+		//pst_disponibilità.setString(2, periodo_id.getText()); //capire come gestire l'intervallo forse meglio fare una tabella intervallo con data di inzio e fine 
 		pst_disponibilità.setString(3, comune_id.getText());
-		pst_disponibilità.executeUpdate();
+		pst_disponibilità.executeUpdate();*/
 		
 		//lavoro_svolto
 		//PreparedStatement pst_lavoro_svolto= Database.getDatabase().getConnection().prepareStatement("INSERT INTO Lavoro_svolto(id_lavoratore, periodo, nome_azienda, mansioni_svolta, luogo_di_lavoro, retribuzione_lorda_giornaliera)"
@@ -149,11 +146,12 @@ public class inserimento_controller implements Initializable{
 		//lavoratore_lingua
 		PreparedStatement pst_lavoratore_lingua= Database.getDatabase().getConnection().prepareStatement("INSERT INTO Lavoratore_Lingua(id_lingua, id_lavoratore)"
 				+ "VALUES(?,?)");
-		ResultSet rs_lingua=st.executeQuery("SELECT id_lingua FROM Lingua ORDER BY id_lingua DESC LIMIT 1;");
-		rs_lingua.next();
-		pst_lavoratore_lingua.setInt(1, rs_lingua.getInt("id_lingua"));
-		pst_lavoratore_lingua.setInt(2,rs_lavoratore.getInt("id_lavoratore"));
-		pst_lavoratore_lingua.executeUpdate();
+		for(Lingua o : lingua_view.getSelectionModel().getSelectedItems()) {
+			pst_lavoratore_lingua.setInt(1, o.getId_lingua());
+			pst_lavoratore_lingua.setInt(2,rs_lavoratore.getInt("id_lavoratore"));
+			pst_lavoratore_lingua.executeUpdate();
+		}
+		
 		
 		//lavoratore_patente
 		PreparedStatement pst_lavoratore_patente= Database.getDatabase().getConnection().prepareStatement("INSERT INTO Lavoratore_Patente(id_patente, id_lavoratore)"
@@ -180,6 +178,9 @@ public class inserimento_controller implements Initializable{
 		
 		patenti_list_view.setItems(tipo_patente);
 		patenti_list_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		lingua_view.setItems(lingua);
+		lingua_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
 
 }
