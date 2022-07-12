@@ -2,26 +2,28 @@ package elaborato.DAO;
 
 import java.util.Date;
 
-public class Disponibilità {
-	private int id_disponibilità;
+public class Disponibilita {
+	private int id_disponibilita;
 	private int id_lavoratore;
-	private Date periodo; //capire che tipo usare per un intervallo
+	private Date periodo; // capire che tipo usare per un intervallo
 	private String comune;
-	
-	public Disponibilità(int id_disponibilità, int id_lavoratore, Date periodo, String comune) {
+
+	public Disponibilita(int id_disponibilita, int id_lavoratore, Date periodo, String comune) {
 		// TODO Auto-generated constructor stub
-		this.id_disponibilità=id_disponibilità;
-		this.id_lavoratore=id_lavoratore;
-		this.periodo=periodo;
-		this.comune=comune;
+		this.id_disponibilita = id_disponibilita;
+		this.id_lavoratore = id_lavoratore;
+		this.periodo = periodo;
+		this.comune = comune;
 	}
 
-	public int getId_disponibilità() {
-		return id_disponibilità;
+	public int getId_disponibilita()
+	{
+		return id_disponibilita;
 	}
 
-	public void setId_disponibilità(int id_disponibilità) {
-		this.id_disponibilità = id_disponibilità;
+	public void setId_disponibilita(int id_disponibilita)
+	{
+		this.id_disponibilita = id_disponibilita;
 	}
 
 	public int getId_lavoratore() {
@@ -47,6 +49,5 @@ public class Disponibilità {
 	public void setComune(String comune) {
 		this.comune = comune;
 	}
-	
 
 }

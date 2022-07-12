@@ -7,6 +7,6 @@ CREATE TABLE dipendenti (
 	PRIMARY KEY (id_dipendente)
 );
 
---serial è equivalente a id integer NOT NULL DEFAULT nextval('table_name_id_seq')
+--serial e' equivalente a id integer NOT NULL DEFAULT nextval('table_name_id_seq')
 
---serial Ã¨ equivalente a id integer NOT NULL DEFAULT nextval('table_name_id_seq')
+--serial e' equivalente a id integer NOT NULL DEFAULT nextval('table_name_id_seq')

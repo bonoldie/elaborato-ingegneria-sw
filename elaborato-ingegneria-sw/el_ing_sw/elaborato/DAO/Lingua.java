@@ -3,12 +3,12 @@ package elaborato.DAO;
 public class Lingua {
 	private int id_lingua;
 	private String nome_lingua;
-	
+
 	public Lingua(int id_lingua, String nome_lingua) {
 		// TODO Auto-generated constructor stub
 		super();
-		this.id_lingua=id_lingua;
-		this.nome_lingua=nome_lingua;
+		this.id_lingua = id_lingua;
+		this.nome_lingua = nome_lingua;
 	}
 
 	public int getId_lingua() {
@@ -26,11 +26,10 @@ public class Lingua {
 	public void setNome_lingua(String nome_lingua) {
 		this.nome_lingua = nome_lingua;
 	}
-	
+
 	@Override
 	public String toString() {
 		return getNome_lingua();
 	}
-	
 
 }

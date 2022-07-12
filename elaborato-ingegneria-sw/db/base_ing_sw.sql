@@ -9,7 +9,7 @@ CREATE TABLE Anagrafica(
 	id_anagrafica SERIAL,
 	luogo_di_nascita VARCHAR(30),
 	data_di_nascita DATE NOT NULL,
-	nazionalità VARCHAR(30) NOT NULL,
+	nazionalita VARCHAR(30) NOT NULL,
 	nome VARCHAR(30) NOT NULL,
 	cognome VARCHAR(30) NOT NULL,
 	telefono VARCHAR(12) CHECK (telefono SIMILAR TO '\+?[0-9]+') DEFAULT '',
@@ -37,12 +37,13 @@ CREATE TABLE Lavoratore (
 	PRIMARY KEY(id_lavoratore)
 );
 
-CREATE TABLE Disponibilità(
-	id_disponibilità SERIAL,
+CREATE TABLE Disponibilita(
+	id_disponibilita SERIAL,
 	id_lavoratore SERIAL REFERENCES lavoratore (id_lavoratore),
-	periodo INTERVAL, 
+	data_inizio DATE,
+	data_fine DATE, 
 	comune VARCHAR(30),
-	PRIMARY KEY (id_disponibilità)
+	PRIMARY KEY (id_disponibilita)
 );
 
 CREATE TABLE lavoro_svolto(
@@ -73,6 +74,11 @@ CREATE TABLE Lingua(
 CREATE TABLE Lavoratore_Lingua(
 	id_lingua SERIAL REFERENCES Lingua(id_lingua),
 	id_lavoratore SERIAL REFERENCES Lingua(id_lingua)
+);
+
+CREATE TABLE Lavoratore_Esperienza(
+	id_lavoratore SERIAL REFERENCES lavoratore(id_lavoratore),
+	esperienza spe_esp
 );
 
 

@@ -6,20 +6,21 @@ import java.util.Date;
 public class Lavoro_svolto {
 	private int id_lavoro_svolto;
 	private int id_lavoratore;
-	private Date periodo; //controllare se va bene il tipo
+	private Date periodo; // controllare se va bene il tipo
 	private String nome_azienda;
 	private String luogo_di_lavoro;
 	private BigDecimal retribuzione_lorda_giornaliera;
-	
-	public Lavoro_svolto(int id_lavoro_svolto, int id_lavoratore, Date periodo, String nome_azienda, String mansione_svolta, String luogo_di_lavoro, BigDecimal retribuzione_lorda_giornaliera) {
+
+	public Lavoro_svolto(int id_lavoro_svolto, int id_lavoratore, Date periodo, String nome_azienda,
+			String mansione_svolta, String luogo_di_lavoro, BigDecimal retribuzione_lorda_giornaliera) {
 		// TODO Auto-generated constructor stub
 		super();
-		this.id_lavoro_svolto=id_lavoro_svolto;
-		this.id_lavoratore=id_lavoratore;
-		this.periodo=periodo;
-		this.nome_azienda=nome_azienda;
-		this.luogo_di_lavoro=luogo_di_lavoro;
-		this.retribuzione_lorda_giornaliera=retribuzione_lorda_giornaliera;
+		this.id_lavoro_svolto = id_lavoro_svolto;
+		this.id_lavoratore = id_lavoratore;
+		this.periodo = periodo;
+		this.nome_azienda = nome_azienda;
+		this.luogo_di_lavoro = luogo_di_lavoro;
+		this.retribuzione_lorda_giornaliera = retribuzione_lorda_giornaliera;
 	}
 
 	public int getId_lavoro_svolto() {
@@ -69,6 +70,5 @@ public class Lavoro_svolto {
 	public void setRetribuzione_lorda_giornaliera(BigDecimal retribuzione_lorda_giornaliera) {
 		this.retribuzione_lorda_giornaliera = retribuzione_lorda_giornaliera;
 	}
-	
 
 }

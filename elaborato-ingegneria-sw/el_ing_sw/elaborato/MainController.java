@@ -19,7 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainController {
-	//vari field
+	// vari field
 	@FXML
 	TextField login;
 	@FXML
@@ -27,41 +27,38 @@ public class MainController {
 	@FXML
 	Text risultato_login;
 	@FXML
-	Button Sign_in; 
-	
+	Button Sign_in;
+
 	@FXML
 	private void controllo_credenziali(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
 		System.out.println("prova");
-		//risultato_login.setText("prova"); //mi da errore non so se serve qualche 
-		
-		//da inserire dopo il controllo delle credenziali *****
-		//test
-		
-		DipendenteDAO log= new DipendenteDAO();
-		Boolean d = log.getDipendenteLogin(login.getText(), password.getText()); 
-		
-		if(d==true) {
+		// risultato_login.setText("prova"); //mi da errore non so se serve qualche
+
+		// da inserire dopo il controllo delle credenziali *****
+		// test
+
+		DipendenteDAO log = new DipendenteDAO();
+		Boolean d = log.getDipendenteLogin(login.getText(), password.getText());
+
+		if (d == true) {
 			Parent root = FXMLLoader.load(getClass().getResource("ric_ins.fxml"));
-			
+
 			Scene scene = new Scene(root);
 			Stage primaryStage = new Stage();
 			primaryStage.setTitle("Ricerca/Inserimento");
 			primaryStage.setScene(scene);
-			//specifico la modalità della nuova finestra
+			// specifico la modalita della nuova finestra
 			primaryStage.initModality(Modality.WINDOW_MODAL);
-			primaryStage.initOwner(Sign_in.getScene().getWindow()); 
+			primaryStage.initOwner(Sign_in.getScene().getWindow());
 			primaryStage.show();
-		}
-		else
-		{
-			//inserirlo in un label nell'interfaccia
+		} else {
+			// inserirlo in un label nell'interfaccia
 			System.out.println("rinserire le credenziali");
 		}
 	}
-	
-	public void initialize(URL url, ResourceBundle resources){
+
+	public void initialize(URL url, ResourceBundle resources) {
 		// TODO Auto-generated constructor stub
 	}
-	
 
 }

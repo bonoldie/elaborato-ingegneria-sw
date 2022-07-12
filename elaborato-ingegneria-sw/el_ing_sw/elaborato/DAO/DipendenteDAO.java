@@ -20,9 +20,9 @@ public class DipendenteDAO implements IDipendenteDAO {
 	}
 
 	@Override
-	public Dipendente getDipendente(int id_dipendente){
+	public Dipendente getDipendente(int id_dipendente) {
 		// TODO Auto-generated method stub
-		//Database.getDatabase().getConnection().prepareStatement("");
+		// Database.getDatabase().getConnection().prepareStatement("");
 		return null;
 	}
 
@@ -41,16 +41,16 @@ public class DipendenteDAO implements IDipendenteDAO {
 	@Override
 	public Boolean getDipendenteLogin(String login, String password) {
 		// TODO Auto-generated method stub
-		//controllo credenziali per accesso
+		// controllo credenziali per accesso
 		try {
-			
-			Statement st= Database.getDatabase().getConnection().createStatement();
-			ResultSet rs=st.executeQuery("SELECT d.login, d.password, d.id_dipendente FROM Dipendenti d");
-			
-			while(rs.next()) {
-				//controllo che il login e la password siano corrette
-				if(rs.getString("login").equals(login) == true) {
-					if(rs.getString("password").equals(password) == true) {
+
+			Statement st = Database.getDatabase().getConnection().createStatement();
+			ResultSet rs = st.executeQuery("SELECT d.login, d.password, d.id_dipendente FROM Dipendenti d");
+
+			while (rs.next()) {
+				// controllo che il login e la password siano corrette
+				if (rs.getString("login").equals(login) == true) {
+					if (rs.getString("password").equals(password) == true) {
 						return true;
 					}
 					return false;

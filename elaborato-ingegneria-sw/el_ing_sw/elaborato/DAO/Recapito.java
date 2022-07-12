@@ -6,7 +6,7 @@ public class Recapito {
 	private String cognome;
 	private String telefono;
 	private String email;
-	
+
 	public Recapito(int id_recapito, String nome, String cognome, String telefono, String email) {
 		// TODO Auto-generated constructor stub
 		super();
@@ -56,7 +56,5 @@ public class Recapito {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
 
 }

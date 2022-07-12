@@ -1,9 +1,14 @@
 package elaborato.DAO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LinguaDAO implements ILinguaDAO{
+import elaborato.DB.Database;
+
+public class LinguaDAO implements ILinguaDAO {
 
 	public LinguaDAO() {
 		// TODO Auto-generated constructor stub
@@ -12,9 +17,29 @@ public class LinguaDAO implements ILinguaDAO{
 	@Override
 	public List<Lingua> getAllLingue() {
 		// TODO Auto-generated method stub
-		List<Lingua> lingua= new ArrayList<>();
-		// Database.getDatabase().getConnection().prepareStatement("");
-		return lingua;
+		List<Lingua> lingue = new ArrayList<>();
+		
+		ResultSet rs_lingua;
+		try {
+			Statement st_lingua = Database.getDatabase().getConnection().createStatement();	
+			
+			rs_lingua = st_lingua.executeQuery("SELECT * FROM lingua ");
+			
+			while(rs_lingua.next()) {
+				lingue.add(
+						new Lingua(
+								rs_lingua.getInt("id_lingua"),
+								rs_lingua.getString("nome_lingua")
+								)
+						);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return lingue;
 	}
 
 	@Override
@@ -26,13 +51,13 @@ public class LinguaDAO implements ILinguaDAO{
 	@Override
 	public void updateLingua(Lingua lingua) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteLingua(Lingua lingua) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

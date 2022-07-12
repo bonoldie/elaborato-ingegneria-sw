@@ -1,19 +1,42 @@
 package elaborato.DAO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import elaborato.DB.Database;
 
 public class PatenteDAO implements IPatenteDAO {
-	
+
 	public PatenteDAO() {
 	}
 
 	public List<Patente> getAllPatente() {
 		List<Patente> patenti = new ArrayList<>();
-		// Database.getDatabase().getConnection().prepareStatement("");
-		//ritotno una lista con tutte le colonne della tabella patente
+		
+		ResultSet rs_patente;
+		try {
+			Statement st_patente = Database.getDatabase().getConnection().createStatement();	
+			
+			rs_patente = st_patente.executeQuery("SELECT * FROM patente ");
+			
+			while(rs_patente.next()) {
+				patenti.add(
+						new Patente(
+								rs_patente.getInt("id_patente"),
+								rs_patente.getString("nome_patente")
+								)
+						);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return patenti;
 	}
 

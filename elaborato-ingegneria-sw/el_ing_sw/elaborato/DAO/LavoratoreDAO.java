@@ -12,7 +12,7 @@ public class LavoratoreDAO implements ILavoratoreDAO {
 	@Override
 	public List<Lavoratore> getAllLavoratore() {
 		// TODO Auto-generated method stub
-		List<Lavoratore> lavoratori= new ArrayList<>();
+		List<Lavoratore> lavoratori = new ArrayList<>();
 		// Database.getDatabase().getConnection().prepareStatement("");
 		return lavoratori;
 	}

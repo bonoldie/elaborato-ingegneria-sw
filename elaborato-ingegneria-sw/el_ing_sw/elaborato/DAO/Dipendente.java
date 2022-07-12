@@ -5,14 +5,14 @@ public class Dipendente {
 	private int id_anagrafica;
 	private String login;
 	private String password;
-	
+
 	public Dipendente(int id_dipendente, int id_anagrafica, String login, String password) {
 		// TODO Auto-generated constructor stub
 		super();
-		this.id_dipendente=id_dipendente;
-		this.id_anagrafica=id_anagrafica;
-		this.login=login;
-		this.password=password;
+		this.id_dipendente = id_dipendente;
+		this.id_anagrafica = id_anagrafica;
+		this.login = login;
+		this.password = password;
 	}
 
 	public int getId_dipendente() {
@@ -46,7 +46,5 @@ public class Dipendente {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
 }

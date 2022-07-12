@@ -1,24 +1,23 @@
 package elaborato.DAO;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Anagrafica {
 	private int id_anagrafica;
 	private String luogo_di_nascita;
-	private Date data_di_nascita; //esiste anche il date di sql 
-	private String nazionalità;
+	private LocalDate data_di_nascita; // esiste anche il LocalDate di sql
+	private String nazionalita;
 	private String nome;
 	private String cognome;
-	private String telefono; //attenzione check db
+	private String telefono; // attenzione check db
 	private String email;
-	
-	public Anagrafica(int id_anagrafica, String luogo_di_nascita, Date data_di_nascita, String nazionalità, String nome, String cognome, String telefono, String email) {
+
+	public Anagrafica(int id_anagrafica, String luogo_di_nascita, LocalDate data_di_nascita, String nazionalita, String nome, String cognome, String telefono, String email) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.id_anagrafica=id_anagrafica;
 		this.luogo_di_nascita=luogo_di_nascita;
 		this.data_di_nascita = data_di_nascita;
-		this.nazionalità = nazionalità;
+		this.nazionalita = nazionalita;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.telefono = telefono;
@@ -41,20 +40,22 @@ public class Anagrafica {
 		this.luogo_di_nascita = luogo_di_nascita;
 	}
 
-	public Date getData_di_nascita() {
+	public LocalDate getData_di_nascita() {
 		return data_di_nascita;
 	}
 
-	public void setData_di_nascita(Date data_di_nascita) {
+	public void setData_di_nascita(LocalDate data_di_nascita) {
 		this.data_di_nascita = data_di_nascita;
 	}
 
-	public String getNazionalità() {
-		return nazionalità;
+	public String getNazionalita()
+	{
+		return nazionalita;
 	}
 
-	public void setNazionalità(String nazionalità) {
-		this.nazionalità = nazionalità;
+	public void setNazionalita(String nazionalita)
+	{
+		this.nazionalita = nazionalita;
 	}
 
 	public String getNome() {
@@ -88,6 +89,5 @@ public class Anagrafica {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 
 }
