@@ -12,5 +12,5 @@ public interface IDisponibilitaDAO {
 	
 	public void insertDisponibilita(Disponibilita disponibilita) throws SQLException;
 
-	public void deleteDisponibilita(Disponibilita disponibilita);
+	public void deleteDisponibilita(Disponibilita disponibilita) throws SQLException;
 }

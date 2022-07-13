@@ -70,9 +70,14 @@ public class DisponibilitaDAO implements IDisponibilitaDAO {
 	}
 
 	@Override
-	public void deleteDisponibilita(Disponibilita disponibilita) {
+	public void deleteDisponibilita(Disponibilita disponibilita) throws SQLException {
 		// TODO Auto-generated method stub
-
+		PreparedStatement pst_disponibilita = null;
+		pst_disponibilita = Database.getDatabase().getConnection()
+				.prepareStatement("DELETE FROM Disponibilita WHERE id_lavoratore=?;");
+		pst_disponibilita.setInt(1 ,disponibilita.getId_lavoratore());
+		pst_disponibilita.executeUpdate();
+		
 	}
 
 }

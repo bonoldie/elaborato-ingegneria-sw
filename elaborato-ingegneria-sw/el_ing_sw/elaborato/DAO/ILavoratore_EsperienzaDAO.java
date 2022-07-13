@@ -12,5 +12,5 @@ public interface ILavoratore_EsperienzaDAO {
 	
 	public void insertLavoratore_Esperienza(Lavoratore_Esperienza lavoratore_esperienza) throws SQLException;
 
-	public void deleteLavoratore_Esperienza(Lavoratore_Esperienza lavoratore_esperienza);
+	public void deleteLavoratore_Esperienza(Lavoratore_Esperienza lavoratore_esperienza) throws SQLException;
 }
