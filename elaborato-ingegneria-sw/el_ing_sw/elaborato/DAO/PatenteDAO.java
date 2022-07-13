@@ -13,30 +13,19 @@ public class PatenteDAO implements IPatenteDAO {
 	public PatenteDAO() {
 	}
 
-	public List<Patente> getAllPatente() {
+	public List<Patente> getAllPatente() throws SQLException {
 		List<Patente> patenti = new ArrayList<>();
-		
+
 		ResultSet rs_patente;
-		try {
-			Statement st_patente = Database.getDatabase().getConnection().createStatement();	
-			
-			rs_patente = st_patente.executeQuery("SELECT * FROM patente ");
-			
-			while(rs_patente.next()) {
-				patenti.add(
-						new Patente(
-								rs_patente.getInt("id_patente"),
-								rs_patente.getString("nome_patente")
-								)
-						);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		Statement st_patente = Database.getDatabase().getConnection().createStatement();
+
+		rs_patente = st_patente.executeQuery("SELECT * FROM patente ");
+
+		while (rs_patente.next()) {
+			patenti.add(new Patente(rs_patente.getInt("id_patente"), rs_patente.getString("nome_patente")));
 		}
-		
-		
+
 		return patenti;
 	}
 

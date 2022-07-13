@@ -5,18 +5,15 @@ public class Lavoratore {
 	private int id_anagrafica;
 	private int id_recapito_urgenza;
 	private String indirizzo;
-	private String spec_esp; // capire come succede
 	private boolean automunito;
 
-	public Lavoratore(int id_lavoratore, int id_anagrafica, int id_recapito_urgenza, String indirizzo, String spec_esp,
-			boolean automunito) {
+	public Lavoratore(int id_lavoratore, int id_anagrafica, int id_recapito_urgenza, String indirizzo, boolean automunito) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.id_lavoratore = id_lavoratore;
 		this.id_anagrafica = id_anagrafica;
 		this.id_recapito_urgenza = id_recapito_urgenza;
 		this.indirizzo = indirizzo;
-		this.spec_esp = spec_esp;
 		this.automunito = automunito;
 	}
 
@@ -50,14 +47,6 @@ public class Lavoratore {
 
 	public void setIndirizzo(String indirizzo) {
 		this.indirizzo = indirizzo;
-	}
-
-	public String getSpec_esp() {
-		return spec_esp;
-	}
-
-	public void setSpec_esp(String spec_esp) {
-		this.spec_esp = spec_esp;
 	}
 
 	public boolean isAutomunito() {

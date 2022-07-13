@@ -17,11 +17,11 @@ public class AnagraficaDAO implements IAnagraficaDAO {
 	}
 
 	@Override
-	public List<Anagrafica> getAllAnagrafica() {
+	public List<Anagrafica> getAllAnagrafica() throws SQLException {
 		List<Anagrafica> anagrafiche = new ArrayList<>();
 
 		ResultSet rs_anagrafica;
-		try {
+
 			Statement st_anagrafica = Database.getDatabase().getConnection().createStatement();	
 			
 			rs_anagrafica = st_anagrafica.executeQuery("SELECT * FROM anagrafica ");
@@ -40,10 +40,6 @@ public class AnagraficaDAO implements IAnagraficaDAO {
 								)
 						);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		
 		return anagrafiche;
@@ -64,7 +60,9 @@ public class AnagraficaDAO implements IAnagraficaDAO {
 	@Override
 	public void insertAnagrafica(Anagrafica anagrafica) throws SQLException {
 		PreparedStatement pst_anagrafica = Database.getDatabase().getConnection().prepareStatement(
-				"INSERT INTO Anagrafica(luogo_di_nascita, data_di_nascita, nazionalita, nome, cognome, telefono, email) VALUES (?,?,?,?,?,?,?);");
+				"INSERT INTO Anagrafica(luogo_di_nascita, data_di_nascita, nazionalita, nome, cognome, telefono, email) VALUES (?,?,?,?,?,?,?);", 
+				Statement.RETURN_GENERATED_KEYS);
+		
 		pst_anagrafica.setString(1, anagrafica.getLuogo_di_nascita());
 
 		pst_anagrafica.setDate(2, java.sql.Date.valueOf(anagrafica.getData_di_nascita()));
@@ -73,9 +71,11 @@ public class AnagraficaDAO implements IAnagraficaDAO {
 		pst_anagrafica.setString(5, anagrafica.getCognome());
 		pst_anagrafica.setString(6, anagrafica.getTelefono());
 		pst_anagrafica.setString(7, anagrafica.getEmail());
-		pst_anagrafica.execute();
+		pst_anagrafica.executeUpdate();
 		
-		System.out.println(pst_anagrafica.toString());
+		ResultSet r = pst_anagrafica.getGeneratedKeys();
+		r.next();
+		anagrafica.setId_anagrafica(r.getInt(1));
 	}
 	
 	@Override

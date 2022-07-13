@@ -4,7 +4,7 @@ public class Lavoratore_Lingua {
 	private int id_lingua;
 	private int id_lavoratore;
 
-	public Lavoratore_Lingua(int id_lingua, int id_lavoratore) {
+	public Lavoratore_Lingua(int id_lavoratore, int id_lingua) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.id_lingua = id_lingua;

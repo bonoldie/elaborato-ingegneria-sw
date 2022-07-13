@@ -49,7 +49,8 @@ CREATE TABLE Disponibilita(
 CREATE TABLE lavoro_svolto(
 	id_lavoro_svolto SERIAL,
 	id_lavoratore SERIAL REFERENCES lavoratore(id_lavoratore),
-	periodo INTERVAL,
+	data_inizio DATE,
+	data_fine DATE,
 	nome_azienda VARCHAR(30),
 	mansione_svolta VARCHAR(30),
 	luogo_di_lavoro VARCHAR(30),

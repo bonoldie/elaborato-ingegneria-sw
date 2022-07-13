@@ -4,7 +4,7 @@ public class Lavoratore_Patente {
 	private int id_patente;
 	private int id_lavoratore;
 
-	public Lavoratore_Patente(int id_patente, int id_lavoratore) {
+	public Lavoratore_Patente(int id_lavoratore, int id_patente) {
 		// TODO Auto-generated constructor stub
 		this.id_patente = id_patente;
 		this.id_lavoratore = id_lavoratore;

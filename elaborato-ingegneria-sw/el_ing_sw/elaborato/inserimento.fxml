@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="932.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="elaborato.inserimento_controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="932.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="elaborato.inserimento_controller">
    <children>
       <Label layoutX="81.0" layoutY="14.0" text="dati lavoratore">
          <font>
@@ -54,14 +54,16 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="371.0" layoutY="230.0" text="periodo di disponibilità" />
-      <Label layoutX="396.0" layoutY="256.0" text="comune" />
-      <TextField fx:id="periodo_id" layoutX="496.0" layoutY="226.0" />
-      <TextField fx:id="comune_id" layoutX="497.0" layoutY="253.0" />
+      <Label layoutX="440.0" layoutY="299.0" text="comune" />
+      <TextField fx:id="comune_id" layoutX="498.0" layoutY="295.0" />
       <ListView fx:id="patenti_list_view" layoutX="366.0" layoutY="383.0" prefHeight="200.0" prefWidth="200.0" />
       <DatePicker fx:id="data_n_id" layoutX="103.0" layoutY="130.0" prefHeight="26.0" prefWidth="185.0" />
       <ListView fx:id="lingua_view" layoutX="614.0" layoutY="383.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="447.0" layoutY="352.0" text="Patenti" />
       <Label layoutX="676.0" layoutY="352.0" text="Lingue parlate" />
+      <DatePicker fx:id="disp_data_fine" layoutX="485.0" layoutY="261.0" />
+      <DatePicker fx:id="disp_data_inizio" layoutX="485.0" layoutY="226.0" />
+      <Label layoutX="403.0" layoutY="230.0" text="Data inizio" />
+      <Label layoutX="403.0" layoutY="265.0" text="Data fine" />
    </children>
 </AnchorPane>

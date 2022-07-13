@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IAnagraficaDAO {
-	public List<Anagrafica> getAllAnagrafica();
+	public List<Anagrafica> getAllAnagrafica() throws SQLException;
 
 	public Anagrafica getAnagrafica(int id_anagrafica);
 

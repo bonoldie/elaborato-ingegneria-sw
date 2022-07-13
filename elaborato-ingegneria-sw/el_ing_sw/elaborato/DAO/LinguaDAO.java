@@ -15,30 +15,20 @@ public class LinguaDAO implements ILinguaDAO {
 	}
 
 	@Override
-	public List<Lingua> getAllLingue() {
+	public List<Lingua> getAllLingue() throws SQLException {
 		// TODO Auto-generated method stub
 		List<Lingua> lingue = new ArrayList<>();
-		
+
 		ResultSet rs_lingua;
-		try {
-			Statement st_lingua = Database.getDatabase().getConnection().createStatement();	
-			
-			rs_lingua = st_lingua.executeQuery("SELECT * FROM lingua ");
-			
-			while(rs_lingua.next()) {
-				lingue.add(
-						new Lingua(
-								rs_lingua.getInt("id_lingua"),
-								rs_lingua.getString("nome_lingua")
-								)
-						);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		Statement st_lingua = Database.getDatabase().getConnection().createStatement();
+
+		rs_lingua = st_lingua.executeQuery("SELECT * FROM lingua ");
+
+		while (rs_lingua.next()) {
+			lingue.add(new Lingua(rs_lingua.getInt("id_lingua"), rs_lingua.getString("nome_lingua")));
 		}
-		
+
 		return lingue;
 	}
 
