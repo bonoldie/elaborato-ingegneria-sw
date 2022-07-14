@@ -27,6 +27,8 @@ public class ins_ric_controller {
 	Button ricerca;
 	@FXML
 	Button inserimento;
+	@FXML
+	Button aggiornamento_lavori;
 
 	@FXML
 	private void ricerca_finestra(ActionEvent event) throws IOException {
@@ -54,6 +56,21 @@ public class ins_ric_controller {
 		// specifico la modalita della nuova finestra
 		primaryStage.initModality(Modality.WINDOW_MODAL);
 		primaryStage.initOwner(inserimento.getScene().getWindow()); // specifica il proprietario della nuova finestra;
+																	// mi da problemi
+		primaryStage.show();
+	}
+	
+	@FXML
+	private void aggiornamento_finestra(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("aggiornamento.fxml"));
+
+		Scene scene = new Scene(root);
+		Stage primaryStage = new Stage();
+		primaryStage.setTitle("aggiornamento");
+		primaryStage.setScene(scene);
+		// specifico la modalita della nuova finestra
+		primaryStage.initModality(Modality.WINDOW_MODAL);
+		primaryStage.initOwner(aggiornamento_lavori.getScene().getWindow()); // specifica il proprietario della nuova finestra;
 																	// mi da problemi
 		primaryStage.show();
 	}
