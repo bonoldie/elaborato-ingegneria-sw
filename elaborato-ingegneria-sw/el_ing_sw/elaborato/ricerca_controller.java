@@ -2,12 +2,14 @@ package elaborato;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import elaborato.DAO.Lingua;
 import elaborato.DAO.LinguaDAO;
 import elaborato.DAO.Patente;
 import elaborato.DAO.PatenteDAO;
+import elaborato.ricerca.PatenteFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -72,6 +74,20 @@ public class ricerca_controller implements Initializable{
 		
 		LinguaDAO linguaDAO = new LinguaDAO();
 		PatenteDAO patenteDAO = new PatenteDAO();
+		
+		// Filter test !! NEW !! 
+		PatenteFilter pf = new PatenteFilter();
+		
+		try {
+			for(Patente p: patenteDAO.getAllPatente()) {
+				pf.addFilterElement(p);
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		System.out.println(pf.getFilterQueryString("AND"));
 
 		try {
 			this.lingua = FXCollections.observableArrayList(linguaDAO.getAllLingue());
