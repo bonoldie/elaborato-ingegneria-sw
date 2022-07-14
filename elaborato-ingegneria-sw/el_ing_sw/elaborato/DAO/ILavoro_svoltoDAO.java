@@ -12,5 +12,5 @@ public interface ILavoro_svoltoDAO {
 	
 	public void updateLavoro_svolto(Lavoro_svolto lavoro_svolto);
 
-	public void deleteLavoro_svolto(Lavoro_svolto lavoro_svolto);
+	public void deleteLavoro_svolto(Lavoro_svolto lavoro_svolto) throws SQLException;
 }

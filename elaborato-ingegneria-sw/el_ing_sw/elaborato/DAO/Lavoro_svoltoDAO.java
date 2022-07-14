@@ -54,7 +54,7 @@ public class Lavoro_svoltoDAO implements ILavoro_svoltoDAO {
 	@Override
 	public void insertLavoro_svolto(Lavoro_svolto lavoro_svolto) throws SQLException {
 		PreparedStatement pst_lavoro_svolto = Database.getDatabase().getConnection()
-				.prepareStatement("INSERT INTO Lavoratore(id_lavoro_svolto, id_lavoratore, data_inizio, data_fine, nome_azienda, mansione_svolta, luogo_di_lavoro, retri_lorda_giornaliera) VALUES (?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+				.prepareStatement("INSERT INTO lavoro_svolto(id_lavoro_svolto, id_lavoratore, data_inizio, data_fine, nome_azienda, mansione_svolta, luogo_di_lavoro, retri_lorda_giornaliera) VALUES (?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 		pst_lavoro_svolto.setInt(1, lavoro_svolto.getId_lavoro_svolto());
 		pst_lavoro_svolto.setInt(2, lavoro_svolto.getId_lavoratore());
 		pst_lavoro_svolto.setDate(3, java.sql.Date.valueOf(lavoro_svolto.getData_inizio()));
@@ -78,9 +78,19 @@ public class Lavoro_svoltoDAO implements ILavoro_svoltoDAO {
 	}
 
 	@Override
-	public void deleteLavoro_svolto(Lavoro_svolto lavoro_svolto) {
+	public void deleteLavoro_svolto(Lavoro_svolto lavoro_svolto) throws SQLException {
 		// TODO Auto-generated method stub
-
+		if(lavoro_svolto==null) { //attivarlo ogni volta apro aggiorna
+			PreparedStatement pst_lavoro_svolto = Database.getDatabase().getConnection()
+					.prepareStatement("DELETE FROM Lavoro_svolto WHERE current_date-data_fine>1825;");
+			pst_lavoro_svolto.executeUpdate();
+		}
+		else {
+			PreparedStatement pst_lavoro_svolto = Database.getDatabase().getConnection()
+					.prepareStatement("DELETE FROM Lavoro_svolto WHERE id_lavoro_svolto=?;");
+			pst_lavoro_svolto.setInt(1, lavoro_svolto.getId_lavoro_svolto());
+			pst_lavoro_svolto.executeUpdate();
+		}
 	}
 
 }
