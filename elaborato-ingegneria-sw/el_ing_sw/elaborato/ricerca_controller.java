@@ -2,13 +2,18 @@ package elaborato;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import elaborato.DAO.Lingua;
 import elaborato.DAO.LinguaDAO;
 import elaborato.DAO.Patente;
 import elaborato.DAO.PatenteDAO;
+import elaborato.DAO.Specializzazione;
+import elaborato.DAO.SpecializzazioneDAO;
+import elaborato.ricerca.Filter;
 import elaborato.ricerca.PatenteFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +30,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class ricerca_controller implements Initializable{
-
+	
+	List<Filter> filters;
+	
 	@FXML
 	private TextField id_lavoratore_r;
 	
@@ -59,21 +66,21 @@ public class ricerca_controller implements Initializable{
 	private Button ricerca_dati;
 	
 	@FXML
-	private ListView<String> mansioni_indicate_r;
-	ObservableList<String> specializzazioni = FXCollections.observableArrayList("bagnino", "barman",
-			"istruttore di nuoto", "viticultore", "floricultore");
+	private ListView<Specializzazione> mansioni_indicate_r;
+	ObservableList<Specializzazione> specializzazioni;
 	
 	@FXML
 	private void ricercadati(ActionEvent event) {
-		System.out.println("prova");
+		
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		this.filters = new ArrayList<>();
 		
 		LinguaDAO linguaDAO = new LinguaDAO();
 		PatenteDAO patenteDAO = new PatenteDAO();
+		SpecializzazioneDAO specDAO = new SpecializzazioneDAO();
 		
 		// Filter test !! NEW !! 
 		PatenteFilter pf = new PatenteFilter();
@@ -83,7 +90,6 @@ public class ricerca_controller implements Initializable{
 				pf.addFilterElement(p);
 			}
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -92,6 +98,7 @@ public class ricerca_controller implements Initializable{
 		try {
 			this.lingua = FXCollections.observableArrayList(linguaDAO.getAllLingue());
 			this.tipo_patente = FXCollections.observableArrayList(patenteDAO.getAllPatente());
+			this.specializzazioni = FXCollections.observableArrayList(specDAO.getAllSpecializzazione());
 		}catch (SQLException e) {
 			System.out.println(e);
 			System.out.println("Errore nel caricamento delle lingue e patenti");
