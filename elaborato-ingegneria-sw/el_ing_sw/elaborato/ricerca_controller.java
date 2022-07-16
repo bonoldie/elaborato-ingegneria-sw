@@ -121,7 +121,7 @@ public class ricerca_controller implements Initializable{
 			});*/
 			FilterAnagrafica test = new FilterAnagrafica("pietro","ronca","prova@");
 			laf.addFilterElement(test);
-			af.addFilterElement("true");
+			af.addFilterElement(true);
 			
 		/*} catch (SQLException e1) {
 			e1.printStackTrace();

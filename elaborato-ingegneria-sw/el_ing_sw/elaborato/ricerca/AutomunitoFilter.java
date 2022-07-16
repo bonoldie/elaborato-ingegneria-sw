@@ -1,8 +1,9 @@
 package elaborato.ricerca;
 
+import java.util.HashSet;
 import java.util.Set;
 
-public class AutomunitoFilter implements Filter<String> {
+public class AutomunitoFilter implements Filter<Boolean> {
 	
 	//ERRORE: Cannot invoke "java.util.Set.add(Object)" because "this.dati" is null
 	//
@@ -12,23 +13,27 @@ public class AutomunitoFilter implements Filter<String> {
 	
 	private static String sqlPrefix = "SELECT l.id_lavoratore FROM lavoratore l";
 	
-	Set<String> dati;
+	Set<Boolean> dati;
 
+	public AutomunitoFilter() {
+		this.dati = new HashSet<Boolean>();
+	}
+	
 	@Override
-	public Set<String> getFilterSet() {
+	public Set<Boolean> getFilterSet() {
 		// TODO Auto-generated method stub
 		return this.dati;
 	}
 
 	@Override
-	public Set<String> addFilterElement(String element) {
+	public Set<Boolean> addFilterElement(Boolean element) {
 		// TODO Auto-generated method stub
 		this.dati.add(element);
 		return this.dati;
 	}
 
 	@Override
-	public void removeFilterElement(String element) {
+	public void removeFilterElement(Boolean element) {
 		// TODO Auto-generated method stub
 		this.dati.remove(element);
 	}
