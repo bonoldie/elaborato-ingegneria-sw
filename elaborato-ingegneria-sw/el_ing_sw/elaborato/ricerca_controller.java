@@ -9,15 +9,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import elaborato.DAO.FilterAnagrafica;
 import elaborato.DAO.Lingua;
 import elaborato.DAO.LinguaDAO;
 import elaborato.DAO.Patente;
 import elaborato.DAO.PatenteDAO;
 import elaborato.DAO.Specializzazione;
 import elaborato.DAO.SpecializzazioneDAO;
+import elaborato.ricerca.AutomunitoFilter;
 import elaborato.ricerca.DisponibilitaComuneFilter;
 import elaborato.ricerca.DisponibilitaDataFilter;
 import elaborato.ricerca.Filter;
+import elaborato.ricerca.LavoratoreFilter;
 import elaborato.ricerca.LinguaFilter;
 import elaborato.ricerca.PatenteFilter;
 import elaborato.ricerca.SpecializzazioneFilter;
@@ -89,14 +92,17 @@ public class ricerca_controller implements Initializable{
 		SpecializzazioneDAO specDAO = new SpecializzazioneDAO();
 		
 		// Filters test !! NEW !! 
-		PatenteFilter pf = new PatenteFilter();
-		DisponibilitaDataFilter dispDataInizioFilter = new DisponibilitaDataFilter("data_inizio", ">");
-		DisponibilitaDataFilter dispDataFineFilter = new DisponibilitaDataFilter("data_fine", "<");
-		DisponibilitaComuneFilter dispComuneFilter = new DisponibilitaComuneFilter();
-		LinguaFilter lf = new LinguaFilter();
-		SpecializzazioneFilter sf = new SpecializzazioneFilter();
+		//PatenteFilter pf = new PatenteFilter();
+		//DisponibilitaDataFilter dispDataInizioFilter = new DisponibilitaDataFilter("data_inizio", ">");
+		//DisponibilitaDataFilter dispDataFineFilter = new DisponibilitaDataFilter("data_fine", "<");
+		//DisponibilitaComuneFilter dispComuneFilter = new DisponibilitaComuneFilter();
+		//LinguaFilter lf = new LinguaFilter();
+		//SpecializzazioneFilter sf = new SpecializzazioneFilter();
+		//filter automunito
+		LavoratoreFilter laf =  new LavoratoreFilter();
+		AutomunitoFilter af = new AutomunitoFilter();
 		
-		try {
+		/*try {
 			patenteDAO.getAllPatente().forEach(p -> {
 				pf.addFilterElement(p);
 			});
@@ -112,14 +118,18 @@ public class ricerca_controller implements Initializable{
 			
 			specDAO.getAllSpecializzazione().forEach(s -> {
 				sf.addFilterElement(s);
-			});
+			});*/
+			FilterAnagrafica test = new FilterAnagrafica("pietro","ronca","prova@");
+			laf.addFilterElement(test);
+			af.addFilterElement("true");
 			
-		} catch (SQLException e1) {
+		/*} catch (SQLException e1) {
 			e1.printStackTrace();
 			System.out.println("Errore nella creazione dei filtri di test");
-		}
+		}*/
 		
-		this.filters.addAll(Arrays.asList(pf, dispDataInizioFilter, dispDataFineFilter, dispComuneFilter, lf, sf));
+		//this.filters.addAll(Arrays.asList(pf, dispDataInizioFilter, dispDataFineFilter, dispComuneFilter, lf, sf));
+		this.filters.addAll(Arrays.asList(laf, af));
 		
 		try {
 			this.lingua = FXCollections.observableArrayList(linguaDAO.getAllLingue());

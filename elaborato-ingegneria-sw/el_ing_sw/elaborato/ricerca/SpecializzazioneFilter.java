@@ -63,4 +63,16 @@ public class SpecializzazioneFilter implements Filter<Specializzazione> {
 		return sqlPrefix + " WHERE " + this.getFilterQueryString(collation);
 	}
 
+	@Override
+	public String getNameFilter() {
+		// TODO Auto-generated method stub
+		return "specializzazione";
+	}
+
+	@Override
+	public String getIdFilter() {
+		// TODO Auto-generated method stub
+		return "6";
+	}
+
 }

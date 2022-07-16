@@ -63,5 +63,17 @@ public class DisponibilitaDataFilter implements Filter<LocalDate> {
 		
 		return sqlPrefix + " WHERE " + this.getFilterQueryString(collation);
 	}
+
+	@Override
+	public String getNameFilter() {
+		// TODO Auto-generated method stub
+		return "periodo";
+	}
+
+	@Override
+	public String getIdFilter() {
+		// TODO Auto-generated method stub
+		return "4";
+	}
 	
 }

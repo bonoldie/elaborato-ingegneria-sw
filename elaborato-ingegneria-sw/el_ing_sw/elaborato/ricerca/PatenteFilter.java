@@ -67,4 +67,16 @@ public class PatenteFilter implements Filter<Patente> {
 	public Set<Patente> getFilterSet() {
 		return this.patenti;
 	}
+
+	@Override
+	public String getNameFilter() {
+		// TODO Auto-generated method stub
+		return "patente";
+	}
+
+	@Override
+	public String getIdFilter() {
+		// TODO Auto-generated method stub
+		return "5";
+	}
 }

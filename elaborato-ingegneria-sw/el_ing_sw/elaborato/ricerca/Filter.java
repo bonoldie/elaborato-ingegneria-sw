@@ -10,4 +10,6 @@ public interface Filter<T extends Object> {
 	
 	public String getFilterQueryString(String collation);
 	public String getQueryString(String collation);
+	public String getNameFilter();
+	public String getIdFilter();
 }

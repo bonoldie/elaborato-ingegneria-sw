@@ -64,4 +64,16 @@ public class LinguaFilter implements Filter<Lingua> {
 		return sqlPrefix + " WHERE " + this.getFilterQueryString(collation);
 	}
 
+	@Override
+	public String getNameFilter() {
+		// TODO Auto-generated method stub
+		return "Lingua";
+	}
+
+	@Override
+	public String getIdFilter() {
+		// TODO Auto-generated method stub
+		return "1";
+	}
+
 }
