@@ -8,10 +8,10 @@ import java.util.List;
 public class SpecializzazioneDAO implements ISpecializzazioneDAO {
 	
 	private static List<Specializzazione> specializzazioni = Arrays.asList(new Specializzazione(0, "bagnino")
-	                                              			,new Specializzazione(0, "barman")
-	                                            			,new Specializzazione(0, "istruttore di nuoto")
-	                                            			,new Specializzazione(0, "viticultore")
-	                                            			,new Specializzazione(0, "floricultore"));
+	                                              			,new Specializzazione(1, "barman")
+	                                            			,new Specializzazione(2, "istruttore di nuoto")
+	                                            			,new Specializzazione(3, "viticultore")
+	                                            			,new Specializzazione(4, "floricultore"));
 	
 	public SpecializzazioneDAO() {
 		

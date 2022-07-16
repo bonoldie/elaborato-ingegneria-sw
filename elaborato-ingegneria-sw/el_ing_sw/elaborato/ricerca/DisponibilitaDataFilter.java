@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DisponibilitaFilter implements Filter<LocalDate> {
+public class DisponibilitaDataFilter implements Filter<LocalDate> {
 	
 	private static String rifTabella = "d";
 	private String rifColonna;
@@ -14,7 +14,7 @@ public class DisponibilitaFilter implements Filter<LocalDate> {
 	
 	Set<LocalDate> date;
 	
-	public DisponibilitaFilter(String rifColonna, String rifOperator) {
+	public DisponibilitaDataFilter(String rifColonna, String rifOperator) {
 		this.rifColonna = rifColonna;
 		this.rifOperator = rifOperator;
 		

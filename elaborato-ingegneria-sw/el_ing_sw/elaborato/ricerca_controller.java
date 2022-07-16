@@ -2,8 +2,10 @@ package elaborato;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -13,8 +15,12 @@ import elaborato.DAO.Patente;
 import elaborato.DAO.PatenteDAO;
 import elaborato.DAO.Specializzazione;
 import elaborato.DAO.SpecializzazioneDAO;
+import elaborato.ricerca.DisponibilitaComuneFilter;
+import elaborato.ricerca.DisponibilitaDataFilter;
 import elaborato.ricerca.Filter;
+import elaborato.ricerca.LinguaFilter;
 import elaborato.ricerca.PatenteFilter;
+import elaborato.ricerca.SpecializzazioneFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,7 +77,7 @@ public class ricerca_controller implements Initializable{
 	
 	@FXML
 	private void ricercadati(ActionEvent event) {
-		
+		this.filters.forEach(f -> System.out.println(f.getQueryString("AND")));
 	}
 
 	@Override
@@ -82,19 +88,39 @@ public class ricerca_controller implements Initializable{
 		PatenteDAO patenteDAO = new PatenteDAO();
 		SpecializzazioneDAO specDAO = new SpecializzazioneDAO();
 		
-		// Filter test !! NEW !! 
+		// Filters test !! NEW !! 
 		PatenteFilter pf = new PatenteFilter();
+		DisponibilitaDataFilter dispDataInizioFilter = new DisponibilitaDataFilter("data_inizio", ">");
+		DisponibilitaDataFilter dispDataFineFilter = new DisponibilitaDataFilter("data_fine", "<");
+		DisponibilitaComuneFilter dispComuneFilter = new DisponibilitaComuneFilter();
+		LinguaFilter lf = new LinguaFilter();
+		SpecializzazioneFilter sf = new SpecializzazioneFilter();
 		
 		try {
-			for(Patente p: patenteDAO.getAllPatente()) {
+			patenteDAO.getAllPatente().forEach(p -> {
 				pf.addFilterElement(p);
-			}
+			});
+			
+			dispDataInizioFilter.addFilterElement(LocalDate.now());
+			dispDataFineFilter.addFilterElement(LocalDate.now());
+			
+			linguaDAO.getAllLingue().forEach(l -> {
+				lf.addFilterElement(l);
+			});
+			
+			dispComuneFilter.addFilterElement("Civitanova Marche");
+			
+			specDAO.getAllSpecializzazione().forEach(s -> {
+				sf.addFilterElement(s);
+			});
+			
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			System.out.println("Errore nella creazione dei filtri di test");
 		}
 		
-		System.out.println(pf.getFilterQueryString("AND"));
-
+		this.filters.addAll(Arrays.asList(pf, dispDataInizioFilter, dispDataFineFilter, dispComuneFilter, lf, sf));
+		
 		try {
 			this.lingua = FXCollections.observableArrayList(linguaDAO.getAllLingue());
 			this.tipo_patente = FXCollections.observableArrayList(patenteDAO.getAllPatente());

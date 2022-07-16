@@ -10,7 +10,7 @@ import elaborato.DAO.Patente;
 
 public class LinguaFilter implements Filter<Lingua> {
 
-	private static String rifTabella = "ll";
+	private static String rifTabella = "li";
 	private static String rifColonna = "nome_lingua";
 
 	private static String sqlPrefix = " SELECT l.id_lavoratore FROM lavoratore l left join lavoratore_lingua ll  on l.id_lavoratore = ll.id_lavoratore  join  lingua li ON  ll.id_lingua  = li.id_lingua ";

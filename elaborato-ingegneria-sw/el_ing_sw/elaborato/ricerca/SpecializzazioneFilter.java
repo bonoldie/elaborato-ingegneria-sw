@@ -1,23 +1,24 @@
 package elaborato.ricerca;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import elaborato.DAO.Patente;
 import elaborato.DAO.Specializzazione;
 
-public class SpezializzazioneFilter implements Filter<Specializzazione> {
-	private static String rifTabella = "lavoratore_esperienza";
+public class SpecializzazioneFilter implements Filter<Specializzazione> {
+	private static String rifTabella = "le";
 	private static String rifColonna = "esperienza";
 
-	private static String sqlPrefix = " SELECT l.id_lavoratore FROM lavoratore l left join lavoratore_patente lp on l.id_lavoratore = lp.id_lavoratore join patente p on lp.id_patente = p.id_patente";
+	private static String sqlPrefix = "SELECT l.id_lavoratore	FROM lavoratore l  left join lavoratore_esperienza le on l.id_lavoratore = le.id_lavoratore";
 
 	private Set<Specializzazione> specs;
 		
 	
-	public SpezializzazioneFilter() {
-		
+	public SpecializzazioneFilter() {
+		this.specs = new HashSet<Specializzazione>();
 	}
 	
 	@Override
