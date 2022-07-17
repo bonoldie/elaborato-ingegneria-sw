@@ -32,7 +32,7 @@ public class ins_ric_controller {
 
 	@FXML
 	private void ricerca_finestra(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("ricerca.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("ricerca3.fxml"));
 
 		Scene scene = new Scene(root);
 		Stage primaryStage = new Stage();

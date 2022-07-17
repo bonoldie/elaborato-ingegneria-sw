@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="elaborato.ricerca3_controller">
+   <children>
+      <Button fx:id="crea_listview" layoutX="726.0" layoutY="14.0" mnemonicParsing="false" onAction="#crea_listview" text="aggiungi lista filtri" />
+      <HBox layoutX="25.0" layoutY="27.0">
+         <children>
+            <Button fx:id="nuovo_filtro" mnemonicParsing="false" onAction="#nuovo_filtro_oa" prefHeight="26.0" prefWidth="30.0" text="+" />
+            <ListView fx:id="lista_filtri" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
