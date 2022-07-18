@@ -50,21 +50,11 @@ public class scelta_filtro_controller implements Initializable{
 		Parent root = null;
 		Scene scene = null;
 		Stage primaryStage = null;
+		FXMLLoader loader= null;
 		
 		switch(tipi_filtro.getSelectionModel().getSelectedItem()) {
 		case "automunito":
-			//root = FXMLLoader.load(getClass().getResource("automunito.fxml"));
-
-			/*scene = new Scene(root);
-			primaryStage = new Stage();
-			primaryStage.setTitle("scegliere_filtro");
-			
-			// specifico la modalita della nuova finestra
-			primaryStage.initModality(Modality.WINDOW_MODAL);
-			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
-																		// mi da problemi
-			primaryStage.show();*/
-			FXMLLoader loader= new FXMLLoader(getClass().getResource("automunito.fxml"));
+			loader= new FXMLLoader(getClass().getResource("automunito.fxml"));
 			primaryStage = new Stage();
 			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
 			primaryStage.setScene(new Scene ((Parent) loader.load()));
@@ -75,50 +65,49 @@ public class scelta_filtro_controller implements Initializable{
 			automunito_controller am_controller = loader.getController();
 			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = am_controller.getfilter();
-			System.out.printf("%s\n",filtro.getQueryString(null));
-			//am_filtro = am_controller.
-			//controllo_tipo_filtro = filtro.getNameFilter();
-			//primaryStage.setScene(new Scene(root)); // provare a mettere solo scene
-			//primaryStage.show();
+			//System.out.printf("%s\n",filtro.getQueryString(null));
 			break;
 		case "comune":
-			root = FXMLLoader.load(getClass().getResource("comune.fxml"));
-
-			scene = new Scene(root);
+			loader= new FXMLLoader(getClass().getResource("comune.fxml"));
 			primaryStage = new Stage();
-			primaryStage.setTitle("scegliere_filtro");
-			primaryStage.setScene(scene);
-			// specifico la modalita della nuova finestra
-			primaryStage.initModality(Modality.WINDOW_MODAL);
 			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
-																		// mi da problemi
-			primaryStage.show();
+			primaryStage.setScene(new Scene ((Parent) loader.load()));
+			
+			//wait until the window close
+			primaryStage.showAndWait();
+			
+			comune_controller c_controller = loader.getController();
+			//AutomunitoFilter am_filtro = am_controller.getfilter();
+			filtro = c_controller.getfilter();
+			//System.out.printf("%s\n",filtro.getQueryString(null));
 			break;
 		case "disponibilita":
-			 root = FXMLLoader.load(getClass().getResource("periodo.fxml"));
-
-			scene = new Scene(root);
+			loader= new FXMLLoader(getClass().getResource("periodo.fxml"));
 			primaryStage = new Stage();
-			primaryStage.setTitle("scegliere_filtro");
-			primaryStage.setScene(scene);
-			// specifico la modalita della nuova finestra
-			primaryStage.initModality(Modality.WINDOW_MODAL);
 			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
-																		// mi da problemi
-			primaryStage.show();
+			primaryStage.setScene(new Scene ((Parent) loader.load()));
+			
+			//wait until the window close
+			primaryStage.showAndWait();
+			
+			periodo_controller p_controller = loader.getController();
+			//AutomunitoFilter am_filtro = am_controller.getfilter();
+			filtro = p_controller.getfilter();
+			//System.out.printf("%s\n",filtro.getQueryString(null));
 			break;
 		case "lavoratore":
-			 root = FXMLLoader.load(getClass().getResource("lavoratore.fxml"));
-
-			scene = new Scene(root);
+			loader= new FXMLLoader(getClass().getResource("lavoratore.fxml"));
 			primaryStage = new Stage();
-			primaryStage.setTitle("scegliere_filtro");
-			primaryStage.setScene(scene);
-			// specifico la modalita della nuova finestra
-			primaryStage.initModality(Modality.WINDOW_MODAL);
 			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
-																		// mi da problemi
-			primaryStage.show();
+			primaryStage.setScene(new Scene ((Parent) loader.load()));
+			
+			//wait until the window close
+			primaryStage.showAndWait();
+			
+			lavoratore_controller la_controller = loader.getController();
+			//AutomunitoFilter am_filtro = am_controller.getfilter();
+			filtro = la_controller.getfilter();
+			//System.out.printf("%s\n",filtro.getQueryString(null));
 			break;
 		case "lingua":
 			root = FXMLLoader.load(getClass().getResource("lingua.fxml"));

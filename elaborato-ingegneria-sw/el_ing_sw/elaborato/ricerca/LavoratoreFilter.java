@@ -1,6 +1,8 @@
 package elaborato.ricerca;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import elaborato.DAO.FilterAnagrafica;
@@ -56,25 +58,20 @@ public class LavoratoreFilter implements Filter<FilterAnagrafica> {
 			return "";
 		}
 		
-		String totalfilter = null;
+		List<String> totalfilter = new ArrayList<String>();
 		
 		FilterAnagrafica f = (FilterAnagrafica) this.dati.toArray()[0];
-		if(f.getNome().isEmpty()==false) {
-			totalfilter = rifTabella + "." + rifColonna_nome + "=" + "'" + f.getNome() + "'"; 
+		if(!f.getNome().isEmpty()) {
+			totalfilter.add(rifTabella + "." + rifColonna_nome + "=" + "'" + f.getNome() + "'");  
 		}
-		if(f.getCognome().isEmpty()==false) {
-			if(totalfilter.isEmpty())
-				totalfilter = rifTabella + "." + rifColonna_cognome + "=" + "'" + f.getCognome() + "'";
-			else
-				totalfilter += " AND " + rifTabella + "." + rifColonna_cognome + "=" + "'" + f.getCognome() + "'";		
+		if(!f.getCognome().isEmpty()) {
+				totalfilter.add(rifTabella + "." + rifColonna_cognome + "=" + "'" + f.getCognome() + "'");		
 		}
-		if(f.getEmail().isEmpty()==false) {
-			if(totalfilter.isEmpty())
-				totalfilter = rifTabella + "." + rifColonna_email + "=" + "'" + f.getEmail() + "'";
-			else
-				totalfilter += " AND " + rifTabella + "." + rifColonna_email + "=" + "'" + f.getEmail() + "'";
+		if(!f.getEmail().isEmpty()) { //MI DA PROBLEMI SE INSERISCO SOLO IL COGNOME, MI DA PROBLEMI ISEMPTY CON NULL!!
+				totalfilter.add(rifTabella + "." + rifColonna_email + "=" + "'" + f.getEmail() + "'");
 		}
-		return totalfilter;
+		
+		return String.join(" " + collation + " ", totalfilter);
 	}
 
 	@Override
@@ -84,7 +81,7 @@ public class LavoratoreFilter implements Filter<FilterAnagrafica> {
 			return sqlPrefix;
 		}
 		
-		return sqlPrefix + "WHERE" + this.getFilterQueryString(collation);
+		return sqlPrefix + " WHERE " + this.getFilterQueryString(collation);
 	}
 
 	@Override
