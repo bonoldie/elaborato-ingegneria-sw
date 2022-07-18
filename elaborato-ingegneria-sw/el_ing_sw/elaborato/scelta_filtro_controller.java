@@ -23,6 +23,24 @@ public class scelta_filtro_controller implements Initializable{
 	private ChoiceBox<String> tipi_filtro;
 	@FXML
 	private Button visiona_finestra_filtro;
+	
+	//private String controllo_tipo_filtro;
+	
+	private Filter filtro;
+	
+	/*private AutomunitoFilter filtro_af;
+	private DisponibilitaComuneFilter filtro_dcf;
+	private DisponibilitaDataFilter filtro_ddf;
+	private LavoratoreFilter filtro_laf;
+	private LinguaFilter filtro_lf;
+	private PatenteFilter filtro_pf;
+	private SpecializzazioneFilter filtro_sf;*/
+	
+	
+	public Filter getfiltro() {
+		//inseire i vari switch/if in bae al controllo_tipo_filtro
+		return filtro;
+	}
 
 	// Event Listener on Button[#visiona_finestra_filtro].onAction
 	@FXML
@@ -35,17 +53,33 @@ public class scelta_filtro_controller implements Initializable{
 		
 		switch(tipi_filtro.getSelectionModel().getSelectedItem()) {
 		case "automunito":
-			root = FXMLLoader.load(getClass().getResource("automunito.fxml"));
+			//root = FXMLLoader.load(getClass().getResource("automunito.fxml"));
 
-			scene = new Scene(root);
+			/*scene = new Scene(root);
 			primaryStage = new Stage();
 			primaryStage.setTitle("scegliere_filtro");
-			primaryStage.setScene(scene);
+			
 			// specifico la modalita della nuova finestra
 			primaryStage.initModality(Modality.WINDOW_MODAL);
 			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
 																		// mi da problemi
-			primaryStage.show();
+			primaryStage.show();*/
+			FXMLLoader loader= new FXMLLoader(getClass().getResource("automunito.fxml"));
+			primaryStage = new Stage();
+			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
+			primaryStage.setScene(new Scene ((Parent) loader.load()));
+			
+			//wait until the window close
+			primaryStage.showAndWait();
+			
+			automunito_controller am_controller = loader.getController();
+			//AutomunitoFilter am_filtro = am_controller.getfilter();
+			filtro = am_controller.getfilter();
+			System.out.printf("%s\n",filtro.getQueryString(null));
+			//am_filtro = am_controller.
+			//controllo_tipo_filtro = filtro.getNameFilter();
+			//primaryStage.setScene(new Scene(root)); // provare a mettere solo scene
+			//primaryStage.show();
 			break;
 		case "comune":
 			root = FXMLLoader.load(getClass().getResource("comune.fxml"));
@@ -113,7 +147,7 @@ public class scelta_filtro_controller implements Initializable{
 			primaryStage.show();
 			break;
 		}
-		
+		visiona_finestra_filtro.getScene().getWindow().hide();
 	}
 
 	@Override

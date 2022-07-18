@@ -51,7 +51,7 @@ public class AutomunitoFilter implements Filter<Boolean> {
 			return "";
 		}
 		
-		String b = (String)this.dati.toArray()[0];
+		Boolean b = (Boolean)this.dati.toArray()[0];
 		return rifTabella + "." + rifColonna + "=" + "'" + b + "'";
 	}
 
@@ -62,7 +62,7 @@ public class AutomunitoFilter implements Filter<Boolean> {
 			return sqlPrefix;
 		}
 		
-		return sqlPrefix + "WHERE" + this.getFilterQueryString(collation);
+		return sqlPrefix + " WHERE " + this.getFilterQueryString(collation);
 	}
 	
 	@Override
