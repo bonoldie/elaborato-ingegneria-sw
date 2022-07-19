@@ -10,7 +10,7 @@ public interface ILavoro_svoltoDAO {
 
 	public void insertLavoro_svolto(Lavoro_svolto lavoro_svolto) throws SQLException;
 	
-	public void updateLavoro_svolto(Lavoro_svolto lavoro_svolto);
+	public void updateLavoro_svolto(Lavoro_svolto lavoro_svolto) throws SQLException;
 
 	public void deleteLavoro_svolto(Lavoro_svolto lavoro_svolto) throws SQLException;
 }

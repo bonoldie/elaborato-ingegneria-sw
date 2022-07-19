@@ -23,7 +23,7 @@ public class Lavoro_svoltoDAO implements ILavoro_svoltoDAO {
 
 			Statement st_anagrafica = Database.getDatabase().getConnection().createStatement();	
 			
-			rs_lavori_svolti = st_anagrafica.executeQuery("SELECT * FROM lavoro_svolto ");
+			rs_lavori_svolti = st_anagrafica.executeQuery("SELECT * FROM lavoro_svolto");
 			
 			while(rs_lavori_svolti.next()) {
 				lavori_svolti.add(
@@ -54,15 +54,14 @@ public class Lavoro_svoltoDAO implements ILavoro_svoltoDAO {
 	@Override
 	public void insertLavoro_svolto(Lavoro_svolto lavoro_svolto) throws SQLException {
 		PreparedStatement pst_lavoro_svolto = Database.getDatabase().getConnection()
-				.prepareStatement("INSERT INTO lavoro_svolto(id_lavoro_svolto, id_lavoratore, data_inizio, data_fine, nome_azienda, mansione_svolta, luogo_di_lavoro, retri_lorda_giornaliera) VALUES (?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
-		pst_lavoro_svolto.setInt(1, lavoro_svolto.getId_lavoro_svolto());
-		pst_lavoro_svolto.setInt(2, lavoro_svolto.getId_lavoratore());
-		pst_lavoro_svolto.setDate(3, java.sql.Date.valueOf(lavoro_svolto.getData_inizio()));
-		pst_lavoro_svolto.setDate(4, java.sql.Date.valueOf(lavoro_svolto.getData_fine()));
-		pst_lavoro_svolto.setString(5, lavoro_svolto.getNome_azienda());
-		pst_lavoro_svolto.setString(6, lavoro_svolto.getNome_azienda());
-		pst_lavoro_svolto.setString(7, lavoro_svolto.getLuogo_di_lavoro());
-		pst_lavoro_svolto.setBigDecimal(8, lavoro_svolto.getRetribuzione_lorda_giornaliera());
+				.prepareStatement("INSERT INTO lavoro_svolto(id_lavoratore, data_inizio, data_fine, nome_azienda, mansione_svolta, luogo_di_lavoro, retri_lorda_giornaliera) VALUES (?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+		pst_lavoro_svolto.setInt(1, lavoro_svolto.getId_lavoratore());
+		pst_lavoro_svolto.setDate(2, java.sql.Date.valueOf(lavoro_svolto.getData_inizio()));
+		pst_lavoro_svolto.setDate(3, java.sql.Date.valueOf(lavoro_svolto.getData_fine()));
+		pst_lavoro_svolto.setString(4, lavoro_svolto.getNome_azienda());
+		pst_lavoro_svolto.setString(5, lavoro_svolto.getMansione_svolta());
+		pst_lavoro_svolto.setString(6, lavoro_svolto.getLuogo_di_lavoro());
+		pst_lavoro_svolto.setBigDecimal(7, lavoro_svolto.getRetribuzione_lorda_giornaliera());
 		
 		pst_lavoro_svolto.executeUpdate();
 		
@@ -72,9 +71,19 @@ public class Lavoro_svoltoDAO implements ILavoro_svoltoDAO {
 	}
 	
 	@Override
-	public void updateLavoro_svolto(Lavoro_svolto lavoro_svolto) {
-		// TODO Auto-generated method stub
-
+	public void updateLavoro_svolto(Lavoro_svolto lavoro_svolto) throws SQLException {
+		PreparedStatement pst_lavoro_svolto = Database.getDatabase().getConnection()
+				.prepareStatement("UPDATE lavoro_svolto SET data_inizio=?,data_fine=?,nome_azienda=?,mansione_svolta=?,luogo_di_lavoro=?,retri_lorda_giornaliera=? WHERE id_lavoro_svolto=?;");
+		
+		pst_lavoro_svolto.setDate(1, java.sql.Date.valueOf(lavoro_svolto.getData_inizio()));
+		pst_lavoro_svolto.setDate(2, java.sql.Date.valueOf(lavoro_svolto.getData_fine()));
+		pst_lavoro_svolto.setString(3, lavoro_svolto.getNome_azienda());
+		pst_lavoro_svolto.setString(4, lavoro_svolto.getNome_azienda());
+		pst_lavoro_svolto.setString(5, lavoro_svolto.getLuogo_di_lavoro());
+		pst_lavoro_svolto.setBigDecimal(6, lavoro_svolto.getRetribuzione_lorda_giornaliera());
+		pst_lavoro_svolto.setInt(7, lavoro_svolto.getId_lavoro_svolto());
+		
+		pst_lavoro_svolto.executeUpdate();
 	}
 
 	@Override

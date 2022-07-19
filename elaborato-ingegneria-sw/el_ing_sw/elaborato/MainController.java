@@ -2,7 +2,12 @@ package elaborato;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Base64;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 import elaborato.DAO.DipendenteDAO;
@@ -30,15 +35,20 @@ public class MainController {
 	Button Sign_in;
 
 	@FXML
-	private void controllo_credenziali(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
+	private void controllo_credenziali(ActionEvent event) throws ClassNotFoundException, SQLException, IOException, NoSuchAlgorithmException {
 		System.out.println("prova");
 		// risultato_login.setText("prova"); //mi da errore non so se serve qualche
 
 		// da inserire dopo il controllo delle credenziali *****
 		// test
+		
+		// admin -> jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=
 
 		DipendenteDAO log = new DipendenteDAO();
-		Boolean d = log.getDipendenteLogin(login.getText(), password.getText());
+		byte[] hashedPasswd = MessageDigest.getInstance("SHA-256").digest(password.getText().getBytes(StandardCharsets.UTF_8));
+		String b64Passwd = Base64.getEncoder().encodeToString(hashedPasswd);
+		
+		Boolean d = log.getDipendenteLogin(login.getText(), b64Passwd);
 
 		if (d == true) {
 			Parent root = FXMLLoader.load(getClass().getResource("ric_ins.fxml"));

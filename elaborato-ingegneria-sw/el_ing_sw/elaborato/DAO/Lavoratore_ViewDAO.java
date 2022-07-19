@@ -18,11 +18,11 @@ public class Lavoratore_ViewDAO implements ILavoratore_ViewDAO {
 		
 		Statement st_lavoratore_view = Database.getDatabase().getConnection().createStatement();
 		
-		ResultSet r = st_lavoratore_view.executeQuery("SELECT * FROM dettagli_lavoratore;");
+		ResultSet r = st_lavoratore_view.executeQuery("SELECT * FROM dettagli_lavoratori;");
 		
 		
 		while(r.next()) {
-			lavoratori_view.add(new Lavoratore_View(r.getInt("id_lavoratore"), r.getString("esperienza"), r.getString("lingue"), r.getString("periodo_di_disponibilità"), r.getString("patenti_lavoratore"), r.getString("comuni_disponibili")));
+			lavoratori_view.add(new Lavoratore_View(r.getInt("id_lavoratore"), r.getString("esperienza"), r.getString("lingue"), r.getString("periodo_di_disponibilitï¿½"), r.getString("patenti_lavoratore"), r.getString("comuni_disponibili")));
 		}
 		return lavoratori_view;
 	}

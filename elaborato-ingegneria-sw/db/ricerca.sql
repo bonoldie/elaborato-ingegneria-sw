@@ -104,4 +104,9 @@ SELECT l.id_lavoratore
 		join disponibilita d ON  d.id_lavoratore = l.id_lavoratore
 		-- WHERE conditions
 ;
+
+
+create view anagrafiche_lavoratori as 
+select l.*, a.luogo_di_nascita  , a.data_di_nascita , a.nazionalita, a.nome , a.cognome , a.telefono , a.email  from lavoratore l join anagrafica a on l.id_anagrafica = a.id_anagrafica 
+
 	
