@@ -6,7 +6,7 @@ import java.util.List;
 public interface ILinguaDAO {
 	public List<Lingua> getAllLingue() throws SQLException ; 
 
-	public Lingua getLingua(int id_lingua);
+	public Lingua getLingua(int id_lingua) throws SQLException;
 
 	public void updateLingua(Lingua lingua);
 

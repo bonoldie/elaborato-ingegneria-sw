@@ -6,7 +6,7 @@ import java.util.List;
 public interface IPatenteDAO {
 	public List<Patente> getAllPatente() throws SQLException;
 
-	public Patente getPatente(int id_patente);
+	public Patente getPatente(int id_patente) throws SQLException;
 
 	public void updatePatente(Patente patente);
 

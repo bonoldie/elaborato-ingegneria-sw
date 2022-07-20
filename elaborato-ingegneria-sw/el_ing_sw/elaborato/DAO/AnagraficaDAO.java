@@ -48,23 +48,26 @@ public class AnagraficaDAO implements IAnagraficaDAO {
 	@Override
 	public Anagrafica getAnagrafica(int id_anagrafica) throws SQLException {
 		// TODO Auto-generated method stub
-		Statement st_anagrafica = Database.getDatabase().getConnection().createStatement();
-		ResultSet rs_anagrafica = st_anagrafica.executeQuery("SELECT * FROM Anagrafica a WHERE a.id_anagrafica=id_anagrafica");
+		PreparedStatement pst_anagrafica = Database.getDatabase().getConnection().prepareStatement("SELECT * FROM Anagrafica a WHERE a.id_anagrafica=? LIMIT 1");
+		pst_anagrafica.setInt(1, id_anagrafica);
 		
-		rs_anagrafica.next();
+		ResultSet rs_anagrafica = pst_anagrafica.executeQuery();
 		
-		Anagrafica anagrafica = new Anagrafica(
-				rs_anagrafica.getInt("id_anagrafica"),
-				rs_anagrafica.getString("luogo_di_nascita"),
-				rs_anagrafica.getDate("data_di_nascita").toLocalDate(),
-				rs_anagrafica.getString("nazionalita"),
-				rs_anagrafica.getString("nome"),
-				rs_anagrafica.getString("cognome"),
-				rs_anagrafica.getString("telefono"),
-				rs_anagrafica.getString("email")
-				);
 		
-		return anagrafica;
+		while(rs_anagrafica.next()) {
+		return new Anagrafica(
+					rs_anagrafica.getInt("id_anagrafica"),
+					rs_anagrafica.getString("luogo_di_nascita"),
+					rs_anagrafica.getDate("data_di_nascita").toLocalDate(),
+					rs_anagrafica.getString("nazionalita"),
+					rs_anagrafica.getString("nome"),
+					rs_anagrafica.getString("cognome"),
+					rs_anagrafica.getString("telefono"),
+					rs_anagrafica.getString("email")
+					);
+		}
+		
+		return null;
 		
 	}
 

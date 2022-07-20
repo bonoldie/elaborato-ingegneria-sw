@@ -33,9 +33,22 @@ public class Lavoratore_LinguaDAO implements ILavoratore_LinguaDAO {
 	}
 
 	@Override
-	public Lavoratore_Lingua getLavoratore_Lingua(int id_lingua) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Lavoratore_Lingua> getLavoratore_Lingua(int id_lavoratore) throws SQLException {
+		List<Lavoratore_Lingua> lavoratore_lingue= new ArrayList<>();
+
+		ResultSet rs_lavoratore_lingue;
+
+		PreparedStatement pst_lingue = Database.getDatabase().getConnection().prepareStatement("SELECT * FROM lavoratore_lingua WHERE id_lavoratore=?");
+		pst_lingue.setInt(1, id_lavoratore);
+
+		rs_lavoratore_lingue = pst_lingue.executeQuery();
+
+		while (rs_lavoratore_lingue.next()) {
+			lavoratore_lingue.add(new Lavoratore_Lingua(rs_lavoratore_lingue.getInt("id_lavoratore"), rs_lavoratore_lingue.getInt("id_lingua")));
+		}
+
+		return lavoratore_lingue; 
+
 	}
 
 	@Override

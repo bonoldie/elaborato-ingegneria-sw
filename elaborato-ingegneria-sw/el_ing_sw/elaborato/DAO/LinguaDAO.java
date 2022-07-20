@@ -1,5 +1,6 @@
 package elaborato.DAO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,8 +34,19 @@ public class LinguaDAO implements ILinguaDAO {
 	}
 
 	@Override
-	public Lingua getLingua(int id_lingua) {
+	public Lingua getLingua(int id_lingua) throws SQLException {
 		// TODO Auto-generated method stub
+		ResultSet rs_lingua;
+
+		PreparedStatement pst_lingua = Database.getDatabase().getConnection()
+				.prepareStatement("SELECT * FROM lingua WHERE id_lingua=? LIMIT 1");
+		pst_lingua.setInt(1, id_lingua);
+		rs_lingua = pst_lingua.executeQuery();
+
+		while (rs_lingua.next()) {
+			return new Lingua(rs_lingua.getInt("id_lingua"), rs_lingua.getString("nome_lingua"));
+		}
+
 		return null;
 	}
 

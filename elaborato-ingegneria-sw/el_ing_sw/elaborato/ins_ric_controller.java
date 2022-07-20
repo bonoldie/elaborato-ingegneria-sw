@@ -47,11 +47,11 @@ public class ins_ric_controller {
 
 	@FXML
 	private void inserimento_finestra(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("inserimento.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("lista_lavoratori.fxml"));
 
 		Scene scene = new Scene(root);
 		Stage primaryStage = new Stage();
-		primaryStage.setTitle("Inserimento");
+		primaryStage.setTitle("Lista lavoratori");
 		primaryStage.setScene(scene);
 		// specifico la modalita della nuova finestra
 		primaryStage.initModality(Modality.WINDOW_MODAL);

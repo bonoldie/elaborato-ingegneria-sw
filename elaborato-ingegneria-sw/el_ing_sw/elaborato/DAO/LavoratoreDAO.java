@@ -24,8 +24,24 @@ public class LavoratoreDAO implements ILavoratoreDAO {
 	}
 
 	@Override
-	public Lavoratore getLavoratore(int id_lavoratore) {
-		// TODO Auto-generated method stub
+	public Lavoratore getLavoratore(int id_lavoratore) throws SQLException {
+		ResultSet rs_lavoratore;
+
+			PreparedStatement pst_lavoratore = Database.getDatabase().getConnection().prepareStatement("SELECT * FROM lavoratore WHERE id_lavoratore=? LIMIT 1");	
+			pst_lavoratore.setInt(1, id_lavoratore);
+			rs_lavoratore = pst_lavoratore.executeQuery();
+			
+			while(rs_lavoratore.next()) {
+				return new Lavoratore(
+								rs_lavoratore.getInt("id_lavoratore"),
+								rs_lavoratore.getInt("id_anagrafica"),
+								rs_lavoratore.getInt("id_recapito_urgenza"),
+								rs_lavoratore.getString("indirizzo"),
+								rs_lavoratore.getBoolean("automunito")
+								);
+			}
+
+		
 		return null;
 	}
 	

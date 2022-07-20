@@ -6,7 +6,7 @@ import java.util.List;
 public interface ILavoratoreDAO {
 	public List<Lavoratore> getAllLavoratore() throws SQLException;
 
-	public Lavoratore getLavoratore(int id_lavoratore);
+	public Lavoratore getLavoratore(int id_lavoratore) throws SQLException;
 
 	public void updateLavoratore(Lavoratore lavoratore);
 	

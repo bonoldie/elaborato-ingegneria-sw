@@ -35,9 +35,25 @@ public class RecapitoDAO implements IRecapitoDAO {
 	}
 
 	@Override
-	public Recapito getRecapito(int id_recapito) {
-		// TODO Auto-generated method stub
-		return null;
+	public Recapito getRecapito(int id_recapito) throws SQLException {
+		ResultSet rs_recapito;
+
+		PreparedStatement pst_recapito = Database.getDatabase().getConnection().prepareStatement("SELECT * FROM recapito WHERE id_recapito=? LIMIT 1");	
+		pst_recapito.setInt(1, id_recapito);
+		rs_recapito = pst_recapito.executeQuery();
+		
+		while(rs_recapito.next()) {
+			return new Recapito(
+							rs_recapito.getInt("id_recapito"),
+							rs_recapito.getString("nome"),
+							rs_recapito.getString("cognome"),
+							rs_recapito.getString("email"),
+							rs_recapito.getString("telefono")
+							);
+		}
+
+	
+	return null;
 	}
 
 	@Override
