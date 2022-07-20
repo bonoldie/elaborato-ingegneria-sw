@@ -3,7 +3,7 @@ CREATE TABLE dipendenti (
 	id_dipendente SERIAL, --non presente nelle indicazioni
 	id_anagrafica SERIAL REFERENCES Anagrafica(id_anagrafica),
 	login VARCHAR(255) UNIQUE,
-	password VARCHAR(30), 
+	password VARCHAR(255), 
 	PRIMARY KEY (id_dipendente)
 );
 

@@ -17,6 +17,8 @@ import elaborato.DAO.Disponibilita;
 import elaborato.DAO.DisponibilitaDAO;
 import elaborato.DAO.Lavoratore;
 import elaborato.DAO.LavoratoreDAO;
+import elaborato.DAO.Lavoratore_Esperienza;
+import elaborato.DAO.Lavoratore_EsperienzaDAO;
 import elaborato.DAO.Lavoratore_Lingua;
 import elaborato.DAO.Lavoratore_LinguaDAO;
 import elaborato.DAO.Lavoratore_Patente;
@@ -28,6 +30,8 @@ import elaborato.DAO.Patente;
 import elaborato.DAO.PatenteDAO;
 import elaborato.DAO.Recapito;
 import elaborato.DAO.RecapitoDAO;
+import elaborato.DAO.Specializzazione;
+import elaborato.DAO.SpecializzazioneDAO;
 import elaborato.DB.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,9 +65,8 @@ public class inserimento_controller implements Initializable {
 	@FXML
 	private TextField indirizzo_id;
 	@FXML
-	private ChoiceBox<String> spec_id;
-	ObservableList<String> specializzazioni = FXCollections.observableArrayList("bagnino", "barman",
-			"istruttore di nuoto", "viticultore", "floricultore");
+	private ListView<Specializzazione> spec_list_view;
+	ObservableList<Specializzazione> specializzazioni;
 	@FXML
 	private ChoiceBox<Boolean> auto_id;
 	@FXML
@@ -103,6 +106,7 @@ public class inserimento_controller implements Initializable {
 		DisponibilitaDAO disponibilitaDAO = new DisponibilitaDAO();
 		Lavoratore_PatenteDAO lpDAO = new Lavoratore_PatenteDAO();
 		Lavoratore_LinguaDAO llDAO = new Lavoratore_LinguaDAO();
+		Lavoratore_EsperienzaDAO leDAO = new Lavoratore_EsperienzaDAO(); //aggiunto
 	
 		
 		
@@ -186,6 +190,18 @@ public class inserimento_controller implements Initializable {
 			System.out.println("Errore nell'inserimento delle lingue");
 			return;
 		}
+		
+		//aggiunto
+		try {
+			for(Specializzazione s : spec_list_view.getSelectionModel().getSelectedItems()) {
+				leDAO.insertLavoratore_Esperienza(new Lavoratore_Esperienza(insertedLavoratore.getId_lavoratore(), s.getId_specializzazione()));
+				//.insertLavoratore_Lingua(new Lavoratore_Lingua(insertedLavoratore.getId_lavoratore(), l.getId_lingua()));
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			System.out.println("Errore nell'inserimento delle esperienze");
+			return;
+		}
 	}
 
 	@Override
@@ -193,10 +209,12 @@ public class inserimento_controller implements Initializable {
 		// Data from DAOs
 		LinguaDAO linguaDAO = new LinguaDAO();
 		PatenteDAO patenteDAO = new PatenteDAO();
+		SpecializzazioneDAO specDAO = new SpecializzazioneDAO();
 
 		try {
 			this.lingua = FXCollections.observableArrayList(linguaDAO.getAllLingue());
 			this.tipo_patente = FXCollections.observableArrayList(patenteDAO.getAllPatente());
+			this.specializzazioni = FXCollections.observableArrayList(specDAO.getAllSpecializzazione());
 		}catch (SQLException e) {
 			System.out.println(e);
 			System.out.println("Errore nel caricamento delle lingue e patenti");
@@ -205,7 +223,10 @@ public class inserimento_controller implements Initializable {
 	
 
 		// TODO Auto-generated method stub
-		spec_id.setItems(specializzazioni);
+		//aggiunto
+		spec_list_view.setItems(specializzazioni);
+		spec_list_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
 		//
 		auto_id.getItems().add(true);
 		auto_id.getItems().add(false);

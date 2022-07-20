@@ -66,7 +66,7 @@ public class SpecializzazioneFilter implements Filter<Specializzazione> {
 	@Override
 	public String getNameFilter() {
 		// TODO Auto-generated method stub
-		return "specializzazione";
+		return "specializzazione: ";
 	}
 
 	@Override
@@ -78,7 +78,11 @@ public class SpecializzazioneFilter implements Filter<Specializzazione> {
 	@Override
 	public String getDatiFilter() {
 		// TODO Auto-generated method stub
-		return null;
+		String dati = "";
+		for (Specializzazione s : specs) {
+			dati+= s.getNome_specializzazione() +" ";
+		}
+		return dati;
 	}
 
 }

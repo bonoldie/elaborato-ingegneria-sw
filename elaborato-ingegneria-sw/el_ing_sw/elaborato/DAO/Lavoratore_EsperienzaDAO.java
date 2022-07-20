@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import elaborato.DB.Database;
@@ -13,7 +14,20 @@ public class Lavoratore_EsperienzaDAO implements ILavoratore_EsperienzaDAO {
 	@Override
 	public List<Lavoratore_Esperienza> getAllLavoratore_Esperienza() throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		List<Lavoratore_Esperienza> lavoratori_esperienze = new ArrayList<>();
+
+		ResultSet rs_lavoratori_esperienze;
+
+		Statement st_esperienze = Database.getDatabase().getConnection().createStatement();
+
+		rs_lavoratori_esperienze = st_esperienze.executeQuery("SELECT * FROM lavoratore_esperienza ");
+
+		while (rs_lavoratori_esperienze.next()) {
+			lavoratori_esperienze.add(new Lavoratore_Esperienza(rs_lavoratori_esperienze.getInt("id_lavoratore"), rs_lavoratori_esperienze.getInt("id_esperienza")));
+		}
+
+		return lavoratori_esperienze;
+
 	}
 
 	@Override
@@ -33,9 +47,9 @@ public class Lavoratore_EsperienzaDAO implements ILavoratore_EsperienzaDAO {
 		// TODO Auto-generated method stub
 		PreparedStatement pst_lavoratore_esperienza = null;
 		pst_lavoratore_esperienza = Database.getDatabase().getConnection()
-				.prepareStatement("INSERT INTO Lavoratore_Esperienza(id_lavoratore, esperienza) VALUES (?,?);", Statement.RETURN_GENERATED_KEYS);
+				.prepareStatement("INSERT INTO Lavoratore_Esperienza(id_lavoratore, id_esperienza) VALUES (?,?);", Statement.RETURN_GENERATED_KEYS);
 		pst_lavoratore_esperienza.setInt(1 ,lavoratore_esperienza.getId_lavoratore());
-		pst_lavoratore_esperienza.setString(2 ,lavoratore_esperienza.getEsperienza());
+		pst_lavoratore_esperienza.setInt(2 ,lavoratore_esperienza.getId_esperienza());
 		pst_lavoratore_esperienza.executeUpdate();
 		
 		ResultSet r = pst_lavoratore_esperienza.getGeneratedKeys();
@@ -49,9 +63,9 @@ public class Lavoratore_EsperienzaDAO implements ILavoratore_EsperienzaDAO {
 		// TODO Auto-generated method stub
 		PreparedStatement pst_lavoratore_esperienza = null;
 		pst_lavoratore_esperienza = Database.getDatabase().getConnection()
-				.prepareStatement("DELETE FROM Lavoratore_Esperienza WHERE id_lavoratore= ? AND esperienza= ?;");
+				.prepareStatement("DELETE FROM Lavoratore_Esperienza WHERE id_lavoratore= ? AND id_esperienza= ?;");
 		pst_lavoratore_esperienza.setInt(1 ,lavoratore_esperienza.getId_lavoratore());
-		pst_lavoratore_esperienza.setString(2 ,lavoratore_esperienza.getEsperienza());
+		pst_lavoratore_esperienza.setInt(2 ,lavoratore_esperienza.getId_esperienza());
 		pst_lavoratore_esperienza.executeUpdate();
 	}
 

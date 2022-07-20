@@ -2,8 +2,8 @@
 --DROP DOMAIN IF EXISTS spe_esp CASCADE;
 CREATE DOMAIN patenti AS VARCHAR(4)
 	CHECK( VALUE IN ('AM','A1','A2','A','B1','B','BE','C1','C1E','C','CE','D1','D1E','D','DE','KA','KB','CQC','CQCM','CFP','NO'));
-CREATE DOMAIN spe_esp AS VARCHAR(20)
-	CHECK( VALUE IN ('bagnino', 'barman', 'istruttore di nuoto', 'viticultore', 'floricultore'));
+--CREATE DOMAIN spe_esp AS VARCHAR(20)
+	--CHECK( VALUE IN ('bagnino', 'barman', 'istruttore di nuoto', 'viticultore', 'floricultore'));
 
 CREATE TABLE Anagrafica(
 	id_anagrafica SERIAL,
@@ -26,12 +26,13 @@ CREATE TABLE Recapito(
 	PRIMARY KEY (id_recapito)
 );
 
+--modifico lavoratore dopo aggiunta di specializzazione
 CREATE TABLE Lavoratore (
 	id_lavoratore SERIAL, 
 	id_anagrafica SERIAL REFERENCES Anagrafica(id_anagrafica),
 	id_recapito_urgenza SERIAL REFERENCES Recapito(id_recapito),
 	indirizzo VARCHAR(30) DEFAULT '',
-	specia_esp spe_esp DEFAULT '',
+	--specia_esp spe_esp DEFAULT '',
 	automunito BOOLEAN,
 	--PRIMARY KEY(nome,cognome, luogo_di_nascita, data_di_nascita, nazionalità);
 	PRIMARY KEY(id_lavoratore)
@@ -59,7 +60,7 @@ CREATE TABLE lavoro_svolto(
 
 CREATE TABLE Patente(
 	id_patente SERIAL PRIMARY KEY,
-	nome_patente patenti
+	nome_patente patenti --da modificare ? mettere un varchar??
 );
 
 CREATE TABLE Lavoratore_Patente(
@@ -77,9 +78,16 @@ CREATE TABLE Lavoratore_Lingua(
 	id_lavoratore SERIAL REFERENCES Lingua(id_lingua)
 );
 
+--aggiunta tabella secializzazione
+CREATE TABLE Specializzazione(
+	id_spec SERIAL PRIMARY KEY,
+	nome_spec VARCHAR(30)
+);
+
+--modifico lavoratore dopo aggiunta di specializzazione
 CREATE TABLE Lavoratore_Esperienza(
 	id_lavoratore SERIAL REFERENCES lavoratore(id_lavoratore),
-	esperienza spe_esp
-);
+	id_esperienza SERIAL REFERENCES Specializzazione(id_spec)
+);--esperienza spe_esp
 
 

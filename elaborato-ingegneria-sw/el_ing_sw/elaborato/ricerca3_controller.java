@@ -20,17 +20,43 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ricerca3_controller implements Initializable{
 	List<Filter> filters;//aggiunta
 	//lista di liste (se volessi passare più filtri contemporaneamente)
-	/*ArrayList<ArrayList<String>> listOLists = new ArrayList<ArrayList<String>>(); //esempio
-	ArrayList<String> singleList = new ArrayList<String>();
-	singleList.add("hello");
-	singleList.add("world");
-	listOLists.add(singleList);*/
+	
+	
+	List<List<Filter>> listoflist = new ArrayList<List<Filter>>(); //usata per comperre i filtri in and e or
+	List<Filter> filtri_concat = new ArrayList<Filter>(); //usato da listof list
+	
+	//fxml table view e colonne
+	
+	@FXML
+	private TableView visione_lavoratori;
+	
+	@FXML
+	private TableColumn id_lavoratore;
+	
+	@FXML
+	private TableColumn esperienze;
+	
+	@FXML
+	private TableColumn lingue;
+	
+	@FXML
+	private TableColumn periodo_disponibilita;
+	
+	@FXML
+	private TableColumn patenti_lavoratore;
+	
+	@FXML
+	private TableColumn comuni_disponibilita;
+	
+	//fxml bottoni
 	
 	@FXML 
 	private Button crea_listview;
@@ -40,10 +66,21 @@ public class ricerca3_controller implements Initializable{
 	ObservableList<Filter> filtri_view;
 	
 	@FXML
+	private ListView<List<Filter>> lista_finale_filtri;
+	ObservableList<List<Filter>> filter_view_finale;
+	
+	@FXML
+	private Button unisci_filtri;
+	
+	@FXML
 	private Button nuovo_filtro;
 	
 	@FXML
 	private Button togli_filtro;
+	
+	@FXML
+	private Button togli_filtro_finale;
+	
 	
 	public ricerca3_controller() {
 		this.filters = new ArrayList<Filter>();
@@ -53,7 +90,7 @@ public class ricerca3_controller implements Initializable{
 	private void crea_listview(ActionEvent event) {
 		int i;
 		System.out.printf("procdccece\n");
-		//System.out.println(Arrays.toString(filters.toArray()));
+		
 		for(i=0;i<filters.size();i++) {
 			System.out.printf("%s\n",filters.get(i).getQueryString(null));
 		}
@@ -61,24 +98,7 @@ public class ricerca3_controller implements Initializable{
 	
 	@FXML
 	private void nuovo_filtro_oa(ActionEvent event) throws IOException {
-		/*Parent root = FXMLLoader.load(getClass().getResource("scelta_filtro.fxml"));
-
-		Scene scene = new Scene(root);
-		Stage primaryStage = new Stage();
-		primaryStage.setTitle("scegliere_filtro");
-		primaryStage.setScene(scene);
-		// specifico la modalita della nuova finestra
-		primaryStage.initModality(Modality.WINDOW_MODAL);
-		primaryStage.initOwner(nuovo_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
 		
-		//block execution until the window closes
-		//primaryStage.showAndWait(); 
-		
-		//close this window
-		//nome_bottone.getScene().getWindow().hide();
-		
-		// mi da problemi
-		primaryStage.show();*/
 		FXMLLoader loader= new FXMLLoader(getClass().getResource("scelta_filtro.fxml"));
 		Stage primaryStage = new Stage();
 		primaryStage.initOwner(nuovo_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
@@ -96,7 +116,7 @@ public class ricerca3_controller implements Initializable{
 	}
 	
 	@FXML
-	private void togli_filtro_oa() {
+	private void togli_filtro_oa(ActionEvent event) { 
 		
 		//oppure sfruttare il fatto che sono nella stessa posizione
 		//filters.remove(0);
@@ -110,12 +130,31 @@ public class ricerca3_controller implements Initializable{
 		initialize(null, null); //PICCOLO BUG SE ELIMINO TUTTO NON MI DA LA LISTA VUOTA, RIMANGONO I CAMPI VISUALIZZATI (RISULTA LO STESSO VUOTA)
 	}
 	
-	//aggiunta
-	/*private void insertfilter(Filter filtro) {
-		//inviare una lettera per saper che cast fare esempio (automunitoFilter)
-		filters.add(filtro);
-		System.out.printf("%s\n",filters);
-	}*/
+	@FXML
+	private void togli_filtro_finale_oa(ActionEvent event) {
+		
+		//sono nella stessa posizione in entrambe le liste, uso gli index
+		for(int ll: lista_finale_filtri.getSelectionModel().getSelectedIndices()) { //mi salvo l index dei filtri finali selezionati
+			listoflist.remove(ll); //elimino i filtri finali dalla listoflist
+		}
+		
+		initialize(null, null);
+	}
+	
+	@FXML
+	private void unisci_filtri_oa(ActionEvent event){
+		
+		List<Filter> invio = new ArrayList<Filter>();
+		
+		//selezioniamo da lista_filtri i filtri da concatenare ("AND")		
+		for(Filter f : lista_filtri.getSelectionModel().getSelectedItems()) {
+			invio.add(f);
+		}
+		//inserisco la lisat in listoflist
+		listoflist.add(invio);
+		
+		initialize(null, null);
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -145,6 +184,47 @@ public class ricerca3_controller implements Initializable{
 	        });
 		}
 		lista_filtri.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		
+		//inizializzazione della listoflist
+		
+		this.filter_view_finale = FXCollections.observableArrayList(listoflist);
+		lista_finale_filtri.setItems(filter_view_finale);
+		
+		if(listoflist.isEmpty()) {
+			lista_finale_filtri.getItems().clear();
+			//return;
+		}
+		else {
+			this.filter_view_finale = FXCollections.observableArrayList(listoflist);
+			lista_finale_filtri.setItems(filter_view_finale);
+			
+			/*System.out.println("AAAAAAAA");
+			//test stampa esempio
+			listoflist.forEach((list)  ->
+	        {
+	            list.forEach((filtro)->System.out.print(filtro.getQueryString(null)+"INTERSECT"+"\n"));
+	            System.out.println("UNION");
+	        }
+	                );*/
+			
+			//modifico cosa appare sulla listview (appare il tipo di filtro)
+			
+			/*lista_finale_filtri.setCellFactory(param -> ListCell<List<Filter>> prova = new ListCell<List<Filter>>() {
+				
+				for()
+	            @Override
+	            protected void updateItem(List<Filter> filtro, boolean empty) {
+	                super.updateItem(filtro, empty);
+
+	                if (empty || filtro == null || ((Filter) filtro).getNameFilter() == null) {
+	                    setText(null);
+	                } else {
+	                    setText(((Filter) filtro).getNameFilter() + " " + ((Filter) filtro).getDatiFilter());
+	                }
+	            }
+	        });*/
+		}
 		
 	}
 	

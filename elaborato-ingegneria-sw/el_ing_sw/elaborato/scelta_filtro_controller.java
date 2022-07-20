@@ -70,6 +70,7 @@ public class scelta_filtro_controller implements Initializable{
 			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = am_controller.getfilter();
 			System.out.printf("%s\n",filtro.getQueryString(null));
+			
 			break;
 			
 		case "comune":
@@ -86,6 +87,7 @@ public class scelta_filtro_controller implements Initializable{
 			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = c_controller.getfilter();
 			System.out.printf("%s\n",filtro.getQueryString(null));
+			
 			break;
 			
 		case "disponibilita":
@@ -102,6 +104,7 @@ public class scelta_filtro_controller implements Initializable{
 			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = p_controller.getfilter();
 			System.out.printf("%s\n",filtro.getQueryString(null));
+			
 			break;
 			
 		case "lavoratore":
@@ -118,6 +121,7 @@ public class scelta_filtro_controller implements Initializable{
 			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = la_controller.getfilter();
 			System.out.printf("%s\n",filtro.getQueryString("AND"));
+			
 			break;
 			
 		case "lingua":
@@ -134,6 +138,7 @@ public class scelta_filtro_controller implements Initializable{
 			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = l_controller.getfilter();
 			System.out.printf("%s\n",filtro.getQueryString(null));
+			
 			break;
 			
 		case "patente":
@@ -150,6 +155,24 @@ public class scelta_filtro_controller implements Initializable{
 			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = pa_controller.getfilter();
 			System.out.printf("%s\n",filtro.getQueryString(null));
+			
+			break;
+			
+		case "specializzazione":
+			
+			loader= new FXMLLoader(getClass().getResource("specializzazione.fxml"));
+			primaryStage = new Stage();
+			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
+			primaryStage.setScene(new Scene ((Parent) loader.load()));
+			
+			//wait until the window close
+			primaryStage.showAndWait();
+			
+			specializzazione_controller sp_controller = loader.getController();
+			//AutomunitoFilter am_filtro = am_controller.getfilter();
+			filtro = sp_controller.getfilter();
+			System.out.printf("%s\n",filtro.getQueryString(null));
+			
 			break;
 			
 		}
@@ -161,7 +184,7 @@ public class scelta_filtro_controller implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		tipi_filtro.getItems().addAll("automunito","comune","disponibilita","lavoratore","lingua","patente"); //manca SPECIALIZZAZIONE!!
+		tipi_filtro.getItems().addAll("automunito","comune","disponibilita","lavoratore","lingua","patente","specializzazione"); //manca SPECIALIZZAZIONE!!
 		//tipi_filtro.getItems().addAll(filtro_af.getNameFilter(),filtro_dcf.getNameFilter(),filtro_ddf.getNameFilter(),filtro_laf.getNameFilter(),filtro_lf.getNameFilter(),filtro_pf.getNameFilter(),filtro_sf.getNameFilter()); //dovrei inizializzarlo chiamando getNameFilter
 
 	}
