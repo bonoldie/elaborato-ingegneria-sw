@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="1102.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="elaborato.lista_lavoratori_controller">
+   <children>
+      <TableView fx:id="lista_lavoratori" layoutX="7.0" layoutY="10.0" prefHeight="450.0" prefWidth="1087.0">
+        <columns>
+          <TableColumn fx:id="id_lavoratore" prefWidth="43.0" text="Id" />
+          <TableColumn fx:id="nome" prefWidth="120.0" text="nome" />
+            <TableColumn fx:id="cognome" prefWidth="130.0" text="cognome" />
+            <TableColumn fx:id="indirizzo" prefWidth="106.0" text="indirizzo" />
+            <TableColumn fx:id="nazionalita" prefWidth="98.0" text="nazionalità" />
+            <TableColumn fx:id="luogo_di_nascita" prefWidth="125.0" text="luogo di nascita" />
+            <TableColumn fx:id="email" prefWidth="188.0" text="email" />
+            <TableColumn fx:id="telefono" prefWidth="132.0" text="telefono" />
+            <TableColumn fx:id="automunito" prefWidth="98.0" text="automunito" />
+            <TableColumn fx:id="remove_col" minWidth="0.0" prefWidth="45.0" />
+        </columns>
+      </TableView>
+      <Button layoutX="7.0" layoutY="460.0" mnemonicParsing="false" onAction="#aggiungi_lavoratore" prefHeight="46.0" prefWidth="1087.0" text="+">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

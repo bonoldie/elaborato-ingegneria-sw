@@ -31,9 +31,21 @@ public class Lavoratore_EsperienzaDAO implements ILavoratore_EsperienzaDAO {
 	}
 
 	@Override
-	public List<Lavoratore_Esperienza> getLavoratore_esperienza(int id_lavoratore) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Lavoratore_Esperienza> getLavoratore_esperienza(int id_lavoratore) throws SQLException {
+		List<Lavoratore_Esperienza> lavoratore_esperienze= new ArrayList<>();
+
+		ResultSet rs_lavoratore_esperienze;
+
+		PreparedStatement pst_esperienze = Database.getDatabase().getConnection().prepareStatement("SELECT * FROM lavoratore_esperienza WHERE id_lavoratore=?");
+		pst_esperienze.setInt(1, id_lavoratore);
+
+		rs_lavoratore_esperienze = pst_esperienze.executeQuery();
+
+		while (rs_lavoratore_esperienze.next()) {
+			lavoratore_esperienze.add(new Lavoratore_Esperienza(rs_lavoratore_esperienze.getInt("id_lavoratore"), rs_lavoratore_esperienze.getString("esperienza")));
+		}
+
+		return lavoratore_esperienze; 
 	}
 
 	@Override

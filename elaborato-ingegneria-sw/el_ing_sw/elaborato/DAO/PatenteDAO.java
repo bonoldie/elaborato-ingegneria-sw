@@ -1,5 +1,6 @@
 package elaborato.DAO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,8 +31,19 @@ public class PatenteDAO implements IPatenteDAO {
 	}
 
 	@Override
-	public Patente getPatente(int id_patente) {
-		// TODO Auto-generated method stub
+	public Patente getPatente(int id_patente) throws SQLException {
+
+		ResultSet rs_patente;
+
+		PreparedStatement pst_patente = Database.getDatabase().getConnection().prepareStatement("SELECT * FROM patente WHERE id_patente=? LIMIT 1");
+		pst_patente.setInt(1, id_patente);
+		
+		rs_patente = pst_patente.executeQuery();
+
+		while (rs_patente.next()) {
+			return new Patente(rs_patente.getInt("id_patente"), rs_patente.getString("nome_patente"));
+		}
+
 		return null;
 	}
 

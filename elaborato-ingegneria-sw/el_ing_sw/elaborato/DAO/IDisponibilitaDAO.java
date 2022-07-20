@@ -6,7 +6,7 @@ import java.util.List;
 public interface IDisponibilitaDAO {
 	public List<Disponibilita> getAllDisponibilita() throws SQLException;
 
-	public Disponibilita getDisponibilita(int id_disponibilita);
+	public Disponibilita getDisponibilita(int id_disponibilita) throws SQLException;
 
 	public void updateDisponibilita(Disponibilita disponibilita);
 	

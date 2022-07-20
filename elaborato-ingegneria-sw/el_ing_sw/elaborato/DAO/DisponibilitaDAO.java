@@ -23,7 +23,7 @@ public class DisponibilitaDAO implements IDisponibilitaDAO {
 
 			Statement st_disponibilita = Database.getDatabase().getConnection().createStatement();	
 			
-			rs_disponibilita = st_disponibilita.executeQuery("SELECT * FROM anagrafica ");
+			rs_disponibilita = st_disponibilita.executeQuery("SELECT * FROM disponibilita ");
 			
 			while(rs_disponibilita.next()) {
 				disponibilita.add(
@@ -42,11 +42,44 @@ public class DisponibilitaDAO implements IDisponibilitaDAO {
 	}
 
 	@Override
-	public Disponibilita getDisponibilita(int id_disponibilita) {
-		// TODO Auto-generated method stub
+	public Disponibilita getDisponibilita(int id_disponibilita) throws SQLException {
+		ResultSet rs_disponibilita;
+
+		PreparedStatement pst_disponibilita = Database.getDatabase().getConnection().prepareStatement("SELECT * FROM disponibilita WHERE id_disponibilita=? LIMIT 1");	
+		pst_disponibilita.setInt(1, id_disponibilita);
+		rs_disponibilita = pst_disponibilita.executeQuery();
+		
+		while(rs_disponibilita.next()) {
+			return new Disponibilita(
+							rs_disponibilita.getInt("id_disponibilita"),
+							rs_disponibilita.getInt("id_lavoratore"),
+							rs_disponibilita.getDate("data_inizio").toLocalDate(),
+							rs_disponibilita.getDate("data_fine").toLocalDate(),
+							rs_disponibilita.getString("comune")
+							);
+		}
 		return null;
 	}
 
+	public Disponibilita getDisponibilitaByLavoratoreId(int id_lavoratore) throws SQLException {
+		ResultSet rs_disponibilita;
+
+		PreparedStatement pst_disponibilita = Database.getDatabase().getConnection().prepareStatement("SELECT * FROM disponibilita WHERE id_lavoratore=? LIMIT 1");	
+		pst_disponibilita.setInt(1, id_lavoratore);
+		rs_disponibilita = pst_disponibilita.executeQuery();
+		
+		while(rs_disponibilita.next()) {
+			return new Disponibilita(
+							rs_disponibilita.getInt("id_disponibilita"),
+							rs_disponibilita.getInt("id_lavoratore"),
+							rs_disponibilita.getDate("data_inizio").toLocalDate(),
+							rs_disponibilita.getDate("data_fine").toLocalDate(),
+							rs_disponibilita.getString("comune")
+							);
+		}
+		return null;
+	}
+	
 	
 	@Override
 	public void insertDisponibilita(Disponibilita disponibilita) throws SQLException {

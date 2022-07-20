@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import elaborato.DB.Database;
@@ -21,9 +22,21 @@ public class Lavoratore_PatenteDAO implements ILavoratore_PatenteDAO {
 	}
 
 	@Override
-	public Lavoratore_Patente getLavoratore_Patente(int id_lavoratore) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Lavoratore_Patente> getLavoratore_Patente(int id_lavoratore) throws SQLException {
+		List<Lavoratore_Patente> lavoratore_patenti= new ArrayList<>();
+
+		ResultSet rs_lavoratore_patenti;
+
+		PreparedStatement pst_patente = Database.getDatabase().getConnection().prepareStatement("SELECT * FROM lavoratore_patente WHERE id_lavoratore=?");
+		pst_patente.setInt(1, id_lavoratore);
+
+		rs_lavoratore_patenti = pst_patente.executeQuery();
+
+		while (rs_lavoratore_patenti.next()) {
+			lavoratore_patenti.add(new Lavoratore_Patente(rs_lavoratore_patenti.getInt("id_lavoratore"), rs_lavoratore_patenti.getInt("id_patente")));
+		}
+
+		return lavoratore_patenti; 
 	}
 
 	@Override
