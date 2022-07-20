@@ -62,7 +62,8 @@ public class ins_ric_controller {
 	
 	@FXML
 	private void aggiornamento_finestra(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("aggiornamento.fxml"));
+		// Parent root = FXMLLoader.load(getClass().getResource("aggiornamento.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("lista_lavori_svolti.fxml"));
 
 		Scene scene = new Scene(root);
 		Stage primaryStage = new Stage();
