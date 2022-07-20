@@ -42,7 +42,7 @@ public class Lavoratore_EsperienzaDAO implements ILavoratore_EsperienzaDAO {
 		rs_lavoratore_esperienze = pst_esperienze.executeQuery();
 
 		while (rs_lavoratore_esperienze.next()) {
-			lavoratore_esperienze.add(new Lavoratore_Esperienza(rs_lavoratore_esperienze.getInt("id_lavoratore"), rs_lavoratore_esperienze.getString("esperienza")));
+			lavoratore_esperienze.add(new Lavoratore_Esperienza(rs_lavoratore_esperienze.getInt("id_lavoratore"), rs_lavoratore_esperienze.getInt("id_esperienza")));
 		}
 
 		return lavoratore_esperienze; 
