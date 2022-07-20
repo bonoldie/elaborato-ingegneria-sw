@@ -64,13 +64,24 @@ public class DisponibilitaComuneFilter implements Filter<String> {
 	@Override
 	public String getNameFilter() {
 		// TODO Auto-generated method stub
-		return "comune";
+		return "comune :";
 	}
 
 	@Override
 	public String getIdFilter() {
 		// TODO Auto-generated method stub
 		return "3";
+	}
+
+	@Override
+	public String getDatiFilter() {
+		// TODO Auto-generated method stub
+		/*for (String s : comuni) {
+			System. out. println(s);
+			}*/
+		//usare solo con list view in ricerca3_controller
+		List<String> list = new ArrayList<String>(comuni);
+		return list.get(0);
 	}
 
 }

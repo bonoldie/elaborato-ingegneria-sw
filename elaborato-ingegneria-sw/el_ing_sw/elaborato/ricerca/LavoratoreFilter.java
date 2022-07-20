@@ -87,13 +87,20 @@ public class LavoratoreFilter implements Filter<FilterAnagrafica> {
 	@Override
 	public String getNameFilter() {
 		// TODO Auto-generated method stub
-		return "lavoratore";
+		return "lavoratore: ";
 	}
 
 	@Override
 	public String getIdFilter() {
 		// TODO Auto-generated method stub
 		return "2";
+	}
+
+	@Override
+	public String getDatiFilter() {
+		// TODO Auto-generated method stub
+		FilterAnagrafica f = (FilterAnagrafica) this.dati.toArray()[0];
+		return f.getNome() + " " + f.getCognome() + " " + f.getEmail();
 	}
 
 }

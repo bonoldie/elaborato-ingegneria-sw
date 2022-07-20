@@ -35,7 +35,7 @@ public class automunito_controller implements Initializable{
 		AutomunitoFilter af= new AutomunitoFilter();
 		af.addFilterElement(auto_truefalse.getSelectionModel().getSelectedItem());
 		filtro = af;		
-		System.out.printf("%s",af.getQueryString(null));
+		System.out.printf("%s",filtro.getQueryString(null));
 		/*FXMLLoader loader = new FXMLLoader(getClass().getResource("ricerca3.fxml"));
 		ricerca3_controller controller = loader.getController();
 		controller.filters.add(af);

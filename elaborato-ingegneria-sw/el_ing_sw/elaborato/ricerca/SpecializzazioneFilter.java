@@ -75,4 +75,10 @@ public class SpecializzazioneFilter implements Filter<Specializzazione> {
 		return "6";
 	}
 
+	@Override
+	public String getDatiFilter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

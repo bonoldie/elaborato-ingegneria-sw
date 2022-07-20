@@ -28,6 +28,7 @@ public class AutomunitoFilter implements Filter<Boolean> {
 	@Override
 	public Set<Boolean> addFilterElement(Boolean element) {
 		// TODO Auto-generated method stub
+		
 		this.dati.add(element);
 		return this.dati;
 	}
@@ -68,13 +69,23 @@ public class AutomunitoFilter implements Filter<Boolean> {
 	@Override
 	public String getNameFilter() {
 		// TODO Auto-generated method stub
-		return "automunito";
+		return "automunito: ";
 	}
 
 	@Override
 	public String getIdFilter() {
 		// TODO Auto-generated method stub
 		return "7";
+	}
+
+	@Override
+	public String getDatiFilter() {
+		// TODO Auto-generated method stub
+		Boolean b = (Boolean)this.dati.toArray()[0];
+		if(b == true)
+			return "true";
+		else
+			return "false";
 	}
 
 }

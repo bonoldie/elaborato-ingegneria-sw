@@ -76,4 +76,14 @@ public class LinguaFilter implements Filter<Lingua> {
 		return "1";
 	}
 
+	@Override
+	public String getDatiFilter() {
+		// TODO Auto-generated method stub
+		String dati = "";
+		for (Lingua s : lingue) {
+			dati+= s.getNome_lingua() +" ";
+		}
+		return dati;
+	}
+
 }

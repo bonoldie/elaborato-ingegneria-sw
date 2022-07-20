@@ -67,13 +67,20 @@ public class DisponibilitaDataFilter implements Filter<LocalDate> {
 	@Override
 	public String getNameFilter() {
 		// TODO Auto-generated method stub
-		return "periodo";
+		return "periodo: ";
 	}
 
 	@Override
 	public String getIdFilter() {
 		// TODO Auto-generated method stub
 		return "4";
+	}
+
+	@Override
+	public String getDatiFilter() {
+		// TODO Auto-generated method stub
+		LocalDate d = (LocalDate) this.date.toArray()[0];
+		return this.rifColonna + " " + this.rifOperator + " " + d.toString();
 	}
 	
 }

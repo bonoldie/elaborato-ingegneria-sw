@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import elaborato.DAO.Lingua;
 import elaborato.DAO.Patente;
 
 public class PatenteFilter implements Filter<Patente> {
@@ -78,5 +79,15 @@ public class PatenteFilter implements Filter<Patente> {
 	public String getIdFilter() {
 		// TODO Auto-generated method stub
 		return "5";
+	}
+
+	@Override
+	public String getDatiFilter() {
+		// TODO Auto-generated method stub
+		String dati = "";
+		for (Patente s : patenti) {
+			dati+= s.getNome_patente() +" ";
+		}
+		return dati;
 	}
 }
