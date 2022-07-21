@@ -1,14 +1,21 @@
 
 
 create view dettagli_lavoratori as 
-select l2.id_lavoratore , e.esperienze, l.lingue, d.periodo_disponibilita, p.patenti_lavoratore, comuni.comuni_disponibilita  from (
+select l2.id_lavoratore , e.specializzazione, l.lingue, d.periodo_disponibilita, p.patenti_lavoratore, comuni.comuni_disponibilita  from (
 (select * from lavoratore) l2 left join 
 
-(SELECT l.id_lavoratore, string_agg(le.esperienza, ', ') as esperienze
+--e.esperienze -> e.specializzazione
+--(SELECT l.id_lavoratore, string_agg(le.esperienza, ', ') as esperienze
+	--FROM lavoratore l 
+	--	join lavoratore_esperienza le on l.id_lavoratore = le.id_lavoratore
+	--group by l.id_lavoratore) as e on e.id_lavoratore = l2.id_lavoratore
+--modifico dopo la creazione di specializzazione
+  (SELECT l.id_lavoratore, string_agg(s.nome_spec, ', ') as specializzazione
 	FROM lavoratore l 
 		join lavoratore_esperienza le on l.id_lavoratore = le.id_lavoratore
+ 		join specializzazione s on le.id_esperienza = s.id_spec
 	group by l.id_lavoratore) as e on e.id_lavoratore = l2.id_lavoratore
-
+ 
 	left join 
 	
 (SELECT l.id_lavoratore, string_agg(li.nome_lingua, ', ') as lingue

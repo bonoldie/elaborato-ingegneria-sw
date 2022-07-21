@@ -22,7 +22,7 @@ public class Lavoratore_ViewDAO implements ILavoratore_ViewDAO {
 		
 		
 		while(r.next()) {
-			lavoratori_view.add(new Lavoratore_View(r.getInt("id_lavoratore"), r.getString("esperienza"), r.getString("lingue"), r.getString("periodo_di_disponibilit�"), r.getString("patenti_lavoratore"), r.getString("comuni_disponibili")));
+			lavoratori_view.add(new Lavoratore_View(r.getInt("id_lavoratore"), r.getString("specializzazione"), r.getString("lingue"), r.getString("periodo_disponibilita"), r.getString("patenti_lavoratore"), r.getString("comuni_disponibilita")));
 		}
 		return lavoratori_view;
 	}
