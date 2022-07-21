@@ -29,6 +29,8 @@ import elaborato.DAO.Patente;
 import elaborato.DAO.PatenteDAO;
 import elaborato.DAO.Recapito;
 import elaborato.DAO.RecapitoDAO;
+import elaborato.DAO.Specializzazione;
+import elaborato.DAO.SpecializzazioneDAO;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -54,13 +56,16 @@ public class edit_lavoratore_controller implements Initializable {
 	LavoratoreDAO lavoratoreDAO = new LavoratoreDAO();
 	AnagraficaDAO anagraficaDAO = new AnagraficaDAO();
 
-	Lavoratore_EsperienzaDAO lavoratoreEsperienzaDAO = new Lavoratore_EsperienzaDAO();
+	//Lavoratore_EsperienzaDAO lavoratoreEsperienzaDAO = new Lavoratore_EsperienzaDAO();
 
 	LinguaDAO linguaDAO = new LinguaDAO();
 	Lavoratore_LinguaDAO lavoratoreLinguaDAO = new Lavoratore_LinguaDAO();
 
 	PatenteDAO patenteDAO = new PatenteDAO();
 	Lavoratore_PatenteDAO lavoratorePatenteDAO = new Lavoratore_PatenteDAO();
+	
+	SpecializzazioneDAO specDAO = new SpecializzazioneDAO(); //AGGIUNTA
+	Lavoratore_EsperienzaDAO lavoratoreEsperienzaDAO = new Lavoratore_EsperienzaDAO(); //AGGIUNTA
 
 	DisponibilitaDAO disponibilitaDAO = new DisponibilitaDAO();
 
@@ -93,10 +98,7 @@ public class edit_lavoratore_controller implements Initializable {
 	TextField telefono_tf;
 
 	@FXML
-	ChoiceBox<String> specializzazioni_cb;
-
-	ObservableList<String> specializzazioni = FXCollections.observableArrayList("bagnino", "barman",
-			"istruttore di nuoto", "viticultore", "floricultore");
+	ListView<Specializzazione> specializzazioni_lw; //MODIFICA
 
 	@FXML
 	CheckBox automunito_cb;
@@ -171,10 +173,21 @@ public class edit_lavoratore_controller implements Initializable {
 					}
 				});
 
-				lingue_lw.getSelectionModel().getSelectedItems().forEach(l -> {
+				lingue_lw.getSelectionModel().getSelectedItems().forEach(l -> { //PERCHE DUE??
 					try {
 						lavoratoreLinguaDAO.insertLavoratore_Lingua(
 								new Lavoratore_Lingua(lavoratore.getId_lavoratore(), l.getId_lingua()));
+					} catch (SQLException e) {
+						this.displayError(e.getMessage());
+						return;
+					}
+				});
+				
+				//AGGIUNTA
+				specializzazioni_lw.getSelectionModel().getSelectedItems().forEach(s -> {
+					try {
+						lavoratoreEsperienzaDAO.insertLavoratore_Esperienza(
+								new Lavoratore_Esperienza(lavoratore.getId_lavoratore(), s.getId_specializzazione()));
 					} catch (SQLException e) {
 						this.displayError(e.getMessage());
 						return;
@@ -245,7 +258,7 @@ public class edit_lavoratore_controller implements Initializable {
 		luogo_di_nascita_tf.clear();
 		indirizzo_tf.clear();
 		telefono_tf.clear();
-		specializzazioni_cb.getSelectionModel().clearSelection();
+		specializzazioni_lw.getSelectionModel().clearSelection();
 		automunito_cb.setSelected(false);
 		nome_em_tf.clear();
 		cognome_em_tf.clear();
@@ -289,7 +302,7 @@ public class edit_lavoratore_controller implements Initializable {
 			indirizzo_tf.setText(lavoratore.getIndirizzo());
 			automunito_cb.setSelected(lavoratore.isAutomunito());
 
-			specializzazioni_cb.getSelectionModel();
+			//specializzazioni_cb.getSelectionModel();
 
 			nome_em_tf.setText(recapito.getNome());
 			cognome_em_tf.setText(recapito.getCognome());
@@ -306,6 +319,17 @@ public class edit_lavoratore_controller implements Initializable {
 						int index = patenti_lw.getItems().indexOf(p);
 						patenti_lw.getSelectionModel().select(index);
 						patenti_lw.getFocusModel().focus(index);
+					}
+				});
+			});
+			
+			//AGGIUNTA
+			specializzazioni_lw.getItems().forEach(s -> {
+				lavoratoreEsperienza.forEach(le -> {
+					if (s.getId_specializzazione() == le.getId_esperienza()) {
+						int index = specializzazioni_lw.getItems().indexOf(s);
+						specializzazioni_lw.getSelectionModel().select(index);
+						specializzazioni_lw.getFocusModel().focus(index);
 					}
 				});
 			});
@@ -331,15 +355,18 @@ public class edit_lavoratore_controller implements Initializable {
 		try {
 			this.lingue_lw.setItems(FXCollections.observableArrayList(linguaDAO.getAllLingue()));
 			this.patenti_lw.setItems(FXCollections.observableArrayList(patenteDAO.getAllPatente()));
-			this.specializzazioni_cb.setItems(specializzazioni);
-
+			//this.specializzazioni_cb.setItems(specializzazioni);
+			this.specializzazioni_lw.setItems(FXCollections.observableArrayList(specDAO.getAllSpecializzazione())); //AGGIUNTA
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		this.lingue_lw.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		this.patenti_lw.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		this.specializzazioni_lw.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); //AGGIUNTA
 
+		
 		this.setLavoratoreId(-1);
 	}
 }
