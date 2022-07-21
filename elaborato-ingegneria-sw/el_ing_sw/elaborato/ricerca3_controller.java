@@ -2,12 +2,17 @@ package elaborato;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import elaborato.DAO.Anagrafiche_LavoratoriDAO;
+import elaborato.DAO.Lavoratore_View;
+import elaborato.DAO.Lavoratore_ViewDAO;
 import elaborato.ricerca.Filter;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +31,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ricerca3_controller implements Initializable{
+	
+	private Lavoratore_ViewDAO lavViewDAO  = new Lavoratore_ViewDAO();
+	
 	List<Filter> filters;//aggiunta
 	//lista di liste (se volessi passare più filtri contemporaneamente)
 	
@@ -36,25 +44,25 @@ public class ricerca3_controller implements Initializable{
 	//fxml table view e colonne
 	
 	@FXML
-	private TableView visione_lavoratori;
+	private TableView<Lavoratore_View> visione_lavoratori;
 	
 	@FXML
-	private TableColumn id_lavoratore;
+	private TableColumn<Lavoratore_View, String> id_lavoratore;
 	
 	@FXML
-	private TableColumn esperienze;
+	private TableColumn<Lavoratore_View, String> esperienze;
 	
 	@FXML
-	private TableColumn lingue;
+	private TableColumn<Lavoratore_View, String> lingue;
 	
 	@FXML
-	private TableColumn periodo_disponibilita;
+	private TableColumn<Lavoratore_View, String> periodo_disponibilita;
 	
 	@FXML
-	private TableColumn patenti_lavoratore;
+	private TableColumn<Lavoratore_View, String> patenti_lavoratore;
 	
 	@FXML
-	private TableColumn comuni_disponibilita;
+	private TableColumn<Lavoratore_View, String> comuni_disponibilita;
 	
 	//fxml bottoni
 	
@@ -81,6 +89,10 @@ public class ricerca3_controller implements Initializable{
 	@FXML
 	private Button togli_filtro_finale;
 	
+	
+	public void updateRicerca() throws SQLException {
+		this.visione_lavoratori.setItems(FXCollections.observableArrayList(this.lavViewDAO.getAllLavoratore_View()));
+	}
 	
 	public ricerca3_controller() {
 		this.filters = new ArrayList<Filter>();
@@ -159,6 +171,21 @@ public class ricerca3_controller implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
+		
+		//inizializzo tabella view
+		id_lavoratore.setCellValueFactory(anagLav -> new SimpleStringProperty(Integer.toString(anagLav.getValue().getId_lavoratore())));
+		esperienze.setCellValueFactory(anagLav -> new SimpleStringProperty(anagLav.getValue().getEsperienza()));
+		lingue.setCellValueFactory(anagLav -> new SimpleStringProperty(anagLav.getValue().getLingue()));
+		periodo_disponibilita.setCellValueFactory(anagLav -> new SimpleStringProperty(anagLav.getValue().getPeriodo_di_disponibilita()));
+		patenti_lavoratore.setCellValueFactory(anagLav -> new SimpleStringProperty(anagLav.getValue().getPatenti_lavoratore()));
+		comuni_disponibilita.setCellValueFactory(anagLav -> new SimpleStringProperty(anagLav.getValue().getComuni_disponibili()));
+		try {
+			this.updateRicerca();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		//devo inizializzare la listview con i valori all'interno della lista filtri
 		if(filters.isEmpty()) {
 			lista_filtri.getItems().clear();
