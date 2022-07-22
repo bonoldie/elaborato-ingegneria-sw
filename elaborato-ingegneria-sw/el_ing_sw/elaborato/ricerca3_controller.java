@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import elaborato.DAO.Anagrafiche_LavoratoriDAO;
 import elaborato.DAO.Lavoratore_View;
 import elaborato.DAO.Lavoratore_ViewDAO;
@@ -35,7 +34,7 @@ public class ricerca3_controller implements Initializable{
 	private Lavoratore_ViewDAO lavViewDAO  = new Lavoratore_ViewDAO();
 	
 	List<Filter> filters;//aggiunta
-	//lista di liste (se volessi passare più filtri contemporaneamente)
+	//lista di liste (se volessi passare piï¿½ filtri contemporaneamente)
 	
 	
 	List<List<Filter>> listoflist = new ArrayList<List<Filter>>(); //usata per comperre i filtri in and e or
@@ -236,6 +235,23 @@ public class ricerca3_controller implements Initializable{
 	                );*/
 			
 			//modifico cosa appare sulla listview (appare il tipo di filtro)
+			lista_finale_filtri.setCellFactory(list -> {
+
+			    ListCell<List<Filter>> cell = new ListCell<List<Filter>>() {
+			        @Override
+			        protected void updateItem(List<Filter> item, boolean empty) {
+			            super.updateItem(item, empty);
+			            if(item != null) {			            	
+			            	setText(String.join("\n", item.stream().map(f -> f.toString()).toList()));
+			            }
+			        }
+			    };
+
+			    return cell;
+			});
+		
+			
+			
 			
 			/*lista_finale_filtri.setCellFactory(param -> ListCell<List<Filter>> prova = new ListCell<List<Filter>>() {
 				
@@ -252,6 +268,8 @@ public class ricerca3_controller implements Initializable{
 	            }
 	        });*/
 		}
+		
+		
 		
 	}
 	

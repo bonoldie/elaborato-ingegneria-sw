@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import elaborato.DAO.Anagrafica;
 import elaborato.DAO.AnagraficaDAO;
@@ -16,16 +17,21 @@ import elaborato.DAO.Lavoratore;
 import elaborato.DAO.LavoratoreDAO;
 import elaborato.DAO.Lavoro_svolto;
 import elaborato.DAO.Lavoro_svoltoDAO;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class edit_lavoro_svolto_controller implements Initializable {
 
@@ -63,6 +69,14 @@ public class edit_lavoro_svolto_controller implements Initializable {
 
 	@FXML
 	private void salva_lavoro_svolto(ActionEvent event) {
+		try {
+			this.validateFields();
+		}catch(Exception e) {
+			e.printStackTrace();
+			this.displayError(e.getMessage());
+			return;
+		}
+	
 		Lavoro_svolto updatedLavoroSvolto = new Lavoro_svolto(0, id_lavoratore_cb.getValue().getId_lavoratore(),
 				data_inizio_dp.getValue(), data_fine_dp.getValue(), mansione_tf.getText(), nome_azienda_tf.getText(),
 				luogo_lavoro_tf.getText(), new BigDecimal(retribuzione_tf.getText()));
@@ -89,6 +103,37 @@ public class edit_lavoro_svolto_controller implements Initializable {
 		((Stage) chiudi_bt.getScene().getWindow()).close();
 	}
 
+	private void displayError(String message) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle("Dati invalidi");
+		alert.setHeaderText("Dati invalidi");
+		alert.setContentText(message);
+		alert.getButtonTypes().setAll(ButtonType.CLOSE);
+
+		alert.show();
+
+		Timeline closingAlertAnimation = new Timeline(new KeyFrame(Duration.seconds(5), e -> {
+			alert.close();
+		}));
+
+		closingAlertAnimation.setCycleCount(1);
+		closingAlertAnimation.play();
+	}
+
+	public void validateFields() throws Exception {
+		if (!Pattern.compile("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$").matcher(data_inizio_dp.getValue().toString())
+				.matches()
+				|| !Pattern.compile("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$").matcher(data_fine_dp.getValue().toString())
+						.matches()) {
+			throw new Exception("Date non valide");
+		}
+		
+		if (!Pattern.compile("^\\d*\\.?\\d+$").matcher(retribuzione_tf.getText())
+				.matches()) {
+			throw new Exception("Importo di retribuzione non valido");
+		}
+	}
+	
 	public void setLavoroSvoltoInstance(Lavoro_svolto ls) {
 		this.lavoro_svolto = ls;
 		

@@ -59,8 +59,11 @@ public class MainController {
 			primaryStage.setScene(scene);
 			// specifico la modalita della nuova finestra
 			primaryStage.initModality(Modality.WINDOW_MODAL);
-			primaryStage.initOwner(Sign_in.getScene().getWindow());
+			//primaryStage.initOwner(Sign_in.getScene().getWindow());
 			primaryStage.show();
+			
+			
+			((Stage) Sign_in.getScene().getWindow()).close();
 		} else {
 			// inserirlo in un label nell'interfaccia
 			System.out.println("rinserire le credenziali");

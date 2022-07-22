@@ -268,6 +268,12 @@ public class edit_lavoratore_controller implements Initializable {
 						.matches()) {
 			throw new Exception("Date di disponibilità non valide");
 		}
+		
+		// RFC 5322 
+		if (!Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$").matcher(email_em_tf.getText()).matches()
+				|| !Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$").matcher(email_tf.getText()).matches()) {
+			throw new Exception("Email non valida");
+		}
 
 		if (disp_data_inizio_dp.getValue().isAfter(disp_data_fine_dp.getValue())) {
 			throw new Exception("Data di inizio disponibilità successiva alla data di fine disponibilità");
