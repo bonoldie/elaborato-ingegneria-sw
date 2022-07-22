@@ -2,14 +2,20 @@ package elaborato;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
+
 import elaborato.DAO.Anagrafiche_LavoratoriDAO;
 import elaborato.DAO.Lavoratore_View;
 import elaborato.DAO.Lavoratore_ViewDAO;
+import elaborato.DB.Database;
 import elaborato.ricerca.Filter;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -99,12 +105,48 @@ public class ricerca3_controller implements Initializable{
 	
 	@FXML
 	private void crea_listview(ActionEvent event) {
-		int i;
-		System.out.printf("procdccece\n");
-		
-		for(i=0;i<filters.size();i++) {
-			System.out.printf("%s\n",filters.get(i).getQueryString(null));
+	
+		try {
+			
+			if(listoflist.size() == 0) {
+				this.updateRicerca();
+			}
+			
+			Set<Integer> ids = new HashSet<>();
+			PreparedStatement ps = Database.getDatabase().getConnection().prepareStatement(this.getFilteredQuery());
+			System.out.println(this.getFilteredQuery());
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				ids.add(rs.getInt("id_lavoratore"));
+			}
+			
+			System.out.println(ids.size());
+			
+			List<Lavoratore_View> filteredLavoratore_View = this.lavViewDAO.getAllLavoratore_View().stream().filter(lw -> ids.contains(lw.getId_lavoratore())).toList();
+			
+			this.visione_lavoratori.setItems(
+					FXCollections.observableArrayList(filteredLavoratore_View)
+					);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+	}
+	
+	private String getFilteredQuery() {
+		List<String> queryUnion = new ArrayList();
+		
+		for(List<Filter> lf : listoflist) {
+			List<String> queryIntersect = new ArrayList();
+			
+			for(Filter f : lf) {
+				queryIntersect.add( " ( " + f.getQueryString("OR") + " ) ");
+			}
+			
+			queryUnion.add(String.join(" INTERSECT ",queryIntersect));
+		}
+		
+		return String.join(" UNION ", queryUnion);
 	}
 	
 	@FXML
@@ -121,7 +163,6 @@ public class ricerca3_controller implements Initializable{
 		scelta_filtro_controller sf_controller = loader.getController();
 		Filter filtro = sf_controller.getfiltro(); //Cannot invoke "elaborato.ricerca.Filter.getQueryString(String)" because the return value of "java.util.List.get(int)" is null (quando faccio un datafilter)
 		filters.add(filtro);
-		System.out.printf("%s\n",filtro.getQueryString(null));
 		
 		initialize(null, null); //aggiorno la listview
 	}
@@ -195,19 +236,6 @@ public class ricerca3_controller implements Initializable{
 			lista_filtri.setItems(filtri_view);
 			
 			//modifico cosa appare sulla listview (appare il tipo di filtro)
-			
-			lista_filtri.setCellFactory(param -> new ListCell<Filter>() {
-	            @Override
-	            protected void updateItem(Filter filtro, boolean empty) {
-	                super.updateItem(filtro, empty);
-
-	                if (empty || filtro == null || filtro.getNameFilter() == null) {
-	                    setText(null);
-	                } else {
-	                    setText(filtro.getNameFilter() + " " + filtro.getDatiFilter());
-	                }
-	            }
-	        });
 		}
 		lista_filtri.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		

@@ -90,4 +90,9 @@ public class PatenteFilter implements Filter<Patente> {
 		}
 		return dati;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getNameFilter() + this.getDatiFilter();
+	}
 }

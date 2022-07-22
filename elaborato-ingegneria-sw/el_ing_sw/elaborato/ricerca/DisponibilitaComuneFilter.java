@@ -83,5 +83,10 @@ public class DisponibilitaComuneFilter implements Filter<String> {
 		List<String> list = new ArrayList<String>(comuni);
 		return list.get(0);
 	}
+	
+	@Override
+	public String toString() {
+		return this.getNameFilter() + this.getDatiFilter();
+	}
 
 }

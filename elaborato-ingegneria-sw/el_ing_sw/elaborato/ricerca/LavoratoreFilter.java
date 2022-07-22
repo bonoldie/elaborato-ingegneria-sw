@@ -9,8 +9,8 @@ import elaborato.DAO.FilterAnagrafica;
 
 public class LavoratoreFilter implements Filter<FilterAnagrafica> {
 	
-	//per cercare un lavoratore oltre all nome e cogonome posso passrgli l'email visto che è unique
-	//oppure l'addetto è obbligato ad usare nome, cognome e email (nel caso di omonimi)
+	//per cercare un lavoratore oltre all nome e cogonome posso passrgli l'email visto che ï¿½ unique
+	//oppure l'addetto ï¿½ obbligato ad usare nome, cognome e email (nel caso di omonimi)
 	private static String rifTabella = "a";
 	private static String rifColonna_nome = "nome"; 
 	private static String rifColonna_cognome = "cognome"; 
@@ -102,5 +102,12 @@ public class LavoratoreFilter implements Filter<FilterAnagrafica> {
 		FilterAnagrafica f = (FilterAnagrafica) this.dati.toArray()[0];
 		return f.getNome() + " " + f.getCognome() + " " + f.getEmail();
 	}
+	
+	@Override
+	public String toString() {
+		return this.getNameFilter() + this.getDatiFilter();
+	}
+	
+
 
 }

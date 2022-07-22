@@ -83,4 +83,9 @@ public class DisponibilitaDataFilter implements Filter<LocalDate> {
 		return this.rifColonna + " " + this.rifOperator + " " + d.toString();
 	}
 	
+	@Override
+	public String toString() {
+		return this.getNameFilter() + this.getDatiFilter();
+	}
+	
 }

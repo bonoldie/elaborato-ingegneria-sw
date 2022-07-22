@@ -87,5 +87,10 @@ public class AutomunitoFilter implements Filter<Boolean> {
 		else
 			return "false";
 	}
+	
+	@Override
+	public String toString() {
+		return this.getNameFilter()+(Boolean)this.dati.toArray()[0];
+	}
 
 }

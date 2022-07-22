@@ -9,10 +9,10 @@ import elaborato.DAO.Patente;
 import elaborato.DAO.Specializzazione;
 
 public class SpecializzazioneFilter implements Filter<Specializzazione> {
-	private static String rifTabella = "le";
-	private static String rifColonna = "esperienza";
+	private static String rifTabella = "s";
+	private static String rifColonna = "nome_spec";
 
-	private static String sqlPrefix = "SELECT l.id_lavoratore	FROM lavoratore l  left join lavoratore_esperienza le on l.id_lavoratore = le.id_lavoratore";
+	private static String sqlPrefix = "SELECT l.id_lavoratore	FROM lavoratore l  left join lavoratore_esperienza le on l.id_lavoratore = le.id_lavoratore left join specializzazione s on s.id_spec = le.id_esperienza ";
 
 	private Set<Specializzazione> specs;
 		
@@ -83,6 +83,11 @@ public class SpecializzazioneFilter implements Filter<Specializzazione> {
 			dati+= s.getNome_specializzazione() +" ";
 		}
 		return dati;
+	}
+	
+	@Override
+	public String toString() {
+		return this.getNameFilter() + this.getDatiFilter();
 	}
 
 }
