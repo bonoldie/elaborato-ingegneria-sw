@@ -4,8 +4,10 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import elaborato.DAO.Anagrafica;
 import elaborato.DAO.AnagraficaDAO;
@@ -31,6 +33,7 @@ import elaborato.DAO.Recapito;
 import elaborato.DAO.RecapitoDAO;
 import elaborato.DAO.Specializzazione;
 import elaborato.DAO.SpecializzazioneDAO;
+import elaborato.DB.Database;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -56,16 +59,17 @@ public class edit_lavoratore_controller implements Initializable {
 	LavoratoreDAO lavoratoreDAO = new LavoratoreDAO();
 	AnagraficaDAO anagraficaDAO = new AnagraficaDAO();
 
-	//Lavoratore_EsperienzaDAO lavoratoreEsperienzaDAO = new Lavoratore_EsperienzaDAO();
+	// Lavoratore_EsperienzaDAO lavoratoreEsperienzaDAO = new
+	// Lavoratore_EsperienzaDAO();
 
 	LinguaDAO linguaDAO = new LinguaDAO();
 	Lavoratore_LinguaDAO lavoratoreLinguaDAO = new Lavoratore_LinguaDAO();
 
 	PatenteDAO patenteDAO = new PatenteDAO();
 	Lavoratore_PatenteDAO lavoratorePatenteDAO = new Lavoratore_PatenteDAO();
-	
-	SpecializzazioneDAO specDAO = new SpecializzazioneDAO(); //AGGIUNTA
-	Lavoratore_EsperienzaDAO lavoratoreEsperienzaDAO = new Lavoratore_EsperienzaDAO(); //AGGIUNTA
+
+	SpecializzazioneDAO specDAO = new SpecializzazioneDAO(); // AGGIUNTA
+	Lavoratore_EsperienzaDAO lavoratoreEsperienzaDAO = new Lavoratore_EsperienzaDAO(); // AGGIUNTA
 
 	DisponibilitaDAO disponibilitaDAO = new DisponibilitaDAO();
 
@@ -98,7 +102,7 @@ public class edit_lavoratore_controller implements Initializable {
 	TextField telefono_tf;
 
 	@FXML
-	ListView<Specializzazione> specializzazioni_lw; //MODIFICA
+	ListView<Specializzazione> specializzazioni_lw; // MODIFICA
 
 	@FXML
 	CheckBox automunito_cb;
@@ -132,6 +136,22 @@ public class edit_lavoratore_controller implements Initializable {
 
 	@FXML
 	private void salva_edit_lavoratore(ActionEvent event) {
+
+		try {
+			// Prima convalito i vari campi
+			this.validateFields();
+		} catch (Exception e) {
+			this.displayError(e.getMessage());
+			return;
+		}
+
+		try {
+			// Disabilita auto-commit
+			Database.getDatabase().getConnection().setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		if (this.lavoratoreId < 0) {
 			// INSERT
 			Anagrafica anagrafica = new Anagrafica(0, luogo_di_nascita_tf.getText(), data_nascita_dp.getValue(),
@@ -141,8 +161,6 @@ public class edit_lavoratore_controller implements Initializable {
 					email_em_tf.getText());
 
 			try {
-				this.validateFields();
-				
 				anagraficaDAO.insertAnagrafica(anagrafica);
 				recapitoDAO.insertRecapito(recapito);
 
@@ -153,55 +171,77 @@ public class edit_lavoratore_controller implements Initializable {
 				disponibilitaDAO.insertDisponibilita(new Disponibilita(0, lavoratore.getId_lavoratore(),
 						disp_data_inizio_dp.getValue(), disp_data_fine_dp.getValue(), disp_comune_tf.getText()));
 
-				patenti_lw.getSelectionModel().getSelectedItems().forEach(p -> {
-					try {
-						lavoratorePatenteDAO.insertLavoratore_Patente(
-								new Lavoratore_Patente(lavoratore.getId_lavoratore(), p.getId_patente()));
-					} catch (SQLException e) {
-						this.displayError(e.getMessage());
-						return;
-					}
-				});
+				lavoratorePatenteDAO.sync(lavoratore, patenti_lw.getSelectionModel().getSelectedItems());
+				lavoratoreLinguaDAO.sync(lavoratore, lingue_lw.getSelectionModel().getSelectedItems());
+				lavoratoreEsperienzaDAO.sync(lavoratore, specializzazioni_lw.getSelectionModel().getSelectedItems());
 
-				lingue_lw.getSelectionModel().getSelectedItems().forEach(l -> {
-					try {
-						lavoratoreLinguaDAO.insertLavoratore_Lingua(
-								new Lavoratore_Lingua(lavoratore.getId_lavoratore(), l.getId_lingua()));
-					} catch (SQLException e) {
-						this.displayError(e.getMessage());
-						return;
-					}
-				});
-
-				lingue_lw.getSelectionModel().getSelectedItems().forEach(l -> { //PERCHE DUE??
-					try {
-						lavoratoreLinguaDAO.insertLavoratore_Lingua(
-								new Lavoratore_Lingua(lavoratore.getId_lavoratore(), l.getId_lingua()));
-					} catch (SQLException e) {
-						this.displayError(e.getMessage());
-						return;
-					}
-				});
-				
-				//AGGIUNTA
-				specializzazioni_lw.getSelectionModel().getSelectedItems().forEach(s -> {
-					try {
-						lavoratoreEsperienzaDAO.insertLavoratore_Esperienza(
-								new Lavoratore_Esperienza(lavoratore.getId_lavoratore(), s.getId_specializzazione()));
-					} catch (SQLException e) {
-						this.displayError(e.getMessage());
-						return;
-					}
-				});
+				Database.getDatabase().getConnection().commit();
 			} catch (Exception e) {
+
+				try {
+					Database.getDatabase().getConnection().rollback();
+					Database.getDatabase().getConnection().setAutoCommit(true);
+				} catch (SQLException eRollback) {
+					eRollback.printStackTrace();
+				}
+
 				this.displayError(e.getMessage());
 				return;
 			}
 
 		} else {
-			// UPDATE
+			try {
+
+				Lavoratore lavoratore;
+
+				lavoratore = lavoratoreDAO.getLavoratore(lavoratoreId);
+				lavoratore.setIndirizzo(indirizzo_tf.getText());
+				lavoratore.setAutomunito(automunito_cb.isSelected());
+				lavoratoreDAO.updateLavoratore(lavoratore);
+
+				Anagrafica anagrafica = new Anagrafica(lavoratore.getId_anagrafica(), luogo_di_nascita_tf.getText(),
+						data_nascita_dp.getValue(), nazionalita_tf.getText(), nome_tf.getText(), cognome_tf.getText(),
+						telefono_tf.getText(), email_tf.getText());
+				anagraficaDAO.updateAnagrafica(anagrafica);
+
+				Recapito recapito = new Recapito(lavoratore.getId_recapito_urgenza(), nome_em_tf.getText(),
+						cognome_em_tf.getText(), telefono_em_tf.getText(), email_em_tf.getText());
+				recapitoDAO.updateRecapito(recapito);
+
+				Disponibilita disponibilita;
+				disponibilita = disponibilitaDAO.getDisponibilitaByLavoratoreId(lavoratore.getId_lavoratore());
+				disponibilita.setComune(disp_comune_tf.getText());
+				disponibilita.setData_inizio(disp_data_inizio_dp.getValue());
+				disponibilita.setData_fine(disp_data_fine_dp.getValue());
+				disponibilitaDAO.updateDisponibilita(disponibilita);
+
+				lavoratorePatenteDAO.sync(lavoratore,
+						this.automunito_cb.isSelected() ? patenti_lw.getSelectionModel().getSelectedItems()
+								: new ArrayList<Patente>());
+				lavoratoreLinguaDAO.sync(lavoratore, lingue_lw.getSelectionModel().getSelectedItems());
+				lavoratoreEsperienzaDAO.sync(lavoratore, specializzazioni_lw.getSelectionModel().getSelectedItems());
+
+				Database.getDatabase().getConnection().commit();
+			} catch (SQLException e) {
+				try {
+					Database.getDatabase().getConnection().rollback();
+					Database.getDatabase().getConnection().setAutoCommit(true);
+				} catch (SQLException eRollback) {
+					eRollback.printStackTrace();
+				}
+				this.displayError(e.getMessage());
+				return;
+			}
 		}
 
+		// Abilita auto-commit
+		try {
+			Database.getDatabase().getConnection().setAutoCommit(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		this.chiudi_edit_lavoratore(null);
 	}
 
 	private void displayError(String message) {
@@ -212,18 +252,25 @@ public class edit_lavoratore_controller implements Initializable {
 		alert.getButtonTypes().setAll(ButtonType.CLOSE);
 
 		alert.show();
-	
+
 		Timeline closingAlertAnimation = new Timeline(new KeyFrame(Duration.seconds(5), e -> {
 			alert.close();
 		}));
-		
+
 		closingAlertAnimation.setCycleCount(1);
 		closingAlertAnimation.play();
 	}
 
 	public void validateFields() throws Exception {
-		if (disp_data_inizio_dp.getValue().isAfter(disp_data_fine_dp.getValue())) {
+		if (!Pattern.compile("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$").matcher(disp_data_inizio_dp.getValue().toString())
+				.matches()
+				|| !Pattern.compile("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$").matcher(disp_data_fine_dp.getValue().toString())
+						.matches()) {
 			throw new Exception("Date di disponibilità non valide");
+		}
+
+		if (disp_data_inizio_dp.getValue().isAfter(disp_data_fine_dp.getValue())) {
+			throw new Exception("Data di inizio disponibilità successiva alla data di fine disponibilità");
 		}
 
 		if (telefono_tf.getText().length() != 10) {
@@ -267,9 +314,10 @@ public class edit_lavoratore_controller implements Initializable {
 		disp_data_inizio_dp.setValue(LocalDate.now());
 		disp_data_fine_dp.setValue(LocalDate.now());
 		disp_comune_tf.clear();
-		patenti_lw.getSelectionModel().clearSelection();
 		lingue_lw.getSelectionModel().clearSelection();
 
+		patenti_lw.getSelectionModel().clearSelection();
+		this.patenti_lw.setDisable(!automunito_cb.isSelected());
 	}
 
 	private void syncFields() {
@@ -302,7 +350,7 @@ public class edit_lavoratore_controller implements Initializable {
 			indirizzo_tf.setText(lavoratore.getIndirizzo());
 			automunito_cb.setSelected(lavoratore.isAutomunito());
 
-			//specializzazioni_cb.getSelectionModel();
+			// specializzazioni_cb.getSelectionModel();
 
 			nome_em_tf.setText(recapito.getNome());
 			cognome_em_tf.setText(recapito.getCognome());
@@ -322,8 +370,8 @@ public class edit_lavoratore_controller implements Initializable {
 					}
 				});
 			});
-			
-			//AGGIUNTA
+
+			// AGGIUNTA
 			specializzazioni_lw.getItems().forEach(s -> {
 				lavoratoreEsperienza.forEach(le -> {
 					if (s.getId_specializzazione() == le.getId_esperienza()) {
@@ -343,11 +391,12 @@ public class edit_lavoratore_controller implements Initializable {
 					}
 				});
 			});
+
+			this.patenti_lw.setDisable(!automunito_cb.isSelected());
 		} catch (SQLException e) {
 			this.displayError(e.getMessage());
 			return;
 		}
-
 	}
 
 	@Override
@@ -355,18 +404,20 @@ public class edit_lavoratore_controller implements Initializable {
 		try {
 			this.lingue_lw.setItems(FXCollections.observableArrayList(linguaDAO.getAllLingue()));
 			this.patenti_lw.setItems(FXCollections.observableArrayList(patenteDAO.getAllPatente()));
-			//this.specializzazioni_cb.setItems(specializzazioni);
-			this.specializzazioni_lw.setItems(FXCollections.observableArrayList(specDAO.getAllSpecializzazione())); //AGGIUNTA
-			
+			this.specializzazioni_lw.setItems(FXCollections.observableArrayList(specDAO.getAllSpecializzazione()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
+		// Attiva/Disattiva le patatenti
+		automunito_cb.setOnMouseClicked(e -> {
+			this.patenti_lw.setDisable(!automunito_cb.isSelected());
+		});
+
 		this.lingue_lw.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		this.patenti_lw.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		this.specializzazioni_lw.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); //AGGIUNTA
+		this.specializzazioni_lw.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // AGGIUNTA
 
-		
 		this.setLavoratoreId(-1);
 	}
 }

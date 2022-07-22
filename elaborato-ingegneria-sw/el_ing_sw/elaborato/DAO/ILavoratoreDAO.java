@@ -8,7 +8,7 @@ public interface ILavoratoreDAO {
 
 	public Lavoratore getLavoratore(int id_lavoratore) throws SQLException;
 
-	public void updateLavoratore(Lavoratore lavoratore);
+	public void updateLavoratore(Lavoratore lavoratore) throws SQLException;
 	
 	public void insertLavoratore(Lavoratore lavoratore) throws SQLException;
 

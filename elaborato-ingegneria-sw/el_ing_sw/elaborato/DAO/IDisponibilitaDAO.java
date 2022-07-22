@@ -8,7 +8,7 @@ public interface IDisponibilitaDAO {
 
 	public Disponibilita getDisponibilita(int id_disponibilita) throws SQLException;
 
-	public void updateDisponibilita(Disponibilita disponibilita);
+	public void updateDisponibilita(Disponibilita disponibilita) throws SQLException;
 	
 	public void insertDisponibilita(Disponibilita disponibilita) throws SQLException;
 

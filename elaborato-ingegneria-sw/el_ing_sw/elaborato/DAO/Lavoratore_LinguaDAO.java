@@ -9,7 +9,7 @@ import java.util.List;
 
 import elaborato.DB.Database;
 
-public class Lavoratore_LinguaDAO implements ILavoratore_LinguaDAO {
+public class Lavoratore_LinguaDAO implements ILavoratore_LinguaDAO, ManyToMany<Lavoratore,Lingua> {
 
 	public Lavoratore_LinguaDAO() {
 		// TODO Auto-generated constructor stub
@@ -69,9 +69,43 @@ public class Lavoratore_LinguaDAO implements ILavoratore_LinguaDAO {
 	}
 
 	@Override
-	public void deleteLavoratore_Lingua(Lavoratore_Lingua lavoratore_lingua) {
-		// TODO Auto-generated method stub
+	public void deleteLavoratore_Lingua(Lavoratore_Lingua lavoratore_lingua) throws SQLException {
+		PreparedStatement pst_lavoratore_lingua = Database.getDatabase().getConnection().prepareStatement(
+				"DELETE FROM lavoratore_lingua WHERE id_lavoratore=? AND id_lingua=?;");
+		pst_lavoratore_lingua.setInt(1, lavoratore_lingua.getId_lavoratore());
+		pst_lavoratore_lingua.setInt(2, lavoratore_lingua.getId_lingua());
+		pst_lavoratore_lingua.execute();
 
+	}
+
+	@Override
+	public void sync(Lavoratore pivot, List<Lingua> syncArray) throws SQLException {
+		List<Lavoratore_Lingua> updatedLLs = new ArrayList<>();
+
+		syncArray.forEach(l -> {
+			updatedLLs.add(new Lavoratore_Lingua(pivot.getId_lavoratore(), l.getId_lingua()));
+		});
+
+		this.getLavoratore_Lingua(pivot.getId_lavoratore()).forEach(ll -> {
+			if (!syncArray.contains(ll)) {
+				try {
+					this.deleteLavoratore_Lingua(ll);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		updatedLLs.forEach(updatedLP -> {
+			try {
+				if (!this.getLavoratore_Lingua(pivot.getId_lavoratore()).contains(updatedLP)) {
+					this.insertLavoratore_Lingua(updatedLP);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
+		
 	}
 
 }

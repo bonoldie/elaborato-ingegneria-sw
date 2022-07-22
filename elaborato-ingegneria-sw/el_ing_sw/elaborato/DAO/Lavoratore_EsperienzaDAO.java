@@ -9,7 +9,7 @@ import java.util.List;
 
 import elaborato.DB.Database;
 
-public class Lavoratore_EsperienzaDAO implements ILavoratore_EsperienzaDAO {
+public class Lavoratore_EsperienzaDAO implements ILavoratore_EsperienzaDAO, ManyToMany<Lavoratore, Specializzazione> {
 
 	@Override
 	public List<Lavoratore_Esperienza> getAllLavoratore_Esperienza() throws SQLException {
@@ -79,6 +79,36 @@ public class Lavoratore_EsperienzaDAO implements ILavoratore_EsperienzaDAO {
 		pst_lavoratore_esperienza.setInt(1 ,lavoratore_esperienza.getId_lavoratore());
 		pst_lavoratore_esperienza.setInt(2 ,lavoratore_esperienza.getId_esperienza());
 		pst_lavoratore_esperienza.executeUpdate();
+	}
+
+	@Override
+	public void sync(Lavoratore pivot, List<Specializzazione> syncArray) throws SQLException {
+			
+		List<Lavoratore_Esperienza> updatedLEs = new ArrayList<>();
+
+		syncArray.forEach(s -> {
+			updatedLEs.add(new Lavoratore_Esperienza(pivot.getId_lavoratore(), s.getId_specializzazione()));
+		});
+
+		this.getLavoratore_esperienza(pivot.getId_lavoratore()).forEach(le -> {
+			if (!syncArray.contains(le)) {
+				try {
+					this.deleteLavoratore_Esperienza(le);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		updatedLEs.forEach(updatedLE -> {
+			try {
+				if (!this.getLavoratore_esperienza(pivot.getId_lavoratore()).contains(updatedLE)) {
+					this.insertLavoratore_Esperienza(updatedLE);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 }

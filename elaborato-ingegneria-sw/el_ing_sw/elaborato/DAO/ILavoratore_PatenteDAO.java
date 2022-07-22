@@ -12,5 +12,5 @@ public interface ILavoratore_PatenteDAO {
 	
 	public void updateLavoratore_Patente(Lavoratore_Patente lavoratore_patente);
 
-	public void deleteLavoratore_Patente(Lavoratore_Patente lavoratore_patente);
+	public void deleteLavoratore_Patente(Lavoratore_Patente lavoratore_patente) throws SQLException;
 }

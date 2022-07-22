@@ -8,7 +8,7 @@ public interface IRecapitoDAO {
 
 	public Recapito getRecapito(int id_recapito) throws SQLException;
 
-	public void updateRecapito(Recapito recapito);
+	public void updateRecapito(Recapito recapito) throws SQLException;
 
 	public void deleteRecapito(Recapito recapito);
 	

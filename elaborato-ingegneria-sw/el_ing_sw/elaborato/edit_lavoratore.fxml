@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="1074.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="elaborato.edit_lavoratore_controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1074.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="elaborato.edit_lavoratore_controller">
    <children>
       <Label layoutX="123.0" layoutY="14.0" text="Anagrafica">
          <font>
@@ -32,7 +32,7 @@
       <Label layoutX="33.0" layoutY="307.0" text="email" />
       <Label layoutX="35.0" layoutY="271.0" text="telefono" />
       <Label layoutX="33.0" layoutY="236.0" text="indirizzo" />
-      <Button fx:id="salva_bt" layoutX="599.0" layoutY="523.0" mnemonicParsing="false" onAction="#salva_edit_lavoratore" prefHeight="51.0" prefWidth="94.0" text="Salva" /> <!-- aggiungere l'azione -->
+      <Button fx:id="salva_bt" layoutX="599.0" layoutY="540.0" mnemonicParsing="false" onAction="#salva_edit_lavoratore" prefHeight="51.0" prefWidth="94.0" text="Salva" /> <!-- aggiungere l'azione -->
       <Label layoutX="438.0" layoutY="14.0" text="Contatto di emergenza">
          <font>
             <Font size="18.0" />
@@ -53,30 +53,26 @@
       </Label>
       <Label layoutX="412.0" layoutY="372.0" text="comune" />
       <TextField fx:id="disp_comune_tf" layoutX="493.0" layoutY="368.0" />
-      <ListView fx:id="patenti_lw" layoutX="810.0" layoutY="54.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="patenti_lw" layoutX="179.0" layoutY="370.0" prefHeight="164.0" prefWidth="150.0" />
       <DatePicker fx:id="data_nascita_dp" layoutX="180.0" layoutY="159.0" prefHeight="26.0" prefWidth="185.0" />
-      <ListView fx:id="lingue_lw" layoutX="810.0" layoutY="315.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="lingue_lw" layoutX="810.0" layoutY="335.0" prefHeight="200.0" prefWidth="200.0" />
       <DatePicker fx:id="disp_data_fine_dp" layoutX="493.0" layoutY="330.0" />
       <DatePicker fx:id="disp_data_inizio_dp" layoutX="493.0" layoutY="293.0" />
       <Label layoutX="411.0" layoutY="297.0" text="data inizio" />
       <Label layoutX="411.0" layoutY="334.0" text="data fine" />
-      <Button fx:id="chiudi_bt" layoutX="399.0" layoutY="523.0" mnemonicParsing="false" onAction="#chiudi_edit_lavoratore" prefHeight="51.0" prefWidth="94.0" text="Chiudi" />
-      <Label layoutX="878.0" layoutY="14.0" text="Patenti">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="880.0" layoutY="268.0" text="Lingue">
+      <Button fx:id="chiudi_bt" layoutX="399.0" layoutY="540.0" mnemonicParsing="false" onAction="#chiudi_edit_lavoratore" prefHeight="51.0" prefWidth="94.0" text="Chiudi" />
+      <Label layoutX="881.0" layoutY="297.0" text="Lingue">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <CheckBox fx:id="automunito_cb" layoutX="180.0" layoutY="343.0" mnemonicParsing="false" />
-      <ListView fx:id="specializzazioni_lw" layoutX="180.0" layoutY="372.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label layoutX="29.0" layoutY="444.0" text="Specializzazioni">
+      <ListView fx:id="specializzazioni_lw" layoutX="811.0" layoutY="59.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="839.0" layoutY="14.0" text="Specializzazioni">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="35.0" layoutY="444.0" text="patenti" />
    </children>
 </AnchorPane>

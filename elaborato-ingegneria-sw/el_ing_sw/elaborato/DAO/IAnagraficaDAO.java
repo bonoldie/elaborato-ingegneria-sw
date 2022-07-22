@@ -8,7 +8,7 @@ public interface IAnagraficaDAO {
 
 	public Anagrafica getAnagrafica(int id_anagrafica) throws SQLException;
 
-	public void updateAnagrafica(Anagrafica anagrafica, int id_anagrafica) throws SQLException;
+	public void updateAnagrafica(Anagrafica anagrafica) throws SQLException;
 
 	public void insertAnagrafica(Anagrafica anagrafica) throws SQLException;
 	

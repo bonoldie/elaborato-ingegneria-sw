@@ -12,5 +12,5 @@ public interface ILavoratore_LinguaDAO {
 	
 	public void insertLavoratore_Lingua(Lavoratore_Lingua lavoratore_lingua) throws SQLException;
 
-	public void deleteLavoratore_Lingua(Lavoratore_Lingua lavoratore_lingua);
+	public void deleteLavoratore_Lingua(Lavoratore_Lingua lavoratore_lingua) throws SQLException;
 }
