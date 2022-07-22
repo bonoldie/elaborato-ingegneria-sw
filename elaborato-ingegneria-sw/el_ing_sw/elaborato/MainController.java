@@ -51,7 +51,7 @@ public class MainController {
 		Boolean d = log.getDipendenteLogin(login.getText(), b64Passwd);
 
 		if (d == true) {
-			Parent root = FXMLLoader.load(getClass().getResource("ric_ins.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/elaborato/FXML/home.fxml"));
 
 			Scene scene = new Scene(root);
 			Stage primaryStage = new Stage();
