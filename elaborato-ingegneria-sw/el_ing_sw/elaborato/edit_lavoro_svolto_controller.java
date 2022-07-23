@@ -132,6 +132,11 @@ public class edit_lavoro_svolto_controller implements Initializable {
 				.matches()) {
 			throw new Exception("Importo di retribuzione non valido");
 		}
+		// AGGIUNTO
+		if(this.data_inizio_dp.getValue().isBefore(id_lavoratore_cb.getValue().getData_di_nascita()) || 
+				this.data_inizio_dp.getValue().isAfter(this.data_fine_dp.getValue())) {
+			throw new Exception("Date non valide ");
+		}
 	}
 	
 	public void setLavoroSvoltoInstance(Lavoro_svolto ls) {

@@ -67,7 +67,7 @@ public class LinguaFilter implements Filter<Lingua> {
 	@Override
 	public String getNameFilter() {
 		// TODO Auto-generated method stub
-		return "Lingua";
+		return "lingua: ";
 	}
 
 	@Override
@@ -84,6 +84,12 @@ public class LinguaFilter implements Filter<Lingua> {
 			dati+= s.getNome_lingua() +" ";
 		}
 		return dati;
+	}
+	
+
+	@Override
+	public String toString() {
+		return this.getNameFilter() + this.getDatiFilter();
 	}
 
 }

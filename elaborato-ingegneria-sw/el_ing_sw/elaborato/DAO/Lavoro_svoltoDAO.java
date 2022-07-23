@@ -23,7 +23,7 @@ public class Lavoro_svoltoDAO implements ILavoro_svoltoDAO {
 
 			Statement st_anagrafica = Database.getDatabase().getConnection().createStatement();	
 			
-			rs_lavori_svolti = st_anagrafica.executeQuery("SELECT * FROM lavoro_svolto");
+			rs_lavori_svolti = st_anagrafica.executeQuery("SELECT * FROM lavoro_svolto WHERE current_date-data_fine < 1825;");
 			
 			while(rs_lavori_svolti.next()) {
 				lavori_svolti.add(
@@ -89,17 +89,17 @@ public class Lavoro_svoltoDAO implements ILavoro_svoltoDAO {
 	@Override
 	public void deleteLavoro_svolto(Lavoro_svolto lavoro_svolto) throws SQLException {
 		// TODO Auto-generated method stub
-		if(lavoro_svolto==null) { //attivarlo ogni volta apro aggiorna
-			PreparedStatement pst_lavoro_svolto = Database.getDatabase().getConnection()
-					.prepareStatement("DELETE FROM Lavoro_svolto WHERE current_date-data_fine>1825;");
-			pst_lavoro_svolto.executeUpdate();
-		}
-		else {
+		// if(lavoro_svolto==null) { //attivarlo ogni volta apro aggiorna
+		//	PreparedStatement pst_lavoro_svolto = Database.getDatabase().getConnection()
+		//			.prepareStatement("DELETE FROM Lavoro_svolto WHERE current_date-data_fine>1825;");
+		// 	pst_lavoro_svolto.executeUpdate();
+		// }
+		// else {
 			PreparedStatement pst_lavoro_svolto = Database.getDatabase().getConnection()
 					.prepareStatement("DELETE FROM Lavoro_svolto WHERE id_lavoro_svolto=?;");
 			pst_lavoro_svolto.setInt(1, lavoro_svolto.getId_lavoro_svolto());
 			pst_lavoro_svolto.executeUpdate();
-		}
+		// }
 	}
 
 }

@@ -4,6 +4,7 @@ module el_ing_sw {
 	requires java.sql;
 	requires javafx.base;
 	requires javafx.controls;
+	requires org.junit.jupiter.api;
 
 	opens elaborato to javafx.graphics, javafx.fxml; // aggiungere in caso di
 	// cannot access class elaborato.Main (in module el_ing_sw) because module

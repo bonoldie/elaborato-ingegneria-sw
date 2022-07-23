@@ -72,7 +72,7 @@ public class PatenteFilter implements Filter<Patente> {
 	@Override
 	public String getNameFilter() {
 		// TODO Auto-generated method stub
-		return "patente";
+		return "patente: ";
 	}
 
 	@Override
