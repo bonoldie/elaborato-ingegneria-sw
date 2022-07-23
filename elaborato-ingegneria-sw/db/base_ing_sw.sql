@@ -55,7 +55,8 @@ CREATE TABLE lavoro_svolto(
 	nome_azienda VARCHAR(30),
 	mansione_svolta VARCHAR(30),
 	luogo_di_lavoro VARCHAR(30),
-	retri_lorda_giornaliera DECIMAL(8,2)
+	retri_lorda_giornaliera DECIMAL(8,2),
+	PRIMARY KEY (id_lavoro_svolto)
 );
 
 CREATE TABLE Patente(
