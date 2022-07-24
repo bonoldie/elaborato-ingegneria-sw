@@ -32,7 +32,7 @@ public class ins_ric_controller {
 
 	@FXML
 	private void ricerca_finestra(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("ricerca3.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/elaborato/FXML/ricerca3.fxml"));
 
 		Scene scene = new Scene(root);
 		Stage primaryStage = new Stage();
@@ -47,7 +47,7 @@ public class ins_ric_controller {
 
 	@FXML
 	private void inserimento_finestra(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("lista_lavoratori.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/elaborato/FXML/lista_lavoratori.fxml"));
 
 		Scene scene = new Scene(root);
 		Stage primaryStage = new Stage();
@@ -63,7 +63,7 @@ public class ins_ric_controller {
 	@FXML
 	private void aggiornamento_finestra(ActionEvent event) throws IOException {
 		// Parent root = FXMLLoader.load(getClass().getResource("aggiornamento.fxml"));
-		Parent root = FXMLLoader.load(getClass().getResource("lista_lavori_svolti.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/elaborato/FXML/lista_lavori_svolti.fxml"));
 
 		Scene scene = new Scene(root);
 		Stage primaryStage = new Stage();

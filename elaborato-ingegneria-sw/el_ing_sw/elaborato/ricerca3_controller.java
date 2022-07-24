@@ -152,7 +152,7 @@ public class ricerca3_controller implements Initializable{
 	@FXML
 	private void nuovo_filtro_oa(ActionEvent event) throws IOException {
 		
-		FXMLLoader loader= new FXMLLoader(getClass().getResource("scelta_filtro.fxml"));
+		FXMLLoader loader= new FXMLLoader(getClass().getResource("/elaborato/FXML/scelta_filtro.fxml"));
 		Stage primaryStage = new Stage();
 		primaryStage.initOwner(nuovo_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
 		primaryStage.setScene(new Scene ((Parent) loader.load()));

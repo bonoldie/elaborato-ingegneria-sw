@@ -75,7 +75,7 @@ public class lista_lavori_svolti_controller implements Initializable {
 
 	public Stage showEditLavoroSvolto(Lavoro_svolto lavoro_svolto) {
 		Lavoro_svolto selectedLavoroSvolto = lavoro_svolto;
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("edit_lavoro_svolto.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/elaborato/FXML/edit_lavoro_svolto.fxml"));
 		Stage editLavoroSvoltoStage = new Stage();
 		editLavoroSvoltoStage.initOwner(lista_lavori_svolti.getScene().getWindow());
 

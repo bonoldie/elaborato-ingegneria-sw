@@ -72,7 +72,7 @@ public class lista_lavoratori_controller implements Initializable {
 	}
 
 	public Stage showEditLavoratore(int lavoratoreId) {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("edit_lavoratore.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/elaborato/FXML/edit_lavoratore.fxml"));
 		Stage editLavoratoreStage = new Stage();
 		editLavoratoreStage.initOwner(this.lista_lavoratori.getScene().getWindow());
 		

@@ -36,6 +36,29 @@ public class scelta_filtro_controller implements Initializable{
 	private PatenteFilter filtro_pf;
 	private SpecializzazioneFilter filtro_sf;*/
 	
+	private FXMLLoader show(String path, String title) throws IOException {
+		FXMLLoader loader = null;
+		Parent root = null;
+		
+		try {
+			loader = new FXMLLoader(getClass().getResource(path));
+			root = (Parent) loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		Scene scene = new Scene(root);
+		Stage primaryStage = new Stage();
+		primaryStage.setTitle(title);
+		primaryStage.setScene(scene);
+		primaryStage.initOwner(this.visiona_finestra_filtro.getScene().getWindow());
+		primaryStage.showAndWait();
+		
+		return loader;
+		
+		
+	}
 	
 	
 	public Filter getfiltro() {
@@ -57,122 +80,45 @@ public class scelta_filtro_controller implements Initializable{
 		switch(tipi_filtro.getSelectionModel().getSelectedItem()) {
 		
 		case "automunito":
-			
-			loader= new FXMLLoader(getClass().getResource("automunito.fxml"));
-			primaryStage = new Stage();
-			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
-			primaryStage.setScene(new Scene ((Parent) loader.load()));
-			
-			//wait until the window close
-			primaryStage.showAndWait();
-			
+			loader = this.show("/elaborato/FXML/automunito.fxml", "Filtro automunito");
 			automunito_controller am_controller = loader.getController();
-			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = am_controller.getfilter();
-			System.out.printf("%s\n",filtro.getQueryString(null));
-			
 			break;
 			
 		case "comune":
-			
-			loader= new FXMLLoader(getClass().getResource("comune.fxml"));
-			primaryStage = new Stage();
-			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
-			primaryStage.setScene(new Scene ((Parent) loader.load()));
-			
-			//wait until the window close
-			primaryStage.showAndWait();
-			
+			loader =  this.show("/elaborato/FXML/comune.fxml", "Filtro comune");
 			comune_controller c_controller = loader.getController();
-			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = c_controller.getfilter();
-			System.out.printf("%s\n",filtro.getQueryString(null));
-			
 			break;
 			
 		case "disponibilita":
-			
-			loader= new FXMLLoader(getClass().getResource("periodo.fxml"));
-			primaryStage = new Stage();
-			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
-			primaryStage.setScene(new Scene ((Parent) loader.load()));
-			
-			//wait until the window close
-			primaryStage.showAndWait();
-			
+			loader =  this.show("/elaborato/FXML/periodo.fxml", "Filtro periodo");
 			periodo_controller p_controller = loader.getController();
-			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = p_controller.getfilter();
-			System.out.printf("%s\n",filtro.getQueryString(null));
-			
 			break;
 			
 		case "lavoratore":
-			
-			loader= new FXMLLoader(getClass().getResource("lavoratore.fxml"));
-			primaryStage = new Stage();
-			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
-			primaryStage.setScene(new Scene ((Parent) loader.load()));
-			
-			//wait until the window close
-			primaryStage.showAndWait();
-			
+			loader =  this.show("/elaborato/FXML/lavoratore.fxml", "Filtro lavoratore");
 			lavoratore_controller la_controller = loader.getController();
-			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = la_controller.getfilter();
-			System.out.printf("%s\n",filtro.getQueryString("AND"));
-			
 			break;
 			
 		case "lingua":
-			
-			loader= new FXMLLoader(getClass().getResource("lingua.fxml"));
-			primaryStage = new Stage();
-			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
-			primaryStage.setScene(new Scene ((Parent) loader.load()));
-			
-			//wait until the window close
-			primaryStage.showAndWait();
-			
+			loader =  this.show("/elaborato/FXML/lingua.fxml", "Filtro lingua");	
 			lingua_controller l_controller = loader.getController();
-			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = l_controller.getfilter();
-			System.out.printf("%s\n",filtro.getQueryString(null));
-			
 			break;
 			
 		case "patente":
-			
-			loader= new FXMLLoader(getClass().getResource("patente.fxml"));
-			primaryStage = new Stage();
-			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
-			primaryStage.setScene(new Scene ((Parent) loader.load()));
-			
-			//wait until the window close
-			primaryStage.showAndWait();
-			
+			loader =  this.show("/elaborato/FXML/patente.fxml", "Filtro patente");	
 			patente_controller pa_controller = loader.getController();
-			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = pa_controller.getfilter();
-			System.out.printf("%s\n",filtro.getQueryString(null));
-			
 			break;
 			
 		case "specializzazione":
-			
-			loader= new FXMLLoader(getClass().getResource("specializzazione.fxml"));
-			primaryStage = new Stage();
-			primaryStage.initOwner(visiona_finestra_filtro.getScene().getWindow()); // specifica il proprietario della nuova finestra;
-			primaryStage.setScene(new Scene ((Parent) loader.load()));
-			
-			//wait until the window close
-			primaryStage.showAndWait();
-			
+			loader =  this.show("/elaborato/FXML/specializzazione.fxml", "Filtro specializzazione");	
 			specializzazione_controller sp_controller = loader.getController();
-			//AutomunitoFilter am_filtro = am_controller.getfilter();
 			filtro = sp_controller.getfilter();
-			System.out.printf("%s\n",filtro.getQueryString(null));
-			
 			break;
 			
 		}

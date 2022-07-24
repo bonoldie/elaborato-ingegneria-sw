@@ -51,15 +51,15 @@ public class HomeController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		lavoratori_bt.setOnMouseClicked(e -> {
-			this.show("/elaborato/lista_lavoratori.fxml", "Lista lavoratori");
+			this.show("/elaborato/FXML/lista_lavoratori.fxml", "Lista lavoratori");
 		});
 		
 		lavori_bt.setOnMouseClicked(e -> {
-			this.show("/elaborato/lista_lavori_svolti.fxml", "Lista lavori");
+			this.show("/elaborato/FXML/lista_lavori_svolti.fxml", "Lista lavori");
 		});
 		
 		ricerca_bt.setOnMouseClicked(e -> {
-			this.show("/elaborato/ricerca3.fxml", "Ricerca lavoratori");
+			this.show("/elaborato/FXML/ricerca3.fxml", "Ricerca lavoratori");
 		});
 		
 		Arrays.asList(lavoratori_bt, lavori_bt, ricerca_bt).forEach(p -> {
