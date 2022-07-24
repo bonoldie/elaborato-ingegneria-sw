@@ -1,7 +1,7 @@
 --DROP DOMAIN IF EXISTS patenti CASCADE;
 --DROP DOMAIN IF EXISTS spe_esp CASCADE;
-CREATE DOMAIN patenti AS VARCHAR(4)
-	CHECK( VALUE IN ('AM','A1','A2','A','B1','B','BE','C1','C1E','C','CE','D1','D1E','D','DE','KA','KB','CQC','CQCM','CFP','NO'));
+-- CREATE DOMAIN patenti AS VARCHAR(4)
+-- 	CHECK( VALUE IN ('AM','A1','A2','A','B1','B','BE','C1','C1E','C','CE','D1','D1E','D','DE','KA','KB','CQC','CQCM','CFP','NO'));
 --CREATE DOMAIN spe_esp AS VARCHAR(20)
 	--CHECK( VALUE IN ('bagnino', 'barman', 'istruttore di nuoto', 'viticultore', 'floricultore'));
 
@@ -61,7 +61,7 @@ CREATE TABLE lavoro_svolto(
 
 CREATE TABLE Patente(
 	id_patente SERIAL PRIMARY KEY,
-	nome_patente patenti --da modificare ? mettere un varchar??
+	nome_patente VARCHAR(30)
 );
 
 CREATE TABLE Lavoratore_Patente(
@@ -76,7 +76,7 @@ CREATE TABLE Lingua(
 
 CREATE TABLE Lavoratore_Lingua(
 	id_lingua SERIAL REFERENCES Lingua(id_lingua),
-	id_lavoratore SERIAL REFERENCES Lingua(id_lingua)
+	id_lavoratore SERIAL REFERENCES Lavoratore(id_lavoratore)
 );
 
 --aggiunta tabella secializzazione

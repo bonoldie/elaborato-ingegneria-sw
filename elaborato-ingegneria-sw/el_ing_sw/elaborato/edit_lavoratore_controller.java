@@ -269,22 +269,31 @@ public class edit_lavoratore_controller implements Initializable {
 			throw new Exception("Date di disponibilità non valide");
 		}
 		
+		if (!Pattern.compile("^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$").matcher(data_nascita_dp.getValue().toString())
+				.matches()) {
+			throw new Exception("Data di nascita non valida");
+		}
+		
 		// RFC 5322 
 		if (!Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$").matcher(email_em_tf.getText()).matches()
 				|| !Pattern.compile("^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$").matcher(email_tf.getText()).matches()) {
 			throw new Exception("Email non valida");
 		}
+		
+		if (disp_data_inizio_dp.getValue().isBefore(data_nascita_dp.getValue())) {
+			throw new Exception("Data di inizio disponibilità antecedente alla data di nascita");
+		}
 
 		if (disp_data_inizio_dp.getValue().isAfter(disp_data_fine_dp.getValue())) {
 			throw new Exception("Data di inizio disponibilità successiva alla data di fine disponibilità");
 		}
+		
+		if (data_nascita_dp.getValue().isAfter(LocalDate.now())) {
+			throw new Exception("Data di nascita non valida");
+		}
 
 		if (telefono_tf.getText().length() != 10) {
 			throw new Exception("Campo telefono di anagrafica non valido");
-		}
-
-		if (telefono_em_tf.getText().length() != 10) {
-			throw new Exception("Campo telefono di recapito non valido");
 		}
 
 		if (telefono_em_tf.getText().length() != 10) {
