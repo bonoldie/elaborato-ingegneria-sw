@@ -162,8 +162,13 @@ public class ricerca3_controller implements Initializable{
 		
 		scelta_filtro_controller sf_controller = loader.getController();
 		Filter filtro = sf_controller.getfiltro(); //Cannot invoke "elaborato.ricerca.Filter.getQueryString(String)" because the return value of "java.util.List.get(int)" is null (quando faccio un datafilter)
-		filters.add(filtro);
 		
+		if(filtro == null)
+			return;
+		if(filtro.getFilterSet().size()==0)
+			return;
+		
+		filters.add(filtro);
 		initialize(null, null); //aggiorno la listview
 	}
 	
@@ -197,6 +202,10 @@ public class ricerca3_controller implements Initializable{
 	private void unisci_filtri_oa(ActionEvent event){
 		
 		List<Filter> invio = new ArrayList<Filter>();
+		
+		if(lista_filtri.getSelectionModel().getSelectedItems().size()<1) {
+			return;
+		}
 		
 		//selezioniamo da lista_filtri i filtri da concatenare ("AND")		
 		for(Filter f : lista_filtri.getSelectionModel().getSelectedItems()) {

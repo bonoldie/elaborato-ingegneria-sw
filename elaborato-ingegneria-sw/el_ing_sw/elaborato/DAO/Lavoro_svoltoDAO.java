@@ -32,8 +32,8 @@ public class Lavoro_svoltoDAO implements ILavoro_svoltoDAO {
 								rs_lavori_svolti.getInt("id_lavoratore"),
 								rs_lavori_svolti.getDate("data_inizio").toLocalDate(),
 								rs_lavori_svolti.getDate("data_fine").toLocalDate(),
-								rs_lavori_svolti.getString("nome_azienda"),
 								rs_lavori_svolti.getString("mansione_svolta"),
+								rs_lavori_svolti.getString("nome_azienda"),
 								rs_lavori_svolti.getString("luogo_di_lavoro"),
 								rs_lavori_svolti.getBigDecimal("retri_lorda_giornaliera")
 								)
@@ -78,7 +78,7 @@ public class Lavoro_svoltoDAO implements ILavoro_svoltoDAO {
 		pst_lavoro_svolto.setDate(1, java.sql.Date.valueOf(lavoro_svolto.getData_inizio()));
 		pst_lavoro_svolto.setDate(2, java.sql.Date.valueOf(lavoro_svolto.getData_fine()));
 		pst_lavoro_svolto.setString(3, lavoro_svolto.getNome_azienda());
-		pst_lavoro_svolto.setString(4, lavoro_svolto.getNome_azienda());
+		pst_lavoro_svolto.setString(4, lavoro_svolto.getMansione_svolta());
 		pst_lavoro_svolto.setString(5, lavoro_svolto.getLuogo_di_lavoro());
 		pst_lavoro_svolto.setBigDecimal(6, lavoro_svolto.getRetribuzione_lorda_giornaliera());
 		pst_lavoro_svolto.setInt(7, lavoro_svolto.getId_lavoro_svolto());
