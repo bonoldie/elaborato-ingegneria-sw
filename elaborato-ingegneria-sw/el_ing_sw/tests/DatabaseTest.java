@@ -15,7 +15,9 @@ class DatabaseTest {
 	void testConnection() {
 		try {
 			Connection c = Database.getDatabase().getConnection();
-			throw new Exception("AA");
+			//;
+			if(c== null)
+				throw new Exception("AA");
 		}catch(Exception e) {
 			fail(e);
 		}
