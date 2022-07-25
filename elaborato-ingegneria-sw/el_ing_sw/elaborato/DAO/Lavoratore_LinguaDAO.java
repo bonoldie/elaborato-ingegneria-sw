@@ -87,7 +87,7 @@ public class Lavoratore_LinguaDAO implements ILavoratore_LinguaDAO, ManyToMany<L
 		});
 
 		this.getLavoratore_Lingua(pivot.getId_lavoratore()).forEach(ll -> {
-			if (!syncArray.contains(ll)) {
+			if (!updatedLLs.contains(ll)) {
 				try {
 					this.deleteLavoratore_Lingua(ll);
 				} catch (SQLException e) {

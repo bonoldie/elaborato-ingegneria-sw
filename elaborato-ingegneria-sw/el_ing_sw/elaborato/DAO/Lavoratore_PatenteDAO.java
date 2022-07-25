@@ -77,7 +77,7 @@ public class Lavoratore_PatenteDAO implements ILavoratore_PatenteDAO, ManyToMany
 		});
 
 		this.getLavoratore_Patente(pivot.getId_lavoratore()).forEach(lp -> {
-			if (!syncArray.contains(lp)) {
+			if (!updatedLPs.contains(lp)) {
 				try {
 					this.deleteLavoratore_Patente(lp);
 				} catch (SQLException e) {

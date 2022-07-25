@@ -91,7 +91,7 @@ public class Lavoratore_EsperienzaDAO implements ILavoratore_EsperienzaDAO, Many
 		});
 
 		this.getLavoratore_esperienza(pivot.getId_lavoratore()).forEach(le -> {
-			if (!syncArray.contains(le)) {
+			if (!updatedLEs.contains(le)) {
 				try {
 					this.deleteLavoratore_Esperienza(le);
 				} catch (SQLException e) {
