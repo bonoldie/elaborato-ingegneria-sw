@@ -64,9 +64,9 @@ public class Lavoratore_EsperienzaDAO implements ILavoratore_EsperienzaDAO, Many
 		pst_lavoratore_esperienza.setInt(2 ,lavoratore_esperienza.getId_esperienza());
 		pst_lavoratore_esperienza.executeUpdate();
 		
-		ResultSet r = pst_lavoratore_esperienza.getGeneratedKeys();
-		r.next();
-		lavoratore_esperienza.setId_lavoratore(r.getInt(1));
+		// ResultSet r = pst_lavoratore_esperienza.getGeneratedKeys();
+		// r.next();
+		// lavoratore_esperienza.setId_lavoratore(r.getInt(1));
 		
 	}
 
