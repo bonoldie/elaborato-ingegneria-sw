@@ -1,4 +1,4 @@
-package testsDAO;
+package tests.DAO;
 
 
 

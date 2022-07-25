@@ -1,4 +1,4 @@
-package testsDAO;
+package tests.DAO;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
