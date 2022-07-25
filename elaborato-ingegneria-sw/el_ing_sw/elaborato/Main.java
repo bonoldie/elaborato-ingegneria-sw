@@ -1,5 +1,7 @@
 package elaborato;
 
+import java.util.Arrays;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -11,7 +13,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		// TODO Auto-generated method stub
 		Scene scene;
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("ing_sw.fxml"));/* creare */
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/elaborato/FXML/Login.fxml"));/* creare */
 
 		try {
 			scene = new Scene(loader.load()); // il bottone mi da problemi; invalid identifier fx:id il nome non deve
@@ -24,11 +26,10 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-
 		// scena fxml
 		launch(args);
 
-		// login dipendente
+		// login dipendenteReturns a sequential
 
 		// connesione al server (richiesta driver e connesione)
 
