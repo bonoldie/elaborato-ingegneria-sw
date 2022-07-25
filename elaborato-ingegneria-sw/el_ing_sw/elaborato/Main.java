@@ -13,7 +13,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		// TODO Auto-generated method stub
 		Scene scene;
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/elaborato/FXML/ing_sw.fxml"));/* creare */
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/elaborato/FXML/Login.fxml"));/* creare */
 
 		try {
 			scene = new Scene(loader.load()); // il bottone mi da problemi; invalid identifier fx:id il nome non deve

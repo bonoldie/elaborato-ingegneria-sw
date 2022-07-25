@@ -1,0 +1,83 @@
+package elaborato.controllers;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+public class InserimentoRicercaController {
+	@FXML
+	Button ricerca;
+	@FXML
+	Button inserimento;
+	@FXML
+	Button aggiornamento_lavori;
+
+	@FXML
+	private void ricerca_finestra(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/elaborato/FXML/Ricerca.fxml"));
+
+		Scene scene = new Scene(root);
+		Stage primaryStage = new Stage();
+		primaryStage.setTitle("Ricerca");
+		primaryStage.setScene(scene);
+		// specifico la modalita della nuova finestra
+		primaryStage.initModality(Modality.WINDOW_MODAL);
+		primaryStage.initOwner(ricerca.getScene().getWindow()); // specifica il proprietario della nuova finestra; mi da
+																// problemi
+		primaryStage.show();
+	}
+
+	@FXML
+	private void inserimento_finestra(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/elaborato/FXML/ListaLavoratori.fxml"));
+
+		Scene scene = new Scene(root);
+		Stage primaryStage = new Stage();
+		primaryStage.setTitle("Lista lavoratori");
+		primaryStage.setScene(scene);
+		// specifico la modalita della nuova finestra
+		primaryStage.initModality(Modality.WINDOW_MODAL);
+		primaryStage.initOwner(inserimento.getScene().getWindow()); // specifica il proprietario della nuova finestra;
+																	// mi da problemi
+		primaryStage.show();
+	}
+
+	@FXML
+	private void aggiornamento_finestra(ActionEvent event) throws IOException {
+		// Parent root = FXMLLoader.load(getClass().getResource("aggiornamento.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/elaborato/FXML/ListaLavoriSvolti.fxml"));
+
+		Scene scene = new Scene(root);
+		Stage primaryStage = new Stage();
+		primaryStage.setTitle("aggiornamento");
+		primaryStage.setScene(scene);
+		// specifico la modalita della nuova finestra
+		primaryStage.initModality(Modality.WINDOW_MODAL);
+		primaryStage.initOwner(aggiornamento_lavori.getScene().getWindow()); // specifica il proprietario della nuova
+																				// finestra;
+		// mi da problemi
+		primaryStage.show();
+	}
+
+	public void initialize(URL arg0, ResourceBundle arg1) {
+	}
+
+}
