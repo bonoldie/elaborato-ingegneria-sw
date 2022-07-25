@@ -17,7 +17,7 @@ class DatabaseTest {
 			Connection c = Database.getDatabase().getConnection();
 			//;
 			if(c== null)
-				throw new Exception("AA");
+				throw new Exception("mancata connessione");
 		}catch(Exception e) {
 			fail(e);
 		}

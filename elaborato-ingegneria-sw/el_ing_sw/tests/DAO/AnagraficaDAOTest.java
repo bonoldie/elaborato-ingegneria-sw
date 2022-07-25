@@ -30,6 +30,7 @@ class AnagraficaDAOTest {
 		Anagrafica an = new Anagrafica(0, "sdfb", LocalDate.parse("2020-12-21"), "serg" , "afae", "sver", "1234567890", "efwe@wfe");
 		AnagraficaDAO anadao = new AnagraficaDAO();
 		anadao.insertAnagrafica(an);
+		Database.getDatabase().getConnection().commit();
 		Database.getDatabase().getConnection().rollback();
 		Database.getDatabase().getConnection().setAutoCommit(true);
 	}
@@ -42,6 +43,7 @@ class AnagraficaDAOTest {
 		anadao.insertAnagrafica(an);
 		an.setCognome("prova");
 		anadao.updateAnagrafica(an);
+		Database.getDatabase().getConnection().commit();
 		Database.getDatabase().getConnection().rollback();
 		Database.getDatabase().getConnection().setAutoCommit(true);
 	}

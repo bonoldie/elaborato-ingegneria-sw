@@ -25,6 +25,7 @@ public class LavoratoreDAOTest {
 		Lavoratore an = new Lavoratore(0, 1, 1, "serg" , true);
 		LavoratoreDAO anadao = new LavoratoreDAO();
 		anadao.insertLavoratore(an);
+		Database.getDatabase().getConnection().commit();
 		Database.getDatabase().getConnection().rollback();
 		Database.getDatabase().getConnection().setAutoCommit(true);
 	}
@@ -37,6 +38,7 @@ public class LavoratoreDAOTest {
 		anadao.insertLavoratore(an);
 		an.setAutomunito(false);
 		anadao.updateLavoratore(an);
+		Database.getDatabase().getConnection().commit();
 		Database.getDatabase().getConnection().rollback();
 		Database.getDatabase().getConnection().setAutoCommit(true);
 	}
